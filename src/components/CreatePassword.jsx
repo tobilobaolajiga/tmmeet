@@ -1,0 +1,198 @@
+import axios from 'axios';
+import { useState } from 'react';
+import OTP from './OTP';
+export default function CreatePassword({
+  password,
+  passwordModal,
+  email,
+  name,
+  lastname,
+  showCreateAccount,
+}) {
+  const [pwd, setPwd] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
+  const [message, setMessage] = useState(false);
+  const [otp, setOTP] = useState(false);
+  const showOtp = () => {
+    setOTP(!otp);
+  };
+
+  const sendOTP = async () => {
+    try {
+      const response = await axios.post(
+        'http://89.38.135.41:9877/api/v1/auth/onboard',
+        { pwd }
+      );
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage('Failed to send OTP. Please try again later');
+    }
+  };
+  const [src, setSrc] = useState('/no.svg');
+  const changeSrc = () => {
+    setSrc('/check.svg');
+  };
+
+  return (
+    <div>
+      {password && (
+        <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center ">
+          <div className="bg-white m-auto rounded-2xl w-3/12 h-3/4 font-inter">
+            <div className="flex flex-col items-center py-[20px] border-b">
+              <img src="/TM30.svg" alt="" width={60} />
+              <p className="text-[16px] font-bold pt-[12px] text-[#101828]">
+                Create Password{' '}
+              </p>
+              <p className="text-[#667085] text-[10px] tracking-tight">
+                Create password for enhanced account security.
+              </p>
+            </div>
+            <form action="" className="relative px-6  pt-[10px] pb-[6px]">
+              <label
+                
+                className="text-[10px] font-medium text-[#344054]"
+              >
+                Password
+                <span
+                  className="text-[#36AAD9]
+"
+                >
+                  *
+                </span>
+              </label>{' '}
+              <br />
+              <input
+                required
+                value={pwd}
+                onChange={(e) => setPwd(e.target.value)}
+                type="password"
+                placeholder="Enter your password"
+                className="border w-full rounded-md pl-[26px] pr-2 py-[8px] text-[11px] mb-[6px] mt-[4px] placeholder:text-[9px]  placeholder:text-[#667085] outline-none"
+              />
+              <img
+                src="/password.svg"
+                alt=""
+                width={14}
+                className="absolute top-[48px] left-[34px]"
+              />
+              <img
+                src="/show.svg"
+                alt=""
+                width={14}
+                className="absolute right-[34px] top-[48px]" onClick={}
+              />
+              <label
+                htmlFor=""
+                className="text-[10px] font-medium text-[#344054]"
+              >
+                Confirm Password
+                <span
+                  className="text-[#36AAD9]
+"
+                >
+                  *
+                </span>
+              </label>{' '}
+              <br />
+              <input
+                required
+                value={confirmPass}
+                onChange={(e) => setConfirmPass(e.target.value)}
+                type="password"
+                placeholder="Confirm your password"
+                className="border w-full rounded-md pl-[26px] pr-2 py-[8px] text-[11px] mb-[6px] mt-[4px] placeholder:text-[9px] placeholder:text-[#667085] outline-none"
+              />
+              <img
+                src="/password.svg"
+                alt=""
+                width={14}
+                className="absolute bottom-[22px] left-[34px]"
+              />
+              <img
+                src="/show.svg"
+                alt=""
+                width={14}
+                className="absolute bottom-[20px] right-[34px]"
+              />
+            </form>
+            <div className="flex gap-[5px] items-center px-6">
+              <div
+                style={{
+                  backgroundColor:
+                    pwd.length > 1 && pwd.length < 8 ? 'red' : '',
+                }}
+                className="w-[92px] h-[2px] rounded bg-[#D0D6E3]"
+              ></div>
+              <div
+                style={{
+                  backgroundColor: pwd.length >= 8 ? '#E0D148' : '',
+                }}
+                className="w-[92px] h-[2px] rounded bg-[#D0D6E3]"
+              ></div>
+              <div
+                style={{
+                  backgroundColor: pwd.length >= 8 ? '#50B848' : '',
+                }}
+                className="w-[92px] h-[2px] rounded bg-[#D0D6E3]"
+              ></div>
+            </div>
+            <div className="text-[9px] pt-[4px] px-8 text-[#454545]">
+              <p className="py-[6px]">Password must contain:</p>
+              <ul className="py-[4px]">
+                <li className="flex gap-2 items-center pt-[2px]">
+                  <img
+                    src={pwd.length >= 8 ? '/check.svg' : '/no.svg'}
+                    alt=""
+                    width={11}
+                  />
+                  At least 1 uppercase
+                </li>
+                <li className="flex gap-2 items-center pt-[2px]">
+                  <img
+                    src={pwd.length >= 8 ? '/check.svg' : '/no.svg'}
+                    alt=""
+                    width={11}
+                  />
+                  At least 1 lowercase
+                </li>
+                <li className="flex gap-2 items-center pt-[2px]">
+                  <img
+                    src={pwd.length >= 8 ? '/check.svg' : '/no.svg'}
+                    alt=""
+                    width={11}
+                  />
+                  At least 8 characters
+                </li>
+              </ul>
+            </div>
+            <div className="px-6">
+              <button
+                style={{
+                  opacity: pwd && confirm && pwd === confirmPass ? 1 : 0.5,
+                }}
+                className="bg-[#36AAD9] text-white w-full py-[8px] rounded-md mt-[12px] text-[10px] opacity-50"
+                onClick={sendOTP}
+              >
+                Continue
+              </button>
+              <p className="text-center pt-4 text-[#667085] text-[9px]">
+                Didn't receive the code?{' '}
+                <span className="text-[#36AAD9] underline font-semibold">
+                  Click to resend code
+                </span>
+              </p>
+              <p
+                className=" text-[#667085] text-[9px] opacity-60 flex gap-2 items-center justify-center pt-[10px]"
+                onClick={showCreateAccount}
+              >
+                <img src="/arrowLef.svg" alt="" width={9} />
+                Back to create account
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      <OTP otp={otp} showOtp={showOtp} />
+    </div>
+  );
+}
