@@ -1,48 +1,66 @@
 import { useState } from 'react';
-
-import CreatePassword from './createPassword';
-
+import CreatePassword from './CreatePassword';
+import toast from 'react-hot-toast';
 export default function CreateAccount({
   newAccount,
   showCreateAccount,
   showLogin,
-  setNewaccount,
+  setNewAccount,
+  userId,
+  setId,
+  otp,
+  setOTP,
+  showOtp,
+  closeCreate,
+  resendOTP,
+  resendOtp,
+  name,
+  setName,
+  lastname,
+  setLast,
+  email,
+  setEmail,
+  password,
+  setPassword,
+  pwd,
+  setPwd,
+  verifyOTP,
+  loading,
 }) {
-  const [password, setPassword] = useState(false);
   const passwordModal = () => {
+    setNewAccount(false);
     setPassword(!password);
-    setNewaccount(false);
   };
-  const [name, setName] = useState('');
-  const [lastname, setLast] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // const [newUser, setNewUser] = useState({
-    //   name: name,
-    //   lastname: lastname,
-    //   email: email,
-    // });
-    // console.log(newUser.email);
+    !showEnterAll();
     passwordModal();
   };
-
+  const [enterDetails, setEnterDetails] = useState(false);
+  const showEnterAll = () => {
+    toast.error('Enter all details!');
+  };
   return (
     <div>
       <div>
         {newAccount && (
           <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center ">
             <div className="bg-white m-auto w-3/12 h-4/6 rounded-2xl font-inter">
-              <div className="flex flex-col items-center pt-[20px] border-b pb-[20px]">
+              <div
+                className="flex flex-col items-center pt-[20px] border-b pb-[20px]"
+                onClick={closeCreate}
+              >
                 <img src="/TM30.svg" alt="" width={60} />
                 <p className="text-[16px] font-bold pt-[12px] text-[#101828]">
                   Create a new account{' '}
                 </p>
+
                 <p className="text-[#667085] text-[11px] tracking-tight">
-                  Enter your details to register
+                  <img src={enterDetails ? '' : ''} alt="" />
+                  {enterDetails
+                    ? 'Enter all details!'
+                    : 'Enter your details to register'}
                 </p>
               </div>
 
@@ -63,8 +81,8 @@ export default function CreateAccount({
                   <br />
                   <input
                     required
-                    onChange={(e) => setName(e.target.value)}
                     value={name}
+                    onChange={(e) => setName(e.target.value)}
                     type="text"
                     placeholder="Enter your first name"
                     className="border w-full rounded-md px-8 py-[8px] text-[11px] mb-[6px] mt-[4px] placeholder:text-[9px]  placeholder:text-[#667085] outline-none  "
@@ -90,8 +108,8 @@ export default function CreateAccount({
                   <br />
                   <input
                     required
-                    onChange={(e) => setLast(e.target.value)}
                     value={lastname}
+                    onChange={(e) => setLast(e.target.value)}
                     type="text"
                     placeholder="Enter your last name"
                     className="border w-full rounded-md px-8 py-[8px] text-[11px] mb-[6px] mt-[4px] placeholder:text-[9px]  placeholder:text-[#667085] outline-none"
@@ -117,8 +135,8 @@ export default function CreateAccount({
                   <br />
                   <input
                     required
-                    onChange={(e) => setEmail(e.target.value)}
                     value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     type="text"
                     placeholder="Enter your email address"
                     className="border w-full rounded-md px-8 py-[8px] text-[11px] mb-[6px] mt-[4px] placeholder:text-[9px]  placeholder:text-[#667085] outline-none"
@@ -132,7 +150,9 @@ export default function CreateAccount({
                 </form>
                 <button
                   className="bg-[#36AAD9] text-white w-full py-[8px] rounded-md mt-2 text-[10px] outline-none"
-                  onClick={handleSubmit}
+                  onClick={
+                    name && lastname && email ? handleSubmit : showEnterAll
+                  }
                 >
                   Continue
                 </button>
@@ -154,6 +174,22 @@ export default function CreateAccount({
           password={password}
           passwordModal={passwordModal}
           showCreateAccount={showCreateAccount}
+          email={email}
+          name={name}
+          setNewAccount={setNewAccount}
+          setPassword={setPassword}
+          closeCreate={closeCreate}
+          userId={userId}
+          setId={setId}
+          otp={otp}
+          setOTP={setOTP}
+          showOtp={showOtp}
+          resendOTP={resendOTP}
+          resendOtp={resendOtp}
+          pwd={pwd}
+          setPwd={setPwd}
+          verifyOTP={verifyOTP}
+          loading={loading}
         />
       </div>
     </div>

@@ -1,69 +1,490 @@
-import { useState } from 'react';
+import PropTypes from 'prop-types';
+import './schedule.css';
+import '/scrollbar.css';
+import { useState, useEffect } from 'react';
 import ProfileNav from './ProfileNav';
-
+import { Link } from 'react-router-dom';
+import ProfileDropdown from './ProfileDropdown';
+import Scheduler from './Scheduler';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
+import Scheduled from './Scheduled';
+import axios from 'axios';
+
+import moment from 'moment-timezone';
+import 'moment/locale/en-gb';
+
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-export default function Schedule({ schedule, showScheduler, scheduler }) {
+export default function Schedule({
+  schedule,
+  userId,
+  showSchedule,
+  profileDrop,
+  showProfDrop,
+}) {
   const localizer = momentLocalizer(moment);
-  const events = [
-    {
-      title: 'Event 1',
-      start: new Date(2024, 3, 1),
-      end: new Date(2024, 3, 7),
-    },
+  moment.tz.setDefault('Africa/Lagos');
+  const colors = [
+    '#FFA500',
+    '#FFFF00',
+    '#ff0000',
+    '#00ff00',
+    '#0000ff',
+    '#000080',
+    '#FF00FF',
   ];
+  const [selectedColor, setSelectedColor] = useState('#FFA500');
+  const handleColorSelect = (color) => {
+    setSelectedColor(color);
+  };
+  const hrs = Array.from({ length: 24 }, (_, index) => index);
+  const hours = hrs.map((number) => number.toString().padStart(2, '0'));
+
+  const min = Array.from({ length: 60 }, (_, index) => index);
+  const minutes = min.map((number) => number.toString().padStart(2, '0'));
+
+  const apm = ['AM', 'PM'];
+
+  const [scheduler, setScheduler] = useState(false);
+  const showScheduler = () => {
+    setScheduler(!scheduler);
+  };
+
+  const options = {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  };
+
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const [currentMonth, setCurrentMonth] = useState('');
+  useEffect(() => {
+    const updateMonth = () => {
+      const date = new Date();
+      const month = date.toLocaleString('default', { month: 'long' });
+      const year = date.getFullYear();
+      setCurrentMonth(`${month} ${year}`);
+    };
+    updateMonth();
+    const intervalid = setInterval(updateMonth, 1000);
+    return () => clearInterval(intervalid);
+  }, []);
+
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    // console.log(
+    //   selectedDate.getFullYear(),
+    //   selectedDate.getMonth(),
+    //   selectedDate.getDate()
+    // );
+  };
+  useEffect(() => {
+    // Set the selected date to the current date when the component mounts
+    setSelectedDate(new Date());
+  }, []);
+
+  const [startHour, setStartHour] = useState('12');
+  const [startMinutes, setStartMinutes] = useState('00');
+  const [startPeriod, setStartPeriod] = useState('PM');
+  const [endHour, setEndHour] = useState('12');
+  const [endMinutes, setEndMinutes] = useState('00');
+  const [endPeriod, setEndPeriod] = useState('PM');
+  const [title, setTitle] = useState('');
+  const [desc, setDesc] = useState('');
+  const startHourChange = (e) => {
+    setStartHour(e.target.value);
+  };
+  const startMinutesChange = (e) => {
+    setStartMinutes(e.target.value);
+  };
+  const startPeriodChange = (e) => {
+    setStartPeriod(e.target.value);
+  };
+  const endHourChange = (e) => {
+    setEndHour(e.target.value);
+  };
+  const endMinutesChange = (e) => {
+    setEndMinutes(e.target.value);
+  };
+  const endPeriodChange = (e) => {
+    setEndPeriod(e.target.value);
+  };
+  const [repeatBtn, setRepeatBtn] = useState('Never');
+  const [events, setEvents] = useState([]);
+  // useEffect(() => {
+  //   events;
+  // }, []);
+  const addEvent = (newEvent) => {
+    console.log('event');
+    console.log(events);
+    console.log([...events, newEvent]);
+
+    setEvents([...events, newEvent]);
+  };
+  const [lastId, setLastId] = useState(0);
+
+  const handleAddEvent = () => {
+    const newId = lastId + 1;
+    const newEvent = {
+      id: newId,
+      title: title,
+      start: new Date(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate(),
+        startHour,
+        startMinutes,
+        0
+      ),
+      end: new Date(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate(),
+        endHour,
+        endMinutes,
+        0
+      ),
+      backgroundColor: selectedColor,
+    };
+    // console.log(newEvent);
+    addEvent(newEvent);
+    setLastId(newId);
+    console.log(newEvent.backgroundColor);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('calendar-events', JSON.stringify(events));
+  }, [events]);
+  const [titles, setTitles] = useState([]);
+  const addTitles = () => {
+    setTitles([...titles, title]);
+  };
+  const [description, setDescription] = useState(false);
+  const [reminder, setReminder] = useState(false);
+  const [scheduled, setScheduled] = useState(false);
+  const showScheduled = () => {
+    setScheduled(!scheduled);
+    setDescription(false);
+    setReminder(false);
+    setScheduler(false);
+    handleAddEvent(
+      title,
+      selectedDate,
+      startHour,
+      endHour,
+      startMinutes,
+      endMinutes,
+      selectedColor
+    );
+    addTitles(title, selectedColor);
+  };
+
+  const eventPropGetter = (event) => {
+    return {
+      style: {
+        backgroundColor: event.backgroundColor,
+        border: 'none',
+        color: 'white',
+      },
+      // style.onClick = () => {
+
+      // }
+    };
+  };
+
+  const CustomEventContent = (event) => (
+    <div>
+      <strong>{event.title}</strong>
+      <br />
+      <span>
+        {moment(event.start).format('h:mm A')} -{' '}
+        {moment(event.end).format('h:mm A')}{' '}
+      </span>
+    </div>
+  );
+  const token = localStorage.getItem('userToken');
+  const [meetings, setMeetings] = useState([]);
+
+  //
+
+  const allScheduledMeetings = async () => {
+    try {
+      const response = await axios.get(
+        'http://89.38.135.41:9877/api/v1/meeting/all-schedule-meeting',
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const meet = response?.data?.data;
+      const eventsMeet = [];
+      const allMeetings = meet.map((meeting) => {
+        const meetingDate = new Date(meeting.meetingTime);
+        const endTime = new Date(meeting.endTime);
+        const newEvent = {
+          id: meeting.meetingId,
+          title: meeting.meetingName,
+          start: new Date(
+            meetingDate.getFullYear(),
+            meetingDate.getMonth(),
+            meetingDate.getDate(),
+            meetingDate.getHours(),
+            meetingDate.getMinutes(),
+            0
+          ),
+          end: new Date(
+            meetingDate.getFullYear(),
+            meetingDate.getMonth(),
+            meetingDate.getDate(),
+            meetingDate.getHours() + 1,
+            meetingDate.getMinutes(),
+            0
+          ),
+          backgroundColor: meeting.color,
+        };
+        eventsMeet.push(newEvent);
+        // setEvents([...events, newEvent]);
+        return [meeting.meetingName, meeting.meetingId];
+      });
+      setEvents(eventsMeet);
+      setMeetings(allMeetings);
+    } catch (error) {
+      // console.log(error.response.data.message);
+    }
+  };
+  useEffect(() => {
+    allScheduledMeetings();
+  }, []);
+
+  //
+
+  const handleDeleteEvent = async (eventId) => {
+    try {
+      console.log({
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const response = await axios.post(
+        `http://89.38.135.41:9877/api/v1/meeting/delete/${eventId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = response;
+      console.log(data);
+
+      setEvents(events.filter((event) => event.id !== eventId));
+      handleDeleteTitle();
+      setTitle('');
+    } catch (error) {
+      console.log(error);
+      // console.log(error.response.data.status);
+      console.log(error.response.data.message);
+    }
+  };
+  const handleDeleteTitle = (index) => {
+    const updatedTitles = [...titles];
+    updatedTitles.splice(index, 1);
+    setTitles(updatedTitles);
+  };
+
+  const [img, setImg] = useState('');
+  const showImg = () => {
+    setImg('/cross.svg');
+  };
+  const hideImg = () => {
+    setImg('');
+  };
 
   return (
-    <div>
-      {/* {schedule && ( */}
-      <div className="bg-white">
+    <div className="overflow-x-hidden">
+      <div className="bg-white ">
         <div>
-          <ProfileNav />
-
-          <div
-            className="border-b flex gap-4 items-center px-[40px] py-[14px]"
-            onClick={showScheduler}
-          >
-            <img src="/arrowLeft.svg" alt="" width={14} />
-            <p className="font-semibold text-[#1A1A1A] opacity-90 text-base">
-              Schedule Meeting
-            </p>
-          </div>
-          <div className="flex px-[40px]">
-            <div id=" ">
-              <div className="">
-                <p className="pt-4">Time</p>
-                <p className="py-4 font-bold text-[18px]">March 2024</p>
-              </div>
-              <button className="flex gap-4 bg-[#36AAD9] items-center py-[12px] px-10 rounded-md text-white text-sm">
-                <img src="/add.svg" alt="" width={16} />
+          <ProfileNav profileDrop={profileDrop} showProfDrop={showProfDrop} />
+          <Link to="/login">
+            <div className="flex gap-4 items-center px-[40px] py-[14px]">
+              <img src="/arrowLeft.svg" alt="" width={14} />
+              <p className="font-semibold text-[#1A1A1A] opacity-90 text-[14px]">
                 Schedule Meeting
-              </button>
-              <Calendar
-                localizer={localizer}
-                events={events}
-                startAccessor="start"
-                endAccessor="end"
-                style={{ height: 300, width: 250 }}
-                toolbar={false}
-              />
+              </p>
             </div>
-            <div className="flex-basis">
+          </Link>
+          <div className="flex px-[40px]">
+            <div id=" " className=" w-1/5">
+              <div className="border px-4 shadow-md rounded-md font-inter overflow-y-scroll h-[462px] mt-[36px] overflow-x-hidden scrollbar-webkit">
+                <div className="px-2">
+                  <p className="pt-4 text-[12px] font-semibold">
+                    {currentTime.toLocaleTimeString()}
+                  </p>
+                  <p className="py-2 font-semibold text-[14px]">
+                    {currentTime.toLocaleDateString('en-US', options)}
+                  </p>
+                </div>
+
+                <button
+                  className="flex gap-4 bg-[#36AAD9] items-center py-[12px] px-10 rounded-md text-white text-[12px] mt-4"
+                  onClick={showScheduler}
+                >
+                  <img src="/add.svg" alt="" width={14} />
+                  Schedule Meeting
+                </button>
+
+                <div className="">
+                  <p
+                    className="text-[#98A2B3] text-[12px] pt-2 mb-4 mt-6"
+                    onClick={allScheduledMeetings}
+                  >
+                    Scheduled meetings
+                  </p>
+                  <ul className="text-[11px] text-[#344054] tracking-tight">
+                    {events.map((event, index) => (
+                      <li
+                        key={event.id}
+                        onMouseEnter={showImg}
+                        onMouseLeave={hideImg}
+                        className="mb-4 flex items-center gap-2 font-DMSans font-medium text-[#344054]"
+                      >
+                        {' '}
+                        <span
+                          alt=""
+                          style={{ backgroundColor: event.backgroundColor }}
+                          className=" w-[15px] h-[15px] border rounded-full"
+                        ></span>
+                        {event.title}
+                        <img
+                          onClick={() => handleDeleteEvent(event.id)}
+                          src={img}
+                          alt=""
+                          width={10}
+                          className="justify-end cursor-pointer"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="scrollbar-webkit rounded-md">
               <Calendar
+                className="w-[1020px] h-screen -mr-[40px] ml-[20px]"
                 localizer={localizer}
+                defaultView={'week'}
+                selectable
+                defaultDate={new Date()}
                 events={events}
                 startAccessor="start"
                 endAccessor="end"
-                style={{ height: 500, width: 1050 }}
+                style={{ height: 500 }}
+                eventPropGetter={eventPropGetter}
+                eventContent={({ event }) => (
+                  <CustomEventContent event={event} />
+                )}
               />
             </div>
           </div>
         </div>
-        {/* <Scheduler scheduler={scheduler} /> */}
+        <Scheduler
+          repeatBtn={repeatBtn}
+          setRepeatBtn={setRepeatBtn}
+          scheduler={scheduler}
+          showScheduler={showScheduler}
+          setScheduler={setScheduler}
+          startHour={startHour}
+          startMinutes={startMinutes}
+          startPeriod={startPeriod}
+          endHour={endHour}
+          endMinutes={endMinutes}
+          endPeriod={endPeriod}
+          desc={desc}
+          title={title}
+          startHourChange={startHourChange}
+          startMinutesChange={startMinutesChange}
+          startPeriodChange={startPeriodChange}
+          endHourChange={endHourChange}
+          endMinutesChange={endMinutesChange}
+          endPeriodChange={endPeriodChange}
+          setTitle={setTitle}
+          setDesc={setDesc}
+          colors={colors}
+          selectedColor={selectedColor}
+          handleColorSelect={handleColorSelect}
+          setSelectedColor={setSelectedColor}
+          hours={hours}
+          setStartHour={setStartHour}
+          setStartMinutes={setStartMinutes}
+          minutes={minutes}
+          apm={apm}
+          setEndHour={setEndHour}
+          setEndMinutes={setEndMinutes}
+          setEndPeriod={setEndPeriod}
+          setStartPeriod={setStartPeriod}
+          selectedDate={selectedDate}
+          handleDateChange={handleDateChange}
+          handleAddEvent={handleAddEvent}
+          addTitles={addTitles}
+          userId={userId}
+          showScheduled={showScheduled}
+          description={description}
+          setDescription={setDescription}
+          reminder={reminder}
+          setReminder={setReminder}
+          scheduled={scheduled}
+          setScheduled={setScheduled}
+        />
+        <ProfileDropdown
+          profileDrop={profileDrop}
+          showProfDrop={showProfDrop}
+        />
+        <Scheduled
+          scheduled={scheduled}
+          showScheduled={showScheduled}
+          selectedDate={selectedDate}
+          title={title}
+          setTitle={setTitle}
+          startHour={startHour}
+          setStartHour={setStartHour}
+          startMinutes={startMinutes}
+          setStartMinutes={setStartMinutes}
+          startPeriod={startPeriod}
+          setStartPeriod={setStartPeriod}
+          endHour={endHour}
+          setEndHour={setEndHour}
+          endMinutes={endMinutes}
+          setEndMinutes={setEndMinutes}
+          endPeriod={endPeriod}
+          setEndPeriod={setEndPeriod}
+          desc={desc}
+          repeatBtn={repeatBtn}
+          selectedColor={selectedColor}
+          colors={colors}
+          onSelect={handleColorSelect}
+          setSelectedColor={setSelectedColor}
+          setScheduled={setScheduled}
+          addTitles={addTitles}
+          handleAddEvent={handleAddEvent}
+        />
       </div>
-      {/* )} */}
     </div>
   );
 }
+Schedule.propTypes = {
+  selectedDate: PropTypes.instanceOf(Date).isRequired,
+};

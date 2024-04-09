@@ -7,16 +7,40 @@ export default function NavBar({
   login,
   closeOptions,
   setLogin,
-  passwordModal,
+  userEmail,
+  setUserEmail,
+  userPassword,
+  setUserPassword,
+  otp,
+  setOTP,
+  showOtp,
+  resendOTP,
+  resendOtp,
+  closeCreate,
+  showCreateAccount,
+  newAccount,
+  setNewAccount,
+  name,
+  setName,
+  lastname,
+  setLast,
+  email,
+  setEmail,
+  password,
+  setPassword,
+  pwd,
+  setPwd,
+  verifyOTP,
+  inputOne,
+  inputTwo,
+  inputThree,
+  inputFour,
+  setInputOne,
+  setInputTwo,
+  setInputThree,
+  setInputFour,
+  loading,
 }) {
-  const [newAccount, setNewAccount] = useState(false);
-
-  const showCreateAccount = () => {
-    setNewAccount(!newAccount);
-    setLogin(!login);
-    !passwordModal();
-  };
-
   return (
     <div>
       <div className=" flex justify-between items-center px-[38px] py-[12px] font-DMSans border-b">
@@ -27,9 +51,7 @@ export default function NavBar({
           <img src="/fe_app-menu.svg" alt="" className="w-[28px] h-[28px]" />
           <p
             className="font-semibold text-sm tracking-tighter cursor-pointer"
-            onClick={() => {
-              showLogin();
-            }}
+            onClick={showLogin}
           >
             Sign In
           </p>
@@ -48,11 +70,59 @@ export default function NavBar({
         login={login}
         closeOptions={closeOptions}
         showCreateAccount={showCreateAccount}
+        userEmail={userEmail}
+        setUserEmail={setUserEmail}
+        userPassword={userPassword}
+        setUserPassword={setUserPassword}
+        otp={otp}
+        setOTP={setOTP}
+        showOtp={showOtp}
+        resendOTP={resendOTP}
+        setNewAccount={setNewAccount}
+        closeCreate={closeCreate}
+        resendOtp={resendOtp}
+        setLogin={setLogin}
+        verifyOTP={verifyOTP}
+        inputOne={inputOne}
+        inputTwo={inputTwo}
+        inputThree={inputThree}
+        inputFour={inputFour}
+        setInputOne={setInputOne}
+        setInputTwo={setInputTwo}
+        setInputThree={setInputThree}
+        setInputFour={setInputFour}
       />
       <CreateAccount
         newAccount={newAccount}
         showCreateAccount={showCreateAccount}
         showLogin={showLogin}
+        setNewAccount={setNewAccount}
+        otp={otp}
+        setOTP={setOTP}
+        showOtp={showOtp}
+        resendOTP={resendOTP}
+        resendOtp={resendOtp}
+        closeCreate={closeCreate}
+        name={name}
+        setName={setName}
+        lastname={lastname}
+        setLast={setLast}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        pwd={pwd}
+        setPwd={setPwd}
+        verifyOTP={verifyOTP}
+        inputOne={inputOne}
+        inputTwo={inputTwo}
+        inputThree={inputThree}
+        inputFour={inputFour}
+        setInputOne={setInputOne}
+        setInputTwo={setInputTwo}
+        setInputThree={setInputThree}
+        setInputFour={setInputFour}
+        loading={loading}
       />
     </div>
   );

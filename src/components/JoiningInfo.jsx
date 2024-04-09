@@ -21,9 +21,9 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
             </div>
 
             <div className="px-[20px] pt-[14px] pb-[12px] border-b ">
-              <p className="text-[#667085] font-inter text-[10px] leading-tight tracking-wide opacity-95 font-[410px]">
+              <p className="text-[#667085] font-inter text-[10px] leading-tight opacity-95 font-[410px]">
                 Send the link to invite people to join meeting. Make sure you
-                save the link for future purpose
+                save the link for future purpose.
               </p>
               <div className="relative ">
                 <input

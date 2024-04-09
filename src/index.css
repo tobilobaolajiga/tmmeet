@@ -4,3 +4,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* background: url('public/dropdown.svg') no-repeat center right -20px;
+  background-size: 10px; */
+}
+#meet {
+  height: 100vh;
+}
+.first {
+  background-color: #f1001a;
+  color: white;
+  border-radius: 40px;
+  width: 32px;
+  height: 30px;
+  /* border: #f1001a; */
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+  font-family: DM Sans;
+}

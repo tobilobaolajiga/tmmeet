@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import JoiningInfo from './JoiningInfo';
 import Login from './Login';
+
 export default function CreateMeetingOptions({
   options,
   showOptions,
@@ -9,6 +10,21 @@ export default function CreateMeetingOptions({
   closeLogin,
   login,
   closeOptions,
+  showCreateAccount,
+  userEmail,
+  setUserEmail,
+  userPassword,
+  setUserPassword,
+  otp,
+  setOTP,
+  showOtp,
+  resendOTP,
+  df,
+  setId,
+  setNewAccount,
+  closeCreate,
+  setLogin,
+  verifyOTP,
 }) {
   const [joinInfo, setjoinInfo] = useState(false);
 
@@ -82,7 +98,27 @@ export default function CreateMeetingOptions({
         showJoinInfo={showJoinInfo}
         closeJoinInfo={closeJoinInfo}
       />
-      <Login login={login} showLogin={showLogin} closeLogin={closeLogin} />
+      <Login
+        login={login}
+        showLogin={showLogin}
+        closeLogin={closeLogin}
+        closeOptions={closeOptions}
+        showCreateAccount={showCreateAccount}
+        userEmail={userEmail}
+        setUserEmail={setUserEmail}
+        userPassword={userPassword}
+        setUserPassword={setUserPassword}
+        otp={otp}
+        setOTP={setOTP}
+        showOtp={showOtp}
+        resendOTP={resendOTP}
+        df={df}
+        setId={setId}
+        setNewAccount={setNewAccount}
+        closeCreate={closeCreate}
+        setLogin={setLogin}
+        verifyOTP={verifyOTP}
+      />
     </div>
   );
 }

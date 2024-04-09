@@ -9,9 +9,24 @@ export default function Hero({
   setOptions,
   login,
   closeOptions,
+  showCreateAccount,
+  userEmail,
+  setUserEmail,
+  userPassword,
+  setUserPassword,
+  otp,
+  setOTP,
+  showOtp,
+  resendOTP,
+  df,
+  setId,
+  setNewAccount,
+  closeCreate,
+  setLogin,
+  verifyOTP,
 }) {
   return (
-    <div className="flex bg-white" onClick={showOptions}>
+    <div className="flex bg-white">
       <div className="px-[55px] py-[160px]">
         <div className="flex flex-col gap-6 font-DMSans basis-[1000px]">
           <div className=" text-[39px] font-bold">
@@ -63,6 +78,21 @@ export default function Hero({
             showLogin={showLogin}
             closeLogin={closeLogin}
             closeOptions={closeOptions}
+            showCreateAccount={showCreateAccount}
+            userEmail={userEmail}
+            setUserEmail={setUserEmail}
+            userPassword={userPassword}
+            setUserPassword={setUserPassword}
+            otp={otp}
+            setOTP={setOTP}
+            showOtp={showOtp}
+            resendOTP={resendOTP}
+            df={df}
+            setId={setId}
+            setNewAccount={setNewAccount}
+            closeCreate={closeCreate}
+            setLogin={setLogin}
+            verifyOTP={verifyOTP}
           />
         </div>
       </div>
