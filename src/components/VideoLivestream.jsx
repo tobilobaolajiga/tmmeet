@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
+import { useLocation } from 'react-router-dom';
 import Creating from './Creating';
 import Joining from './Joining';
 import { useEffect, useRef, useState } from 'react';
@@ -8,13 +7,21 @@ import ShareLinkModal from './ShareLinkModal';
 import HostControl from './HostControl';
 import CheckCamera from './CheckCamera';
 
-export default function VideoLiveStream({ displayName, isAudioOn, isVideoOn }) {
-  const [meetingName, setMeetingName] = useState('');
+import { toast } from 'react-hot-toast';
+export default function VideoLiveStream({
+  displayName,
+  isAudioOn,
+  isVideoOn,
+  meetingName,
+  setMeetingName,
+  meetingLink,
+}) {
   const session = useRef();
   const [initialized, setInitialized] = useState(false);
   const [jitsiLoading, setJitsiLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [isJoining, setIsJoining] = useState(false);
+  const { state } = useLocation();
   useEffect(() => {
     let script = document.createElement('script');
     const timeout = setTimeout(() => {
@@ -72,14 +79,14 @@ export default function VideoLiveStream({ displayName, isAudioOn, isVideoOn }) {
     const domain = 'media.partytime.ng';
 
     const options = {
-      roomName: meetingName,
+      roomName: meetingName || state.meetingName,
       width: '100%',
       height: '100%',
       parentNode: document.querySelector('#meet'),
       lang: 'en',
       configOverwrite: {
-        startWithAudioMuted: true,
-        startWithVideoMuted: true,
+        startWithAudioMuted: false,
+        startWithVideoMuted: false,
         prejoinPageEnabled: false,
         enableLobbyChat: true,
         disableInitialGUM: true,
@@ -87,7 +94,7 @@ export default function VideoLiveStream({ displayName, isAudioOn, isVideoOn }) {
         preferH264: true,
       },
       userInfo: {
-        displayName: displayName,
+        displayName: displayName || state.displayName,
       },
       interfaceConfigOverwrite: {
         SHOW_CHROME_EXTENSION_BANNER: false,
@@ -123,14 +130,21 @@ export default function VideoLiveStream({ displayName, isAudioOn, isVideoOn }) {
     };
 
     const api = new window.JitsiMeetExternalAPI(domain, options);
-
+    window.jitsi = api;
     api.on('videoConferenceJoined', () => {
       // Set jitsiLoading to false when the conference is joined
       setJitsiLoading(false);
       setIsLoading(false);
       // const isVideoOn = isVideoOn;
       // const isAudioOn = isAudioOn;
+
       // api.executeCommand('toggleVideo');
+      if (isVideoOn || state.isVideoOn) {
+        api.executeCommand('toggleVideo');
+      }
+      if (isAudioOn || state.isAudioOn) {
+        api.executeCommand('toggleAudio');
+      }
 
       // api.executeCommand('toggleAudio');
       // console.log(isVideoOn);
@@ -150,15 +164,15 @@ export default function VideoLiveStream({ displayName, isAudioOn, isVideoOn }) {
   const showHostControl = () => {
     setHostControl(!hostControl);
   };
-  const [shareLink, setShareLink] = useState(false);
-  const showShare = () => {
-    setShareLink(!shareLink);
-  };
+
   const [admit, setAdmit] = useState(false);
   const showAdmit = () => {
     setAdmit(!admit);
   };
-
+  const [shareLink, setShareLink] = useState(false);
+  const showShare = () => {
+    setShareLink(!shareLink);
+  };
   // )}
   return (
     <div>
@@ -202,6 +216,8 @@ export default function VideoLiveStream({ displayName, isAudioOn, isVideoOn }) {
               shareLink={shareLink}
               showShare={showShare}
               setShareLink={setShareLink}
+              link={localStorage.getItem('meetingId')}
+              meetingLink={meetingLink}
             />
           </div>
         )}

@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProfileNav from './ProfileNav';
 import VideoPreview from './VideoPreview';
 import VideoLiveStream from './VideoLivestream';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import ProfileDropdown from './ProfileDropdown';
-import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export default function CheckCamera({
   profileDrop,
   showProfDrop,
   setProfileDrop,
+  meetingLink,
+  meetingName,
+  setMeetingName,
 }) {
   const [isVideoOn, setIsVideoOn] = useState(true);
   const [isAudioOn, setIsAudioOn] = useState(true);
@@ -18,9 +21,22 @@ export default function CheckCamera({
   const [videoLivestream, setVideoLiveStream] = useState(false);
 
   const navigate = useNavigate();
+
   const showVideoLiveStream = () => {
-    displayName ? navigate('/video') : toast.error('Set Display Name');
+    displayName
+      ? navigate(`/video/${localStorage.getItem('refId')}`, {
+          state: {
+            isVideoOn,
+            isAudioOn,
+            displayName,
+            meetingName,
+          },
+        })
+      : toast.error('Set Display Name');
   };
+
+  //
+
   return (
     <div>
       <div>
@@ -84,6 +100,9 @@ export default function CheckCamera({
           displayName={displayName}
           isVideoOn={isVideoOn}
           isAudioOn={isAudioOn}
+          meetingName={meetingName}
+          setMeetingName={setMeetingName}
+          meetingLink={meetingLink}
         />
       )}
     </div>

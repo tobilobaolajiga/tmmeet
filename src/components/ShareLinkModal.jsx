@@ -1,12 +1,32 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function ShareLinkModal({ shareLink, showShare, setShareLink }) {
+export default function ShareLinkModal({
+  shareLink,
+  showShare,
+  setShareLink,
+  link,
+  meetingLink,
+}) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShareLink(true);
     }, 5000);
     return () => clearTimeout(timer);
   }, []);
+
+  const [copied, setCopied] = useState(false);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 1000); // Update every second
+
+    return () => clearInterval(interval); // Cleanup function
+  }, []);
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(localStorage.getItem('meetingId'));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
   return (
     <div>
       {shareLink && (
@@ -27,15 +47,22 @@ export default function ShareLinkModal({ shareLink, showShare, setShareLink }) {
             <p className="text-[11px] pt-2 text-[#667085] font-normal font-DMSans">
               Send the link to invite people to join meeting
             </p>
-            <input
+            {/* <input
               type="text"
               placeholder="Meet.tm30.com/hbnj-njsa-khsd"
               className="border px-2 py-2 mt-2 rounded-lg placeholder:text-[10px] w-full outline-none text-[10px] placeholder-center bg-[#f4f4f4]"
-            />
+            /> */}
+            <p
+              className="border px-2 pr-4 mr-4 py-2 mt-2 rounded-lg placeholder:text-[10px] outline-none text-[10px] 
+            w-full bg-[#f4f4f4]"
+            >
+              {link}
+            </p>
             <img
+              onClick={copyToClipboard}
               src="/tabler_copy.svg"
               alt=""
-              className="absolute right-6 bottom-[26px]"
+              className="absolute right-6 bottom-[26px] cursor-pointer"
               width={12}
             />
           </div>

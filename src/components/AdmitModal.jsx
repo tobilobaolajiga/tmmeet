@@ -6,12 +6,12 @@ export default function AdmitModal({
   showAdmit,
   setAdmit,
 }) {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setAdmit(true);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setAdmit(true);
+  //   }, 3000);
+  //   return () => clearTimeout(timer);
+  // }, []);
   return (
     <div>
       {admit && (

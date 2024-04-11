@@ -126,13 +126,82 @@ export default function App() {
   const closeCreate = () => {
     showCreateAccount();
   };
+  const [meetingName, setMeetingName] = useState('Meeting');
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [nextDate, setNextDate] = useState(
+    new Date(currentDate.getTime() + 24 * 60 * 60 * 1000)
+  );
+  const token = localStorage.getItem('userToken');
+  const meetingLink = async () => {
+    const startTime = `${currentDate.getFullYear()}-${(
+      currentDate.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, '0')}-${currentDate
+      .getDate()
+      .toString()
+      .padStart(2, '0')}T${currentDate
+      .getHours()
+      .toString()
+      .padStart(2, '0')}:${currentDate
+      .getMinutes()
+      .toString()
+      .padStart(2, '0')}:00Z`;
+
+    const endTime = `${nextDate.getFullYear()}-${(nextDate.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${nextDate
+      .getDate()
+      .toString()
+      .padStart(2, '0')}T${nextDate
+      .getHours()
+      .toString()
+      .padStart(2, '0')}:${nextDate
+      .getMinutes()
+      .toString()
+      .padStart(2, '0')}:00Z`;
+    console.log(nextDate);
+    console.log(startTime);
+    console.log(endTime);
+    try {
+      const response = await axios.post(
+        'http://89.38.135.41:9877/api/v1/meeting/schedule-meeting',
+        {
+          emails: ['tobilobaolajiga@gmail.com'],
+          meetingTime: startTime,
+          meetingName: 'Meeting',
+          endTime: endTime,
+          color: 'blue',
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response);
+      toast.success(response.data.message);
+      localStorage.setItem(
+        'meetingId',
+        `localhost:5173/check/${response?.data?.referenceId}`
+      );
+      localStorage.setItem('refId', response?.data?.referenceId);
+      console.log(response?.data?.data?.meetingLink);
+      console.log(response?.data?.referenceId);
+      setMeetingName(response.data.data.meetingName);
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.status);
+      console.log(error.message);
+    }
+  };
   return (
     <BrowserRouter>
       <Toaster position="top-right" reverseOrder={false} />
       <div>
         <Routes>
           <Route
-            className="max-w-[1400px] w-screen h-screen mx-auto font-DMSans overflow-y-clip" //
+            className="max-w-[1400px] w-screen h-screen mx-auto font-DMSans overflow-y-hidden" //
             id="body"
             path="/"
             element={
@@ -173,7 +242,7 @@ export default function App() {
             }
           />
           <Route
-            className="max-w-[1400px] w-screen h-screen mx-auto font-DMSans overflow-y-clip" //
+            className="max-w-[1400px] w-screen h-screen mx-auto font-DMSans overflow-y-hidden" //
             id="body"
             path="/login"
             element={
@@ -183,6 +252,7 @@ export default function App() {
                 profileDrop={profileDrop}
                 showProfDrop={showProfDrop}
                 setProfileDrop={setProfileDrop}
+                meetingLink={meetingLink}
               />
             }
           />
@@ -201,18 +271,21 @@ export default function App() {
           />
 
           <Route
-            // path="/check/:meetingId"
-            path="/check"
+            path="/check/:meetingId"
+            // path="/check"
             element={
               <CheckCamera
                 profileDrop={profileDrop}
                 setProfileDrop={setProfileDrop}
                 showProfDrop={showProfDrop}
+                meetingLink={meetingLink}
+                meetingName={meetingName}
+                setMeetingName={setMeetingName}
               />
             }
           />
 
-          <Route path="/video" element={<VideoLiveStream />} />
+          <Route path="/video/:meetingId" element={<VideoLiveStream />} />
         </Routes>
       </div>
     </BrowserRouter>

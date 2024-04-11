@@ -155,7 +155,7 @@ export default function Scheduler({
       toast.success(response.data.message);
       localStorage.setItem(
         'meetingId',
-        `localhost:5173/${response?.data?.data?.meetingId}`
+        `localhost:5173/check/${response?.data?.data?.meetingId}`
       );
       setSelectedColor(selectedColor);
       handleAddEvent();

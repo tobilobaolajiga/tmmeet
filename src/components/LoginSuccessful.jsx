@@ -13,6 +13,7 @@ export default function LoginSuccessful({
   profileDrop,
   showProfDrop,
   setProfileDrop,
+  meetingLink,
 }) {
   const [options, setOptions] = useState(false);
   const showOptions = () => {
@@ -20,28 +21,27 @@ export default function LoginSuccessful({
   };
 
   const navigate = useNavigate();
-  const goToCam = () => {
-    navigate('/check');
-  };
-  const token = localStorage.getItem('userToken');
+
   const Instant = async () => {
+    meetingLink();
     try {
-      const response = await axios.post(
-        'http://89.38.135.41:9877/api/v1/meeting/createinstant',
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = response;
-      console.log(data);
-      // navigate('/check');
+      // const response = await axios.post(
+      //   'http://89.38.135.41:9877/api/v1/meeting/createinstant',
+      //   {},
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
+      // const data = response;
+      // console.log(data);
+      navigate(`/check/${localStorage.getItem('refId')}`);
     } catch (error) {
       console.log(error.response);
     }
   };
+
   return (
     <div>
       <div>

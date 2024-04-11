@@ -9,7 +9,7 @@ import Scheduler from './Scheduler';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import Scheduled from './Scheduled';
 import axios from 'axios';
-
+import toast from 'react-hot-toast';
 import moment from 'moment-timezone';
 import 'moment/locale/en-gb';
 
@@ -290,7 +290,7 @@ export default function Schedule({
       );
       const data = response;
       console.log(data);
-
+      toast.success(response.data.message);
       setEvents(events.filter((event) => event.id !== eventId));
       handleDeleteTitle();
       setTitle('');
