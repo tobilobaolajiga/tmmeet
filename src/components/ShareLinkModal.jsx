@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import { toast } from 'react-hot-toast';
 export default function ShareLinkModal({
   shareLink,
   showShare,
@@ -10,6 +10,7 @@ export default function ShareLinkModal({
   useEffect(() => {
     const timer = setTimeout(() => {
       setShareLink(true);
+      toast.success('Copied!');
     }, 5000);
     return () => clearTimeout(timer);
   }, []);

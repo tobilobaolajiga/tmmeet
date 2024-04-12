@@ -47,11 +47,17 @@ export default function CreateAccount({
         {newAccount && (
           <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center ">
             <div className="bg-white m-auto w-3/12 h-4/6 rounded-2xl font-inter">
-              <div
-                className="flex flex-col items-center pt-[20px] border-b pb-[20px]"
-                onClick={closeCreate}
-              >
-                <img src="/TM30.svg" alt="" width={60} />
+              <div className="flex flex-col items-center pt-[20px] border-b pb-[20px]">
+                <div className="relative w-full flex justify-center items-center">
+                  <img src="/TM30.svg" alt="" width={60} />{' '}
+                  <img
+                    src="/cross.svg"
+                    alt=""
+                    width={10}
+                    className="absolute top-[4px] right-[25px]"
+                    onClick={closeCreate}
+                  />
+                </div>
                 <p className="text-[16px] font-bold pt-[12px] text-[#101828]">
                   Create a new account{' '}
                 </p>

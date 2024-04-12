@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 export default function ProfileDropdown({
   profileDrop,
@@ -12,6 +12,29 @@ export default function ProfileDropdown({
 
   const navigate = useNavigate();
   const [error, setError] = useState('');
+
+  // useEffect(() => {
+  //   getProfile();
+  // });
+  // const getProfile = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       'http://89.38.135.41:9877/api/v1/profile/me',
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //     const data = response;
+  //     console.log(data);
+  //     // navigate('/');
+  //     // setProfileDrop(false);
+  //   } catch (error) {
+  //     toast.error(error.message);
+  //   }
+  // };
 
   const Logout = async () => {
     try {

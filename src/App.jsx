@@ -238,6 +238,7 @@ export default function App() {
                 pwd={pwd}
                 setPwd={setPwd}
                 loading={loading}
+                meetingLink={meetingLink}
               />
             }
           />
@@ -271,6 +272,7 @@ export default function App() {
           />
 
           <Route
+            className="overflow-y-hidden"
             path="/check/:meetingId"
             // path="/check"
             element={

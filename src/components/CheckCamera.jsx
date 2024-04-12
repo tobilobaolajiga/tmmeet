@@ -38,13 +38,13 @@ export default function CheckCamera({
   //
 
   return (
-    <div>
+    <div className="">
       <div>
-        <ProfileNav
+        {/* <ProfileNav
           profileDrop={profileDrop}
           showProfDrop={showProfDrop}
           setProfileDrop={setProfileDrop}
-        />
+        /> */}
         <div className="flex   ">
           <div className="basis-2/3">
             {' '}
@@ -56,7 +56,7 @@ export default function CheckCamera({
               displayName={displayName}
             />
           </div>
-          <div className="basis-1/3 my-[110px] ">
+          <div className="basis-1/3 my-[150px] ">
             <p className="font-inter text-[20px] font-semibold text-center mb-2 w-[320px]">
               Ready to Join?
             </p>

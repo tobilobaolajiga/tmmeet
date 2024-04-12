@@ -48,6 +48,7 @@ export default function Login({
       setLogin(false);
       setLoading(false);
       navigate('/login');
+      console.log(data?.data?.data?.user);
     } catch (error) {
       setError(error.response.data.message);
       toast.error(error.response.data.message);
@@ -73,11 +74,18 @@ export default function Login({
         {login && (
           <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center">
             <div className="bg-white m-auto w-3/12 h-3/5 rounded-2xl font-inter">
-              <div
-                className="flex flex-col items-center pt-[24px] border-b pb-[20px]"
-                onClick={closeLogin}
-              >
-                <img src="/TM30.svg" alt="" width={60} />
+              <div className="flex flex-col items-center pt-[24px] border-b pb-[20px]">
+                <div className="relative w-full flex justify-center items-center">
+                  <img src="/TM30.svg" alt="" width={60} />{' '}
+                  <img
+                    src="/cross.svg"
+                    alt=""
+                    width={10}
+                    className="absolute top-[4px] right-[25px]"
+                    onClick={closeLogin}
+                  />
+                </div>
+
                 <p className="text-[16px] font-bold pt-[12px] text-[#101828]">
                   Login to your account{' '}
                 </p>

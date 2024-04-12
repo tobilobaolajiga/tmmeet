@@ -26,7 +26,7 @@ export default function ImageSlider() {
     height: '300px',
   };
   return (
-    <div className=" w-[600px] -ml-[70px] ">
+    <div className=" w-[600px] ml-[5px] ">
       <Slider {...settings}>
         <div style={slideStyle}>
           <img

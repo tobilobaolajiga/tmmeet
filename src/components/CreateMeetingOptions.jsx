@@ -24,11 +24,13 @@ export default function CreateMeetingOptions({
   setNewAccount,
   closeCreate,
   setLogin,
+  meetingLink,
   verifyOTP,
 }) {
   const [joinInfo, setjoinInfo] = useState(false);
 
   const showJoinInfo = () => {
+    meetingLink();
     setjoinInfo(!joinInfo);
     setOptions(options);
     const body = document.querySelector('#body');

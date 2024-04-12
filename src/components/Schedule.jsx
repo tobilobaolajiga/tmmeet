@@ -12,6 +12,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import moment from 'moment-timezone';
 import 'moment/locale/en-gb';
+import ScheduledMeeting from './ScheduledMeetings';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
@@ -300,6 +301,25 @@ export default function Schedule({
       console.log(error.response.data.message);
     }
   };
+  const getDetails = async (eventId) => {
+    try {
+      const response = await axios.get(
+        `http://89.38.135.41:9877/api/v1/meeting/particular/${eventId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = response;
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      // console.log(error.response.data.status);
+      console.log(error.message);
+    }
+  };
   const handleDeleteTitle = (index) => {
     const updatedTitles = [...titles];
     updatedTitles.splice(index, 1);
@@ -314,6 +334,14 @@ export default function Schedule({
     setImg('');
   };
 
+  const [showScheduledMeet, setShowScheduledMeet] = useState(false);
+  const showMeeting = (eventId) => {
+    getDetails(eventId);
+    setShowScheduledMeet(!showScheduledMeet);
+  };
+  const closeMeeting = () => {
+    setShowScheduledMeet(false);
+  };
   return (
     <div className="overflow-x-hidden">
       <div className="bg-white ">
@@ -360,7 +388,8 @@ export default function Schedule({
                         key={event.id}
                         onMouseEnter={showImg}
                         onMouseLeave={hideImg}
-                        className="mb-4 flex items-center gap-2 font-DMSans font-medium text-[#344054]"
+                        onClick={showMeeting(event.id)}
+                        className="mb-4 flex items-center gap-2 font-DMSans font-medium text-[#344054]  "
                       >
                         {' '}
                         <span
@@ -368,14 +397,17 @@ export default function Schedule({
                           style={{ backgroundColor: event.backgroundColor }}
                           className=" w-[15px] h-[15px] border rounded-full"
                         ></span>
-                        {event.title}
-                        <img
-                          onClick={() => handleDeleteEvent(event.id)}
-                          src={img}
-                          alt=""
-                          width={10}
-                          className="justify-end cursor-pointer"
-                        />
+                        <p className="flex items-center-justify-between w-full relative">
+                          {' '}
+                          {event.title}
+                          <img
+                            onClick={() => handleDeleteEvent(event.id)}
+                            src={img}
+                            alt=""
+                            width={10}
+                            className="absolute cursor-pointer right-0"
+                          />
+                        </p>
                       </li>
                     ))}
                   </ul>
@@ -481,6 +513,7 @@ export default function Schedule({
           addTitles={addTitles}
           handleAddEvent={handleAddEvent}
         />
+        {showScheduledMeet && <ScheduledMeeting closeMeeting={closeMeeting} />}
       </div>
     </div>
   );

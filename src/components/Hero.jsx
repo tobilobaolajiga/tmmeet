@@ -24,6 +24,7 @@ export default function Hero({
   closeCreate,
   setLogin,
   verifyOTP,
+  meetingLink,
 }) {
   return (
     <div className="flex bg-white">
@@ -93,6 +94,7 @@ export default function Hero({
             closeCreate={closeCreate}
             setLogin={setLogin}
             verifyOTP={verifyOTP}
+            meetingLink={meetingLink}
           />
         </div>
       </div>

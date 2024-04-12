@@ -43,6 +43,7 @@ export default function Home({
   setInputThree,
   setInputFour,
   loading,
+  meetingLink,
 }) {
   return (
     <div>
@@ -107,6 +108,7 @@ export default function Home({
         closeCreate={closeCreate}
         setLogin={setLogin}
         verifyOTP={verifyOTP}
+        meetingLink={meetingLink}
       />
     </div>
   );

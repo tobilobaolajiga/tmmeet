@@ -1,11 +1,18 @@
+import { useState } from 'react';
+import { toast } from 'react-hot-toast';
+
 export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
+  const [copied, setCopied] = useState(false);
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(localStorage.getItem('meetingId'));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+    toast.success('Copied!');
+  };
   return (
     <div>
       {joinInfo && (
-        <div
-          className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center "
-          onClick={closeJoinInfo}
-        >
+        <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center ">
           <div className="bg-white m-auto w-1/5 rounded-2xl h-4/6">
             <div className="px-6 py-[16px] flex justify-center relative border-b border-[#EAECF0]">
               <p className="font-inter font-semibold text-[16px] tracking-tight ">
@@ -30,13 +37,14 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
                   type="text"
                   className="w-full border border-[#D0D5DD] bg-[#F4F4F4] py-[2px] px-[3px] my-[12px] rounded-lg shadow-sm"
                 />
-                <p className="absolute text-[9px] text-[#667085] left-4 bottom-[21px] font-inter tracking-tight">
-                  Meet.tm30.com/hbnj-njsa-khsd{' '}
+                <p className="absolute text-[8px] text-[#667085] left-2 bottom-[15px] font-inter tracking-tight ">
+                  {localStorage.getItem('meetingId')}
                   <img
                     width={14}
                     src="/tabler_copy.svg"
                     alt=""
-                    className="absolute bottom-0 -right-[80px]"
+                    className="absolute bottom-[4px] right-[6px]"
+                    onClick={copyToClipboard}
                   />
                 </p>
               </div>
