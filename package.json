@@ -28,6 +28,7 @@
     "react-spinners": "^0.13.8",
     "react-time-picker": "^6.6.0",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.8",
     "swiper": "^11.0.7",
     "tailwind-datepicker-react": "^1.4.3"

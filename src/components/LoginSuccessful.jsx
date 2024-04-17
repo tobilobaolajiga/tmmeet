@@ -23,6 +23,9 @@ export default function LoginSuccessful({
   const navigate = useNavigate();
 
   const Instant = async () => {
+    const hostAgentString = navigator.userAgent;
+    localStorage.setItem('hostAgent', hostAgentString);
+    console.log(hostAgentString);
     meetingLink();
     try {
       // const response = await axios.post(

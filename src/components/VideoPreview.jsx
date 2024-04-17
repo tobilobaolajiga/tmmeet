@@ -6,19 +6,26 @@ export default function VideoPreview({
   setIsVideoOn,
   setIsAudioOn,
   displayName,
+  vidImg,
+  setVidImg,
+  micImg,
+  setMicImg,
 }) {
   const videoRef = useRef();
+  const toggleAudio = () => {
+    setIsAudioOn(!isAudioOn);
+    showMicImg();
+  };
   const toggleVideo = () => {
     setIsVideoOn(!isVideoOn);
+    showVidImg();
     if (videoRef.current && videoRef.current.srcObject) {
       const stream = videoRef.current.srcObject;
       const tracks = stream.getTracks();
       tracks.forEach((track) => track.stop());
     }
   };
-  const toggleAudio = () => {
-    setIsAudioOn(!isAudioOn);
-  };
+
   useEffect(() => {
     const enableVideoStream = async () => {
       try {
@@ -41,8 +48,20 @@ export default function VideoPreview({
     };
   }, [isVideoOn, isAudioOn]);
 
-  const setBgColor = () => {
-    return isVideoOn ? '' : 'black';
+  const showMicImg = () => {
+    if (isAudioOn === false) {
+      setMicImg('/mic.svg');
+    } else if (isAudioOn === true) {
+      setMicImg('/micOff.svg');
+    }
+  };
+
+  const showVidImg = () => {
+    if (isVideoOn === false) {
+      setVidImg('/video.svg');
+    } else if (isVideoOn === true) {
+      setVidImg('/vidOff.svg');
+    }
   };
 
   return (
@@ -61,16 +80,11 @@ export default function VideoPreview({
               </div>
               <div className="absolute flex bottom-[50px] left-[330px] gap-4 items-center">
                 <button>
-                  <img src="/mic.svg" alt="" width={50} onClick={toggleAudio} />
+                  <img src={micImg} alt="" width={50} onClick={toggleAudio} />
                 </button>
                 <button>
                   {' '}
-                  <img
-                    src="/video.svg"
-                    alt=""
-                    width={50}
-                    onClick={toggleVideo}
-                  />
+                  <img src={vidImg} alt="" width={50} onClick={toggleVideo} />
                 </button>
               </div>
             </div>
@@ -83,16 +97,11 @@ export default function VideoPreview({
               ></video>
               <div className="absolute flex bottom-[100px] left-[330px] gap-4 items-center">
                 <button>
-                  <img src="/mic.svg" alt="" width={50} onClick={toggleAudio} />
+                  <img src={micImg} alt="" width={50} onClick={toggleAudio} />
                 </button>
                 <button>
                   {' '}
-                  <img
-                    src="/video.svg"
-                    alt=""
-                    width={50}
-                    onClick={toggleVideo}
-                  />
+                  <img src={vidImg} alt="" width={50} onClick={toggleVideo} />
                 </button>
               </div>
             </div>

@@ -14,7 +14,7 @@ export default function ProfileNav({
         <div className="flex items-center gap-[25px] pr-[20px]">
           <img src="/fe_app-menu.svg" alt="" className="w-[28px] h-[28px]" />
           <p onClick={showProfDrop} className="cursor-pointer first">
-            {userData?.name?.slice(0, 1)}
+            {userData?.fullName?.slice(0, 1)}
           </p>
         </div>
       </div>

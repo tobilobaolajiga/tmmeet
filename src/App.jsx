@@ -7,6 +7,7 @@ import VideoLiveStream from './components/VideoLivestream';
 import axios from 'axios';
 import { Toaster, toast } from 'react-hot-toast';
 import CheckCamera from './components/CheckCamera';
+import CheckCameraGuest from './components/CheckCameraGuest';
 
 export default function App() {
   const [login, setLogin] = useState(false);
@@ -14,6 +15,12 @@ export default function App() {
   const [userPassword, setUserPassword] = useState('');
   const [options, setOptions] = useState(false);
   const [otp, setOTP] = useState(false);
+  const [newAccount, setNewAccount] = useState(false);
+  const [name, setName] = useState('');
+  const [lastname, setLast] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const showOptions = () => {
     setOptions(!options);
@@ -35,8 +42,8 @@ export default function App() {
     setUserPassword('');
     closeOptions();
 
-    const body = document.querySelector('#body');
-    body.style.position = '';
+    // const body = document.querySelector('#body');
+    // body.style.position = '';
   };
 
   const [schedule, setSchedule] = useState(false);
@@ -62,7 +69,7 @@ export default function App() {
       const response = await axios.post(
         'http://89.38.135.41:9877/api/v1/auth/onboard',
         {
-          email: email || userEmail,
+          email: email,
           fullName: name,
           password: pwd,
         }
@@ -72,6 +79,7 @@ export default function App() {
 
       localStorage.setItem('userId', data?.data?.data?.userId);
       console.log(userId);
+      console.log(response);
       setLoading(false);
       setOTP(!otp);
       setPassword(false);
@@ -86,13 +94,17 @@ export default function App() {
   };
 
   const showOtp = () => {
+    console.log(email);
+    localStorage.setItem('email', email);
     sendOTP();
     setOTP(!otp);
     setPassword(false);
     setLogin(false);
   };
   const [resendOtp, setResendOtp] = useState(false);
+
   const resendOTP = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.post(
         'http://89.38.135.41:9877/api/v1/auth/resend-otp',
@@ -100,23 +112,18 @@ export default function App() {
           email: email || userEmail,
         }
       );
-
+      setIsLoading(false);
       const data = response;
       const id = data?.data?.data?.userId;
       setId(id);
       setResendOtp(!resendOtp);
-      setOTP(!otp);
+      // setOTP(!otp);
       setPassword(false);
     } catch (error) {
+      setIsLoading(false);
       setError(error.response.data.message);
     }
   };
-
-  const [newAccount, setNewAccount] = useState(false);
-  const [name, setName] = useState('');
-  const [lastname, setLast] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(false);
 
   const showCreateAccount = () => {
     setNewAccount(!newAccount);
@@ -126,13 +133,15 @@ export default function App() {
   const closeCreate = () => {
     showCreateAccount();
   };
+  const userData = JSON.parse(localStorage.getItem('userData'));
   const [meetingName, setMeetingName] = useState('Meeting');
   const [currentDate, setCurrentDate] = useState(new Date());
   const [nextDate, setNextDate] = useState(
-    new Date(currentDate.getTime() + 24 * 60 * 60 * 1000)
+    new Date(currentDate.getTime() + 60 * 1000)
   );
   const token = localStorage.getItem('userToken');
   const meetingLink = async () => {
+    navigator;
     const startTime = `${currentDate.getFullYear()}-${(
       currentDate.getMonth() + 1
     )
@@ -167,7 +176,7 @@ export default function App() {
       const response = await axios.post(
         'http://89.38.135.41:9877/api/v1/meeting/schedule-meeting',
         {
-          emails: ['tobilobaolajiga@gmail.com'],
+          emails: [userData.email],
           meetingTime: startTime,
           meetingName: 'Meeting',
           endTime: endTime,
@@ -179,13 +188,14 @@ export default function App() {
           },
         }
       );
-      console.log(response);
+      console.log(response?.data?.data);
       toast.success(response.data.message);
       localStorage.setItem(
         'meetingId',
-        `localhost:5173/check/${response?.data?.referenceId}`
+        `${window.location.origin}/check/${response?.data?.referenceId}`
       );
       localStorage.setItem('refId', response?.data?.referenceId);
+      localStorage.setItem('meetingDetails', response?.data?.data);
       console.log(response?.data?.data?.meetingLink);
       console.log(response?.data?.referenceId);
       setMeetingName(response.data.data.meetingName);
@@ -239,6 +249,8 @@ export default function App() {
                 setPwd={setPwd}
                 loading={loading}
                 meetingLink={meetingLink}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
               />
             }
           />

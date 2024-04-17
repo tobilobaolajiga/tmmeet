@@ -7,10 +7,10 @@ export default function ShareLinkModal({
   link,
   meetingLink,
 }) {
+  const [currentDate, setCurrentDate] = useState();
   useEffect(() => {
     const timer = setTimeout(() => {
       setShareLink(true);
-      toast.success('Copied!');
     }, 5000);
     return () => clearTimeout(timer);
   }, []);
@@ -26,6 +26,7 @@ export default function ShareLinkModal({
   const copyToClipboard = () => {
     navigator.clipboard.writeText(localStorage.getItem('meetingId'));
     setCopied(true);
+    toast.success('Copied!');
     setTimeout(() => setCopied(false), 2000);
   };
   return (

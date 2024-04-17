@@ -17,6 +17,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import toast from 'react-hot-toast';
 import Repeat from './Repeat';
+import { ClipLoader } from 'react-spinners';
 
 // import '../styles.css';
 export default function Scheduler({
@@ -109,17 +110,15 @@ export default function Scheduler({
   const closeReminder = () => {
     setReminder(!reminder);
   };
-
+  const userData = JSON.parse(localStorage.getItem('userData'));
   //meetinginputs
-
-  const [repeat, setRepeat] = useState('');
-  const [calendar, setCalendar] = useState(false);
 
   // const [error, setError] = useState('');
   const newUserId = localStorage.getItem('userId');
   const token = localStorage.getItem('userToken');
 
   const scheduleMeeting = async () => {
+    setLoading(true);
     const startTime = `${selectedDate.getFullYear()}-${(
       selectedDate.getMonth() + 1
     )
@@ -139,7 +138,7 @@ export default function Scheduler({
       const response = await axios.post(
         'http://89.38.135.41:9877/api/v1/meeting/schedule-meeting',
         {
-          emails: ['tobilobaolajiga@gmail.com'],
+          emails: [userData.email],
           meetingTime: startTime,
           meetingName: title,
           endTime: endTime,
@@ -152,21 +151,24 @@ export default function Scheduler({
         }
       );
       console.log(response?.data?.data?.meetingId);
+      setLoading(false);
       toast.success(response.data.message);
       localStorage.setItem(
         'meetingId',
-        `localhost:5173/check/${response?.data?.data?.meetingId}`
+        `${window.location.origin}/check/${response?.data?.data?.meetingId}`
       );
       setSelectedColor(selectedColor);
       handleAddEvent();
       showScheduled();
     } catch (error) {
+      setLoading(false);
       setError(error.response.data.message);
       toast.error(error.response.data.message);
       console.log(error.response.data.status);
       console.log(error.response.data.message);
     }
   };
+  const [loading, setLoading] = useState(false);
   return (
     <div>
       {scheduler && (
@@ -381,7 +383,11 @@ export default function Scheduler({
                 onClick={scheduleMeeting}
                 className="border bg-[#36AAD9] px-[12px] py-[4px] rounded text-white text-[9px] absolute right-6"
               >
-                Save
+                {loading ? (
+                  <ClipLoader color="#36D7B7" loading={loading} size={16} />
+                ) : (
+                  'Save'
+                )}
               </button>
             </div>
           </div>

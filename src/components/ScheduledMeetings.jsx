@@ -1,4 +1,28 @@
-export default function ScheduledMeeting({ closeMeeting }) {
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import toast from 'react-hot-toast';
+import ColorPicker from './ColorPicker';
+export default function ScheduledMeeting({
+  closeMeeting,
+  repeatBtn,
+  handleDeleteEvent,
+  selectedColor,
+}) {
+  const meetingRef = localStorage.getItem('meetingRef}');
+  const meetingDetails = JSON.parse(localStorage.getItem('meetingDetails'));
+  const startTime = new Date(meetingDetails.meetingTime);
+  const endTime = new Date(meetingDetails.endTime);
+
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(
+      `${window.location.origin}/check/${meetingDetails.meetingId}`
+    );
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+    toast.success('Copied!');
+  };
   return (
     <div>
       <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center ">
@@ -11,29 +35,25 @@ export default function ScheduledMeeting({ closeMeeting }) {
               width={13}
               className="absolute right-[25px] pt-[8px]"
             />
-            <input
-              className="text-center py-[15px] font-inter font-semibold text-[14px] outline-none rounded-2xl w-full "
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
+            <p className="text-center py-[15px] font-inter font-semibold text-[14px] outline-none rounded-2xl w-full ">
+              {meetingDetails?.meetingName}
+            </p>
           </div>
           <div className="flex justify-end mr-6 gap-2 mt-2 text-[#454545]">
             <button className="border px-[4px] my-[4px] text-[8px] flex gap-2 items-center rounded-sm">
               EDIT
               <img src="/edit.svg" alt="" width={12} />
             </button>
-            <button className="border px-[4px] my-[4px] text-[8px] flex gap-2 items-center rounded-sm">
+            <button
+              className="border px-[4px] my-[4px] text-[8px] flex gap-2 items-center rounded-sm"
+              onClick={() => handleDeleteEvent(meetingDetails.meetingId)}
+            >
               DELETE <img src="/delete.svg" alt="" width={8} />
             </button>
           </div>
           <div className="mx-6 my-2">
             <div className="border w-[40px] py-[6px] px-[8px] rounded-sm flex justify-center">
-              <ColorPicker
-                colors={colors}
-                onSelect={handleColorSelect}
-                selectedColor={selectedColor}
-                setSelectedColor={setSelectedColor}
-              />
+              <ColorPicker selectedColor={meetingDetails.color} />
             </div>
           </div>
 
@@ -43,24 +63,39 @@ export default function ScheduledMeeting({ closeMeeting }) {
               type="text"
               className="w-full border border-[#D0D5DD] bg-[#F4F4F4] py-[2px] px-[3px] my-[4px] rounded-lg shadow-sm"
             />
-            <p className="absolute text-[9px] text-[#667085] left-4 bottom-[14px] font-inter tracking-tight">
-              {meetingID}
-              <img
-                width={16}
-                src="/tabler_copy.svg"
-                alt=""
-                className="absolute top-0 -right-[115px]"
-              />
-            </p>
+            <div className="absolute text-[9px]  text-[#667085] left-2 bottom-[12px] font-inter tracking-tight text-nowrap">
+              <p className="w-[220px] overflow-x-clip">
+                {`${window.location.origin}/check/${meetingDetails.meetingId}`}
+                <img
+                  width={16}
+                  src="/tabler_copy.svg"
+                  alt=""
+                  className="absolute -top-[2px] -right-[40px]"
+                  onClick={copyToClipboard}
+                />
+              </p>
+            </div>
           </div>
           <div className="mx-6">
             <p className="flex items-center gap-2 py-[4px] tracking-tight">
               <span className="text-[10px]">
-                {selectedDate.toLocaleDateString('en-US', options)}
+                {startTime.toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  day: 'numeric',
+                  month: 'long',
+                })}
               </span>
               <img src="/dot.svg" alt="" width={3} />
               <span className="text-[10px]">
-                {startTime} - {endTime}
+                {startTime.toLocaleTimeString('en-US', {
+                  hour: 'numeric',
+                  minute: 'numeric',
+                })}{' '}
+                -{' '}
+                {endTime.toLocaleTimeString('en-US', {
+                  hour: 'numeric',
+                  minute: 'numeric',
+                })}
               </span>
             </p>
             <button className="bg-[#36AAD9] bg-opacity-15 text-[#36AAD9] text-[8px] px-2 py-[4px] rounded-sm">
@@ -96,7 +131,9 @@ export default function ScheduledMeeting({ closeMeeting }) {
               <img src="/description.svg" alt="" width={15} />
               Description
             </p>
-            <p className="text-[9px] my-4 font-DMSans">{desc}</p>
+            <p className="text-[9px] my-4 font-DMSans">
+              A short description of the meeting
+            </p>
           </div>
           <div className="mx-6 mt-2 text-[#344054]">
             <p className="flex gap-2 text-[10px] font-medium mt-4 font-inter">
@@ -116,3 +153,6 @@ export default function ScheduledMeeting({ closeMeeting }) {
     </div>
   );
 }
+ScheduledMeeting.propTypes = {
+  meetingTime: PropTypes.instanceOf(Date).isRequired,
+};

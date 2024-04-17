@@ -92,15 +92,17 @@ export default function Scheduled({
                 type="text"
                 className="w-full border border-[#D0D5DD] bg-[#F4F4F4] py-[2px] px-[3px] my-[4px] rounded-lg shadow-sm"
               />
-              <p className="absolute text-[9px] text-[#667085] left-4 bottom-[14px] font-inter tracking-tight">
-                {meetingID}
-                <img
-                  width={16}
-                  src="/tabler_copy.svg"
-                  alt=""
-                  className="absolute top-0 -right-[115px]"
-                />
-              </p>
+              <div className="absolute text-[9px] text-[#667085] left-2 bottom-[12px] font-inter tracking-tight text-nowrap ">
+                <p className="w-[220px] overflow-x-clip">
+                  {meetingID}
+                  <img
+                    width={16}
+                    src="/tabler_copy.svg"
+                    alt=""
+                    className="absolute -top-[2px] -right-[40px]"
+                  />
+                </p>
+              </div>
             </div>
             <div className="mx-6">
               <p className="flex items-center gap-2 py-[4px] tracking-tight">

@@ -44,6 +44,8 @@ export default function Home({
   setInputFour,
   loading,
   meetingLink,
+  isLoading,
+  setIsLoading,
 }) {
   return (
     <div>
@@ -86,6 +88,8 @@ export default function Home({
         setInputThree={setInputThree}
         setInputFour={setInputFour}
         loading={loading}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
       />
       <Hero
         showLogin={showLogin}

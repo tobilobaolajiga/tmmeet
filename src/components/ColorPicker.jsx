@@ -8,9 +8,9 @@ export default function ColorPicker({
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  // const toggleDropdown = () => {
+  //   setIsOpen(!isOpen);
+  // };
 
   // const handleColorSelect = (color) => {
   //   setSelectedColor(color);
@@ -21,10 +21,10 @@ export default function ColorPicker({
     <div className="dropdown-color-picker">
       <div
         className="selected-color"
-        onClick={toggleDropdown}
+        // onClick={toggleDropdown}
         style={{ backgroundColor: selectedColor }}
       >
-        {isOpen && (
+        {/* {isOpen && (
           <div className="color-options">
             {colors.map((color, index) => (
               <div
@@ -35,7 +35,7 @@ export default function ColorPicker({
               ></div>
             ))}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

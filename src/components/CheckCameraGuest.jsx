@@ -6,12 +6,9 @@ import GuestVideoLive from './GuestVideoLive';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import ProfileDropdown from './ProfileDropdown';
+import axios from 'axios';
 
-import ioClient from 'socket.io-client';
-// import { io } from 'socket.io-client';
-import { ClipLoader } from 'react-spinners';
-
-export default function CheckCamera({
+export default function CheckCameraGuest({
   profileDrop,
   showProfDrop,
   setProfileDrop,
@@ -19,55 +16,53 @@ export default function CheckCamera({
   meetingName,
   setMeetingName,
 }) {
-  const [loading, setLoading] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(true);
   const [isAudioOn, setIsAudioOn] = useState(true);
   const [micImg, setMicImg] = useState('/mic.svg');
   const [vidImg, setVidImg] = useState('/video.svg');
   const [displayName, setDisplayName] = useState('');
   const [videoLivestream, setVideoLiveStream] = useState(false);
-  // const meetingDetails = JSON.parse(localStorage.getItem('meetingDetails'));
-  const [userAgent, setUserAgent] = useState('');
-  const navigate = useNavigate();
+
+  // const navigate = useNavigate();
+  const [guestId, setGuestId] = useState(null);
+  const [requestSent, setRequestSent] = useState(false);
+  const [ws, setWs] = useState(null);
 
   useEffect(() => {
-    const userAgentString = navigator.userAgent;
-    setUserAgent(userAgentString);
-    console.log(userAgentString);
-  }, []);
-  const userId = localStorage.getItem('userId');
-  const userRequest = {
-    room: userId,
-    id: userAgent,
-    name: displayName,
-    message: `${displayName} wants to join`,
-  };
-  const socket = ioClient('ws://89.38.135.41:9877');
-  const sendRequest = async () => {
-    setLoading(true);
-    console.log('hhhhhhhhhhhhhhhh', userRequest);
-    socket.emit('message', userRequest);
-  };
+    const ws = new WebSocket('ws://89.38.135.41:9877/ws');
 
-  const showVideoLiveStream = () => {
-    displayName
-      ? navigate(`/video/${localStorage.getItem('refId')}`, {
-          state: {
-            isVideoOn,
-            isAudioOn,
-            displayName,
-            meetingName,
-          },
-        })
-      : toast.error('Set Display Name');
+    setWs(ws);
+    navigator.userAgent;
+    // const id = generateGuestId();
+    // setGuestId(id);
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
+  //   const generateGuestId = () => {
+  //     return Math.random().toString(36).substr(2, 9);
+  //   };
+
+  const requestToJoin = () => {
+    console.log(guestId);
+    ws.send(JSON.stringify({ type: 'requestToJoin', guestId }));
+    setRequestSent(true);
   };
-  const onClick = () => {
-    if (localStorage.getItem('hostAgent') == userAgent) {
-      showVideoLiveStream();
-    } else {
-      sendRequest();
-    }
-  };
+  // const showVideoLiveStream = () => {
+  //   displayName
+  //     ? navigate(`/video/${localStorage.getItem('refId')}`, {
+  //         state: {
+  //           isVideoOn,
+  //           isAudioOn,
+  //           displayName,
+  //           meetingName,
+  //         },
+  //       })
+  //     : toast.error('Set Display Name');
+  // };
+
   //
 
   return (
@@ -115,13 +110,9 @@ export default function CheckCamera({
               </div>
               <button
                 className="border bg-[#36aad9] text-white text-center py-[10px] rounded-md flex justify-center w-full text-[11px] mt-8 mb-4 "
-                onClick={onClick}
+                onClick={requestToJoin}
               >
-                {loading ? (
-                  <ClipLoader color="#36D7B7" loading={loading} size={16} />
-                ) : (
-                  'ASK TO JOIN'
-                )}
+                ASK TO JOIN
               </button>
             </div>
             <p className="flex items-center justify-center w-[320px] text-[#9e9e9e] gap-[4px] bg-[#ececec] rounded-b-lg py-[12px] shadow-md">
@@ -144,6 +135,7 @@ export default function CheckCamera({
           meetingName={meetingName}
           setMeetingName={setMeetingName}
           meetingLink={meetingLink}
+          guestId={guestId}
         />
       )}
       {/* {GuestVideoLive && (

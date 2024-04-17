@@ -44,11 +44,34 @@ export default function Login({
       const data = response;
       console.log(data?.data?.data?.token?.refreshToken);
       localStorage.setItem('userToken', data?.data?.data?.token?.refreshToken);
-      localStorage.setItem('userData', JSON.stringify(data?.data?.data?.user));
+
       setLogin(false);
       setLoading(false);
       navigate('/login');
-      console.log(data?.data?.data?.user);
+      console.log(data);
+      console.log(localStorage.getItem('userData'));
+      console.log(localStorage.getItem('userToken'));
+      console.log(data?.data?.data?.token?.refreshToken);
+      try {
+        const token = localStorage.getItem('userToken');
+        const response = await axios.get(
+          'http://89.38.135.41:9877/api/v1/profile/me',
+
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response?.data?.data?.user);
+        localStorage.setItem(
+          'userData',
+          JSON.stringify(response?.data?.data?.user)
+        );
+        console.log(response);
+      } catch (error) {
+        toast.error(error.message);
+      }
     } catch (error) {
       setError(error.response.data.message);
       toast.error(error.response.data.message);
@@ -65,8 +88,6 @@ export default function Login({
       setLoading(false);
     }
   };
-
-  console.log(userId);
 
   return (
     <div>

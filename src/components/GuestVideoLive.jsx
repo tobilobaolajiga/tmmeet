@@ -2,107 +2,23 @@ import { useLocation } from 'react-router-dom';
 import Creating from './Creating';
 import Joining from './Joining';
 import { useEffect, useRef, useState } from 'react';
-import AdmitModal from './AdmitModal';
 import ShareLinkModal from './ShareLinkModal';
-import HostControl from './HostControl';
-import socketIOClient from 'socket.io-client';
-import { useNavigate } from 'react-router-dom';
+
 import { toast } from 'react-hot-toast';
-import axios from 'axios';
-import ioClient from 'socket.io-client';
-export default function VideoLiveStream({
+export default function GuestVideoLive({
   displayName,
   isAudioOn,
   isVideoOn,
   meetingName,
   setMeetingName,
   meetingLink,
-  guestId,
 }) {
-  // const [admit, setAdmit] = useState(false);
-  // const navigate = useNavigate();
-  // const showAdmit = () => {
-  //   setAdmit(!admit);
-  // };
-  let displayMsg;
-  const [guestRequest, setGuestRequest] = useState(false);
-  const socket = ioClient('ws://89.38.135.41:9877');
-  useEffect(() => {
-    // socket.on('joinRoom', (userId) => {
-    //   console.log('MY USER ID:', userId);
-    // });
-    // socket.on('message', (userRequest) => {
-    //   setGuestRequest(true);
-    //   console.log('Guest is requesting to join with user iD:', userRequest.id);
-    //   console.log('Client joined');
-    // });
-    // return () => {
-    //   socket.disconnect();
-    // };
-    socket.on('connect', () => {
-      console.log('Connected to server');
-      socket.emit('joinRoom', '3');
-    });
-
-    // Listen for 'disconnect' event
-    socket.on('disconnect', () => {
-      console.log('Disconnected from server');
-    });
-
-    // Listen for 'joinRoom' event
-    // socket.on('joinRoom', () => {
-    //   console.log('Client joined room');
-    // });
-
-    socket.on('message', (data) => {
-      toast.success(data.message);
-      localStorage.setItem('admitMsg', data.message);
-      localStorage.setItem('admitReq', data);
-      console.log(data);
-      // console.log(JSON.parse(localStorage.getItem('admitReq')));
-      console.log(displayMsg);
-      setGuestRequest(true);
-    });
-
-    // Clean up the socket connection on component unmount
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-  const refId = localStorage.getItem('refId');
-  const token = localStorage.getItem('userToken');
-  const userId = localStorage.getItem('userId');
-  const admitReq = localStorage.getItem('admitReq');
-
-  const admitGuest = async () => {
-    try {
-      const response = await axios.post(
-        `http://89.38.135.41:9877/api/v1/meeting/accept/${refId}`,
-        {
-          room: admitReq.room,
-          id: admitReq.id,
-          name: admitReq.name,
-          message: admitReq.message,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(response);
-    } catch (error) {
-      console.log(admitReq.room);
-      toast.error(error.message);
-    }
-  };
   const session = useRef();
   const [initialized, setInitialized] = useState(false);
   const [jitsiLoading, setJitsiLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [isJoining, setIsJoining] = useState(false);
   const { state } = useLocation();
-
   useEffect(() => {
     let script = document.createElement('script');
     const timeout = setTimeout(() => {
@@ -237,15 +153,6 @@ export default function VideoLiveStream({
     setInitialized(true);
   };
 
-  const [options, setOptions] = useState(false);
-  const showOptions = () => {
-    setOptions(!options);
-  };
-  const [hostControl, setHostControl] = useState(false);
-  const showHostControl = () => {
-    setHostControl(!hostControl);
-  };
-
   const [shareLink, setShareLink] = useState(false);
   const showShare = () => {
     setShareLink(!shareLink);
@@ -268,28 +175,10 @@ export default function VideoLiveStream({
                 className={`flex bg-[#141414] w-[100px] absolute py-4 rounded left-[20px] justify-center gap-2 bottom-[30px]  
         }`}
               >
-                <img
-                  src={hostControl ? 'openlock.svg' : '/lock.svg'}
-                  alt=""
-                  width={25}
-                  onClick={showHostControl}
-                />
                 <img src="/record.svg" alt="" width={25} />
               </div>
             )}
-            <HostControl
-              hostControl={hostControl}
-              showHostControl={showHostControl}
-              options={options}
-              showOptions={showOptions}
-            />
-            <AdmitModal
-              guestRequest={guestRequest}
-              // admitGuest={admitGuest}
-              displayName={displayName}
-              // showAdmit={showAdmit}
-              admitGuest={admitGuest}
-            />
+
             <ShareLinkModal
               shareLink={shareLink}
               showShare={showShare}

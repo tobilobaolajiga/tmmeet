@@ -28,9 +28,13 @@ export default function CreateMeetingOptions({
   verifyOTP,
 }) {
   const [joinInfo, setjoinInfo] = useState(false);
+  // const [bg, setBg] = useState('bg- #ffffff');
+  // const [text, setText] = useState('text-#454545');
 
   const showJoinInfo = () => {
     meetingLink();
+    // setBg('bg-#36aad9');
+    // setText('text-#ffffff');
     setjoinInfo(!joinInfo);
     setOptions(options);
     const body = document.querySelector('#body');
@@ -49,10 +53,7 @@ export default function CreateMeetingOptions({
       <div>
         {options && (
           <div>
-            <ul
-              className="font-inter text-[#454545] tracking-tight text-sm max-w-fit shadow-md border-opacity-10 absolute bottom-6 bg-white
-"
-            >
+            <ul className="font-inter text-[#454545] tracking-tight text-sm max-w-fit shadow-md border-opacity-10 absolute bottom-4 bg-white">
               <li
                 className="flex gap-[12px] items-center border border-[#c6c6c6] pl-[12px] pr-[35px] py-[10px] rounded-t-md hover:bg-[#36AAD9] hover:text-white group cursor-pointer"
                 onClick={showJoinInfo}

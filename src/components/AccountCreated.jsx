@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import LoginSuccessful from './LoginSuccessful';
 import { Link } from 'react-router-dom';
-export default function AccountCreated({ accountSuccess }) {
-  const goToProfile = () => {
-    window.location.href = '/login';
-  };
+export default function AccountCreated({ accountSuccess, showLogin }) {
+  // const goToProfile = () => {
+  //   window.location.href = '/login';
+  //   setLogin(true);
+  // };
   return (
     <div>
       {accountSuccess && (
@@ -19,8 +20,8 @@ export default function AccountCreated({ accountSuccess }) {
             {/* <Link to="/login"> */}
             <div className="px-8 pb-8 pt-4">
               <button
-                className="bg-[#36AAD9] text-white w-full py-[8px] rounded-md mt-[14px] text-[10px]"
-                onClick={goToProfile}
+                className="bg-[#36AAD9] text-white w-full py-[9px] rounded-md mt-[14px] text-[10px]"
+                onClick={showLogin}
               >
                 Continue
               </button>

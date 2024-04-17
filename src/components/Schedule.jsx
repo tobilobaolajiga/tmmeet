@@ -25,18 +25,28 @@ export default function Schedule({
 }) {
   const localizer = momentLocalizer(moment);
   moment.tz.setDefault('Africa/Lagos');
-  const colors = [
-    '#FFA500',
-    '#FFFF00',
-    '#ff0000',
-    '#00ff00',
-    '#0000ff',
-    '#000080',
-    '#FF00FF',
-  ];
+  const [showScheduledMeet, setShowScheduledMeet] = useState(false);
+  // const colors = [
+  //   '#FFA500',
+  //   '#FFFF00',
+  //   '#ff0000',
+  //   '#00ff00',
+  //   '#0000ff',
+  //   '#000080',
+  //   '#FF00FF',
+  // ];
+
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
   const [selectedColor, setSelectedColor] = useState('#FFA500');
-  const handleColorSelect = (color) => {
-    setSelectedColor(color);
+  const handleColorSelect = () => {
+    setSelectedColor(getRandomColor);
   };
   const hrs = Array.from({ length: 24 }, (_, index) => index);
   const hours = hrs.map((number) => number.toString().padStart(2, '0'));
@@ -49,6 +59,7 @@ export default function Schedule({
   const [scheduler, setScheduler] = useState(false);
   const showScheduler = () => {
     setScheduler(!scheduler);
+    handleColorSelect();
   };
 
   const options = {
@@ -291,16 +302,20 @@ export default function Schedule({
       );
       const data = response;
       console.log(data);
-      toast.success(response.data.message);
+
       setEvents(events.filter((event) => event.id !== eventId));
       handleDeleteTitle();
       setTitle('');
+
+      toast.success(response.data.message);
     } catch (error) {
       console.log(error);
       // console.log(error.response.data.status);
       console.log(error.response.data.message);
     }
+    setShowScheduledMeet(false);
   };
+
   const getDetails = async (eventId) => {
     try {
       const response = await axios.get(
@@ -312,8 +327,13 @@ export default function Schedule({
           },
         }
       );
-      const data = response;
-      console.log(data);
+
+      localStorage.setItem('meetingRef', response?.data?.data?.meetingId);
+      localStorage.setItem(
+        'meetingDetails',
+        JSON.stringify(response?.data?.data)
+      );
+      console.log(localStorage.getItem('meetingDetails'));
     } catch (error) {
       console.log(error);
       // console.log(error.response.data.status);
@@ -334,7 +354,6 @@ export default function Schedule({
     setImg('');
   };
 
-  const [showScheduledMeet, setShowScheduledMeet] = useState(false);
   const showMeeting = (eventId) => {
     getDetails(eventId);
     setShowScheduledMeet(!showScheduledMeet);
@@ -360,7 +379,10 @@ export default function Schedule({
               <div className="border px-4 shadow-md rounded-md font-inter overflow-y-scroll h-[462px] mt-[36px] overflow-x-hidden scrollbar-webkit">
                 <div className="px-2">
                   <p className="pt-4 text-[12px] font-semibold">
-                    {currentTime.toLocaleTimeString()}
+                    {currentTime.toLocaleTimeString('en-US', {
+                      hour: 'numeric',
+                      minute: 'numeric',
+                    })}
                   </p>
                   <p className="py-2 font-semibold text-[14px]">
                     {currentTime.toLocaleDateString('en-US', options)}
@@ -386,10 +408,7 @@ export default function Schedule({
                     {events.map((event, index) => (
                       <li
                         key={event.id}
-                        onMouseEnter={showImg}
-                        onMouseLeave={hideImg}
-                        onClick={showMeeting(event.id)}
-                        className="mb-4 flex items-center gap-2 font-DMSans font-medium text-[#344054]  "
+                        className="mb-4 flex items-center gap-2 font-DMSans font-medium text-[#344054] cursor-pointer "
                       >
                         {' '}
                         <span
@@ -397,16 +416,12 @@ export default function Schedule({
                           style={{ backgroundColor: event.backgroundColor }}
                           className=" w-[15px] h-[15px] border rounded-full"
                         ></span>
-                        <p className="flex items-center-justify-between w-full relative">
+                        <p
+                          className="flex items-center-justify-between w-full relative"
+                          onClick={() => showMeeting(event.id)}
+                        >
                           {' '}
                           {event.title}
-                          <img
-                            onClick={() => handleDeleteEvent(event.id)}
-                            src={img}
-                            alt=""
-                            width={10}
-                            className="absolute cursor-pointer right-0"
-                          />
                         </p>
                       </li>
                     ))}
@@ -455,7 +470,7 @@ export default function Schedule({
           endPeriodChange={endPeriodChange}
           setTitle={setTitle}
           setDesc={setDesc}
-          colors={colors}
+          // colors={colors}
           selectedColor={selectedColor}
           handleColorSelect={handleColorSelect}
           setSelectedColor={setSelectedColor}
@@ -506,14 +521,21 @@ export default function Schedule({
           desc={desc}
           repeatBtn={repeatBtn}
           selectedColor={selectedColor}
-          colors={colors}
+          // colors={colors}
           onSelect={handleColorSelect}
           setSelectedColor={setSelectedColor}
           setScheduled={setScheduled}
           addTitles={addTitles}
           handleAddEvent={handleAddEvent}
         />
-        {showScheduledMeet && <ScheduledMeeting closeMeeting={closeMeeting} />}
+        {showScheduledMeet && (
+          <ScheduledMeeting
+            closeMeeting={closeMeeting}
+            repeatBtn={repeatBtn}
+            handleDeleteEvent={handleDeleteEvent}
+            selectedColor={selectedColor}
+          />
+        )}
       </div>
     </div>
   );

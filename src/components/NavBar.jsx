@@ -40,6 +40,8 @@ export default function NavBar({
   setInputThree,
   setInputFour,
   loading,
+  isLoading,
+  setIsLoading,
 }) {
   return (
     <div>
@@ -91,6 +93,8 @@ export default function NavBar({
         setInputTwo={setInputTwo}
         setInputThree={setInputThree}
         setInputFour={setInputFour}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
       />
       <CreateAccount
         newAccount={newAccount}
@@ -123,6 +127,8 @@ export default function NavBar({
         setInputThree={setInputThree}
         setInputFour={setInputFour}
         loading={loading}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
       />
     </div>
   );

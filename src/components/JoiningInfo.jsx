@@ -37,8 +37,8 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
                   type="text"
                   className="w-full border border-[#D0D5DD] bg-[#F4F4F4] py-[2px] px-[3px] my-[12px] rounded-lg shadow-sm"
                 />
-                <p className="absolute text-[8px] text-[#667085] left-2 bottom-[15px] font-inter tracking-tight ">
-                  {localStorage.getItem('meetingId')}
+                <p className="absolute text-[8px] text-[#667085] left-2 bottom-[14px] font-inter tracking-tight    ">
+                  <span className="">{localStorage.getItem('meetingId')}</span>
                   <img
                     width={14}
                     src="/tabler_copy.svg"

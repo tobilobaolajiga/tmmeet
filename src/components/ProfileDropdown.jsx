@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { ClipLoader } from 'react-spinners';
 export default function ProfileDropdown({
   profileDrop,
   showProfDrop,
@@ -9,7 +10,7 @@ export default function ProfileDropdown({
 }) {
   const userData = JSON.parse(localStorage.getItem('userData'));
   const token = localStorage.getItem('userToken');
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
@@ -37,6 +38,7 @@ export default function ProfileDropdown({
   // };
 
   const Logout = async () => {
+    setLoading(true);
     try {
       const response = await axios.post(
         'http://89.38.135.41:9877/api/v1/auth/logout',
@@ -49,9 +51,11 @@ export default function ProfileDropdown({
       );
       const data = response;
       console.log(data);
+      setLoading(false);
       navigate('/');
       setProfileDrop(false);
     } catch (error) {
+      setLoading(false);
       toast.error(error.response.data.message);
     }
   };
@@ -62,13 +66,11 @@ export default function ProfileDropdown({
         <div className="bg-white w-2/12 h-2/6 rounded-2xl py-8 px-4 fixed z-50 top-16 right-12 shadow-xl font-DMSans">
           <div className="flex gap-4 items-center justify-between">
             <div>
-              <p className="text-[14px] font-bold">{userData?.name}</p>
-              <p className="text-[10px] text-[#667185]">
-                {/* Mayowapeters@gmail.com */}
-              </p>
+              <p className="text-[14px] font-bold">{userData?.fullName}</p>
+              <p className="text-[10px] text-[#667185]">{userData?.email}</p>
             </div>
             <p onClick={showProfDrop} className="first">
-              {userData?.name?.slice(0, 1)}
+              {userData?.fullName?.slice(0, 1)}
             </p>
           </div>
           <div className="border-4 border-[#5F5F67] border-opacity-10 rounded-md mt-[20px]">
@@ -83,7 +85,13 @@ export default function ProfileDropdown({
               onClick={Logout}
             >
               <img src="/logout.svg" alt="" width={15} />{' '}
-              <p className="text-[#F1001a] text-[10px] font-semibold">Logout</p>
+              <p className="text-[#F1001a] text-[10px] font-semibold">
+                {loading ? (
+                  <ClipLoader color="#F1001a" loading={loading} size={16} />
+                ) : (
+                  'Logout'
+                )}
+              </p>
             </div>
           </div>
         </div>

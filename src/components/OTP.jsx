@@ -14,6 +14,9 @@ export default function OTP({
   closeCreate,
   setOTP,
   userEmail,
+  isLoading,
+  setIsLoading,
+  showLogin,
 }) {
   const [loading, setLoading] = useState(false);
   // const userID = userId.current;
@@ -83,7 +86,7 @@ export default function OTP({
   // };
 
   const newUserId = localStorage.getItem('userId');
-
+  const Email = localStorage.getItem('email');
   const [accountSuccess, setAccountSuccess] = useState(false);
   const verifyOTP = async () => {
     setLoading(true);
@@ -106,6 +109,7 @@ export default function OTP({
       setError(error.response.data.message);
     }
   };
+
   return (
     <div>
       <div>
@@ -124,7 +128,7 @@ export default function OTP({
                     Request Code{' '}
                   </p>
                   <p className="text-[#667085] text-[10px] tracking-tight">
-                    {error ? error : `We sent a code to ${email || userEmail}`}
+                    {!error ? `We sent a code to ${Email || userEmail}` : error}
                   </p>
                 </div>
                 <div className="px-8 pb-8 pt-4">
@@ -185,16 +189,21 @@ export default function OTP({
                       'Continue'
                     )}
                   </button>
-                  <p
-                    className="text-center  text-[#667085] text-[10px] pt-[12px]"
-                    onClick={resendOTP}
-                  >
+                  <p className="text-center  text-[#667085] text-[10px] pt-[12px]">
                     Didn't receive the code?{' '}
                     <span
                       className="text-[#36AAD9] underline font-semibold"
                       onClick={resendOTP}
                     >
-                      Click to resend code
+                      {isLoading ? (
+                        <ClipLoader
+                          color="#36D7B7"
+                          loading={isLoading}
+                          size={16}
+                        />
+                      ) : (
+                        'Click to resend code'
+                      )}
                     </span>
                   </p>
                   <p className=" text-[#667085] text-[9px] opacity-60 flex gap-4 items-center justify-center pt-[10px]">
@@ -205,7 +214,10 @@ export default function OTP({
               </div>
             </div>
           )}
-          <AccountCreated accountSuccess={accountSuccess} />
+          <AccountCreated
+            accountSuccess={accountSuccess}
+            showLogin={showLogin}
+          />
         </div>
       </div>
     </div>

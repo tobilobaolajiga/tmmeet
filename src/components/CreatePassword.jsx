@@ -22,6 +22,9 @@ export default function CreatePassword({
   setPwd,
   verifyOTP,
   loading,
+  isLoading,
+  setIsLoading,
+  showLogin,
 }) {
   const [confirmPass, setConfirmPass] = useState('');
   const [error, setError] = useState('');
@@ -264,6 +267,9 @@ export default function CreatePassword({
         closeCreate={closeCreate}
         setOTP={setOTP}
         verifyOTP={verifyOTP}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        showLogin={showLogin}
       />
     </div>
   );

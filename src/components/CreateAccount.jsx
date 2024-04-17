@@ -26,6 +26,8 @@ export default function CreateAccount({
   setPwd,
   verifyOTP,
   loading,
+  isLoading,
+  setIsLoading,
 }) {
   const passwordModal = () => {
     setNewAccount(false);
@@ -34,7 +36,7 @@ export default function CreateAccount({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    !showEnterAll();
+    // !showEnterAll();
     passwordModal();
   };
   const [enterDetails, setEnterDetails] = useState(false);
@@ -196,6 +198,9 @@ export default function CreateAccount({
           setPwd={setPwd}
           verifyOTP={verifyOTP}
           loading={loading}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          showLogin={showLogin}
         />
       </div>
     </div>
