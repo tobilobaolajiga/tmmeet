@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Toaster, toast } from 'react-hot-toast';
 import CheckCamera from './components/CheckCamera';
 import CheckCameraGuest from './components/CheckCameraGuest';
+import 'animate.css';
 
 export default function App() {
   const [login, setLogin] = useState(false);
