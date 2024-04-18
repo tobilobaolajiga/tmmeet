@@ -4,7 +4,7 @@ export default function Products({ products, showProducts }) {
       {products && (
         <div className="bg-[#f4f4f4] rounded-md w-2/5 h-3/8 fixed z-50 right-8 -mt-2 py-4 px-4">
           <p className="font-DMSans text-[11px] font-bold text-[#5f5f67]">
-            TM30 Products{' '}
+            TM30 Products
             <span
               className="text-[#36AAD9]
 "
