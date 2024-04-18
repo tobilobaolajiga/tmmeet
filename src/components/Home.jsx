@@ -46,6 +46,8 @@ export default function Home({
   meetingLink,
   isLoading,
   setIsLoading,
+  products,
+  showProducts,
 }) {
   return (
     <div>
@@ -90,6 +92,8 @@ export default function Home({
         loading={loading}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
+        products={products}
+        showProducts={showProducts}
       />
       <Hero
         showLogin={showLogin}

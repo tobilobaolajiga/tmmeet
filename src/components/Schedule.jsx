@@ -15,6 +15,7 @@ import 'moment/locale/en-gb';
 import ScheduledMeeting from './ScheduledMeetings';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import Products from './Products';
 
 export default function Schedule({
   schedule,
@@ -22,6 +23,8 @@ export default function Schedule({
   showSchedule,
   profileDrop,
   showProfDrop,
+  products,
+  showProducts,
 }) {
   const localizer = momentLocalizer(moment);
   moment.tz.setDefault('Africa/Lagos');
@@ -365,7 +368,12 @@ export default function Schedule({
     <div className="overflow-x-hidden">
       <div className="bg-white ">
         <div>
-          <ProfileNav profileDrop={profileDrop} showProfDrop={showProfDrop} />
+          <ProfileNav
+            profileDrop={profileDrop}
+            showProfDrop={showProfDrop}
+            showProducts={showProducts}
+            products={products}
+          />
           <Link to="/login">
             <div className="flex gap-4 items-center px-[40px] py-[14px]">
               <img src="/arrowLeft.svg" alt="" width={14} />
@@ -528,6 +536,7 @@ export default function Schedule({
           addTitles={addTitles}
           handleAddEvent={handleAddEvent}
         />
+        <Products products={products} showProducts={showProducts} />
         {showScheduledMeet && (
           <ScheduledMeeting
             closeMeeting={closeMeeting}

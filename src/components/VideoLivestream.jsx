@@ -24,7 +24,7 @@ export default function VideoLiveStream({
   // const showAdmit = () => {
   //   setAdmit(!admit);
   // };
-  let displayMsg;
+
   const [guestRequest, setGuestRequest] = useState(false);
   const socket = ioClient('ws://89.38.135.41:9877');
   useEffect(() => {
@@ -57,10 +57,11 @@ export default function VideoLiveStream({
     socket.on('message', (data) => {
       toast.success(data.message);
       localStorage.setItem('admitMsg', data.message);
-      localStorage.setItem('admitReq', data);
+      localStorage.setItem('admitRoom', data.room);
+      localStorage.setItem('admitId', data.id);
+      localStorage.setItem('admitName', data.name);
       console.log(data);
-      // console.log(JSON.parse(localStorage.getItem('admitReq')));
-      console.log(displayMsg);
+
       setGuestRequest(true);
     });
 
@@ -69,20 +70,20 @@ export default function VideoLiveStream({
       socket.disconnect();
     };
   }, []);
-  const refId = localStorage.getItem('refId');
+  const videoId = localStorage.getItem('videoId');
   const token = localStorage.getItem('userToken');
   const userId = localStorage.getItem('userId');
-  const admitReq = localStorage.getItem('admitReq');
+  const meetingCode = localStorage.getItem('meeting').substring(28, 64);
 
   const admitGuest = async () => {
     try {
       const response = await axios.post(
-        `http://89.38.135.41:9877/api/v1/meeting/accept/${refId}`,
+        `http://89.38.135.41:9877/api/v1/meeting/accept/${meetingCode}`,
         {
-          room: admitReq.room,
-          id: admitReq.id,
-          name: admitReq.name,
-          message: admitReq.message,
+          room: localStorage.getItem('admitRoom'),
+          id: localStorage.getItem('admitId'),
+          name: localStorage.getItem('admitName'),
+          message: localStorage.getItem('admitMsg'),
         },
         {
           headers: {
@@ -91,10 +92,14 @@ export default function VideoLiveStream({
         }
       );
       console.log(response);
+      console.log(response.status);
+      closeAdmit();
     } catch (error) {
-      console.log(admitReq.room);
       toast.error(error.message);
     }
+  };
+  const closeAdmit = () => {
+    setGuestRequest(false);
   };
   const session = useRef();
   const [initialized, setInitialized] = useState(false);
@@ -289,12 +294,13 @@ export default function VideoLiveStream({
               displayName={displayName}
               // showAdmit={showAdmit}
               admitGuest={admitGuest}
+              closeAdmit={closeAdmit}
             />
             <ShareLinkModal
               shareLink={shareLink}
               showShare={showShare}
               setShareLink={setShareLink}
-              link={localStorage.getItem('meetingId')}
+              link={localStorage.getItem('meeting')}
               meetingLink={meetingLink}
             />
           </div>

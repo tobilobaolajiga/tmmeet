@@ -6,6 +6,7 @@ import GuestVideoLive from './GuestVideoLive';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import ProfileDropdown from './ProfileDropdown';
+import fakeUa from 'fake-useragent';
 
 import ioClient from 'socket.io-client';
 // import { io } from 'socket.io-client';
@@ -30,10 +31,68 @@ export default function CheckCamera({
   const [userAgent, setUserAgent] = useState('');
   const navigate = useNavigate();
 
+  const generateUniqueId = () => {
+    // Check if the unique ID is already stored in localStorage
+    let userAgent = localStorage.getItem('userAgent');
+
+    // If not stored, generate a new unique ID
+    if (!userAgent) {
+      userAgent =
+        Math.random().toString(36).substring(2) + Date.now().toString(36);
+
+      // Store the generated unique ID in localStorage
+      userAgent = userAgent.substring(0, 6);
+      localStorage.setItem('userAgent', userAgent);
+    }
+
+    return userAgent;
+  };
+
+  // Get or generate a unique user ID
+  const socket = ioClient('ws://89.38.135.41:9877');
+  const hostAgent = localStorage.getItem('hostAgent');
   useEffect(() => {
-    const userAgentString = navigator.userAgent;
-    setUserAgent(userAgentString);
-    console.log(userAgentString);
+    if (!localStorage.getItem('hostAgent')) {
+      const userAgent = generateUniqueId();
+      setUserAgent(userAgent);
+      console.log(userAgent);
+    }
+    console.log(userAgent);
+
+    // };
+    socket.on('connect', (data) => {
+      socket.emit('joinRoom', userAgent);
+      console.log(data.message);
+      console.log(userAgent && hostAgent);
+      // navigate(`/video/${meetingCode}`, {
+      //   state: {
+      //     isVideoOn,
+      //     isAudioOn,
+      //     displayName,
+      //     meetingName,
+      //   },
+      // });
+    });
+
+    // Listen for 'disconnect' event
+    socket.on('disconnect', () => {
+      console.log('Disconnected from server');
+    });
+
+    socket.on('message', (data) => {
+      socket.emit('joinRoom', userAgent);
+      console.log(data.message);
+      if (data.message == 'Allow') {
+        navigate(`/video/${meetingCode}`, {
+          state: {
+            isVideoOn,
+            isAudioOn,
+            displayName,
+            meetingName,
+          },
+        });
+      }
+    });
   }, []);
   const userId = localStorage.getItem('userId');
   const userRequest = {
@@ -42,16 +101,16 @@ export default function CheckCamera({
     name: displayName,
     message: `${displayName} wants to join`,
   };
-  const socket = ioClient('ws://89.38.135.41:9877');
+
   const sendRequest = async () => {
     setLoading(true);
     console.log('hhhhhhhhhhhhhhhh', userRequest);
     socket.emit('message', userRequest);
   };
-
+  const meetingCode = localStorage.getItem('meeting').substring(28, 64);
   const showVideoLiveStream = () => {
     displayName
-      ? navigate(`/video/${localStorage.getItem('refId')}`, {
+      ? navigate(`/video/${meetingCode}`, {
           state: {
             isVideoOn,
             isAudioOn,
@@ -62,7 +121,7 @@ export default function CheckCamera({
       : toast.error('Set Display Name');
   };
   const onClick = () => {
-    if (localStorage.getItem('hostAgent') == userAgent) {
+    if (localStorage.getItem('hostAgent')) {
       showVideoLiveStream();
     } else {
       sendRequest();

@@ -5,6 +5,7 @@ export default function AdmitModal({
 
   guestRequest,
   admitGuest,
+  closeAdmit,
 }) {
   // useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -34,7 +35,13 @@ export default function AdmitModal({
           >
             Admit
           </button>
-          <img src="/cross.svg" alt="" width={15} className="cursor-pointer" />
+          <img
+            src="/cross.svg"
+            alt=""
+            width={15}
+            className="cursor-pointer"
+            onClick={closeAdmit}
+          />
         </div>
       )}
     </div>

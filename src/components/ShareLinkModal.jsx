@@ -24,7 +24,7 @@ export default function ShareLinkModal({
     return () => clearInterval(interval); // Cleanup function
   }, []);
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(localStorage.getItem('meetingId'));
+    navigator.clipboard.writeText(localStorage.getItem('meeting'));
     setCopied(true);
     toast.success('Copied!');
     setTimeout(() => setCopied(false), 2000);

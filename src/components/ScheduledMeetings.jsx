@@ -19,9 +19,9 @@ export default function ScheduledMeeting({
     navigator.clipboard.writeText(
       `${window.location.origin}/check/${meetingDetails.meetingId}`
     );
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
     toast.success('Copied!');
+
+    // setTimeout(() => setCopied(false), 2000);
   };
   return (
     <div>

@@ -21,7 +21,11 @@ export default function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState(false);
 
+  const showProducts = () => {
+    setProducts(!products);
+  };
   const showOptions = () => {
     setOptions(!options);
   };
@@ -159,19 +163,13 @@ export default function App() {
 
     const endTime = `${nextDate.getFullYear()}-${(nextDate.getMonth() + 1)
       .toString()
-      .padStart(2, '0')}-${nextDate
-      .getDate()
-      .toString()
-      .padStart(2, '0')}T${nextDate
-      .getHours()
-      .toString()
-      .padStart(2, '0')}:${nextDate
-      .getMinutes()
-      .toString()
-      .padStart(2, '0')}:00Z`;
+      .padStart(2, '0')}-${nextDate.getDate().toString().padStart(2, '0')}T${
+      nextDate.getHours() + (1).toString().padStart(2, '0')
+    }:${nextDate.getMinutes().toString().padStart(2, '0')}:00Z`;
     console.log(nextDate);
     console.log(startTime);
     console.log(endTime);
+
     try {
       const response = await axios.post(
         'http://89.38.135.41:9877/api/v1/meeting/schedule-meeting',
@@ -190,12 +188,13 @@ export default function App() {
       );
       console.log(response?.data?.data);
       toast.success(response.data.message);
-      localStorage.setItem(
-        'meetingId',
-        `${window.location.origin}/check/${response?.data?.referenceId}`
-      );
-      localStorage.setItem('refId', response?.data?.referenceId);
-      localStorage.setItem('meetingDetails', response?.data?.data);
+      // localStorage.setItem(
+      //   'meetingId',
+      //   `${window.location.origin}/check/${response?.data?.referenceId}`
+      // );
+      // localStorage.setItem('checkId', `/check/${response?.data?.referenceId}`);
+
+      // localStorage.setItem('refId', response?.data?.referenceId);
       console.log(response?.data?.data?.meetingLink);
       console.log(response?.data?.referenceId);
       setMeetingName(response.data.data.meetingName);
@@ -207,7 +206,7 @@ export default function App() {
   };
   return (
     <BrowserRouter>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
       <div>
         <Routes>
           <Route
@@ -251,6 +250,8 @@ export default function App() {
                 meetingLink={meetingLink}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
+                products={products}
+                showProducts={showProducts}
               />
             }
           />
@@ -266,6 +267,8 @@ export default function App() {
                 showProfDrop={showProfDrop}
                 setProfileDrop={setProfileDrop}
                 meetingLink={meetingLink}
+                products={products}
+                showProducts={showProducts}
               />
             }
           />
@@ -279,6 +282,8 @@ export default function App() {
                 showProfDrop={showProfDrop}
                 email={email}
                 userId={userId}
+                products={products}
+                showProducts={showProducts}
               />
             }
           />

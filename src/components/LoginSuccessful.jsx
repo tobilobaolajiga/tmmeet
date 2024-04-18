@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
+import Products from './Products';
 export default function LoginSuccessful({
   schedule,
   showSchedule,
@@ -14,32 +15,39 @@ export default function LoginSuccessful({
   showProfDrop,
   setProfileDrop,
   meetingLink,
+  products,
+  showProducts,
 }) {
   const [options, setOptions] = useState(false);
   const showOptions = () => {
     setOptions(!options);
   };
 
+  const token = localStorage.getItem('userToken');
   const navigate = useNavigate();
 
   const Instant = async () => {
     const hostAgentString = navigator.userAgent;
     localStorage.setItem('hostAgent', hostAgentString);
     console.log(hostAgentString);
-    meetingLink();
+
+    // meetingLink();
     try {
-      // const response = await axios.post(
-      //   'http://89.38.135.41:9877/api/v1/meeting/createinstant',
-      //   {},
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //     },
-      //   }
-      // );
-      // const data = response;
-      // console.log(data);
-      navigate(`/check/${localStorage.getItem('refId')}`);
+      const response = await axios.post(
+        'http://89.38.135.41:9877/api/v1/meeting/createinstant',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = response;
+      console.log(data);
+      window.location.href = data?.data?.data;
+      localStorage.setItem('meeting', data?.data?.data);
+      localStorage.setItem('videoId', data?.data?.referenceId);
+      console.log(data?.data);
     } catch (error) {
       console.log(error.response);
     }
@@ -53,6 +61,8 @@ export default function LoginSuccessful({
             showProfDrop={showProfDrop}
             profileDrop={profileDrop}
             setProfileDrop={setProfileDrop}
+            showProducts={showProducts}
+            products={products}
           />
         </div>
         <div className="flex bg-white">
@@ -169,6 +179,7 @@ export default function LoginSuccessful({
           showProfDrop={showProfDrop}
           setProfileDrop={setProfileDrop}
         />
+        <Products products={products} showProducts={showProducts} />
       </div>
     </div>
   );

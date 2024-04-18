@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import CreateAccount from './CreateAccount';
 import Login from './Login';
+import Products from './Products';
 export default function NavBar({
   showLogin,
   closeLogin,
@@ -42,6 +43,8 @@ export default function NavBar({
   loading,
   isLoading,
   setIsLoading,
+  products,
+  showProducts,
 }) {
   return (
     <div>
@@ -50,7 +53,12 @@ export default function NavBar({
           <img src="/TM30.svg" alt="" className="w-[120px] h-[34px]" />
         </div>
         <div className="flex items-center gap-[31px] pr-[20px]">
-          <img src="/fe_app-menu.svg" alt="" className="w-[28px] h-[28px]" />
+          <img
+            src="/fe_app-menu.svg"
+            alt=""
+            className="w-[28px] h-[28px] cursor-pointer"
+            onClick={showProducts}
+          />
           <p
             className="font-semibold text-sm tracking-tighter cursor-pointer"
             onClick={showLogin}
@@ -96,6 +104,7 @@ export default function NavBar({
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
+      <Products products={products} showProducts={showProducts} />
       <CreateAccount
         newAccount={newAccount}
         showCreateAccount={showCreateAccount}
