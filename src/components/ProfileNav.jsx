@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Products from './Products';
 
 export default function ProfileNav({
@@ -7,7 +8,11 @@ export default function ProfileNav({
   showProducts,
   products,
 }) {
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  const [userData, setUserData] = useState('');
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    setUserData(userData);
+  }, []);
 
   return (
     <div>
