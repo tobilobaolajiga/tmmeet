@@ -8,7 +8,9 @@ export default function ProfileNav({
   showProducts,
   products,
 }) {
-  const [userData, setUserData] = useState('');
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem('userData'))
+  );
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('userData'));
     setUserData(userData);
