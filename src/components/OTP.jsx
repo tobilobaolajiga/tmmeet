@@ -93,7 +93,7 @@ export default function OTP({
     console.log(userId);
     try {
       const response = await axios.post(
-        `http://89.38.135.41:9877/api/v1/auth/verify-otp/${newUserId}`,
+        `https://api-meet.tm-dev.xyz/api/v1/auth/verify-otp/${newUserId}`,
         {
           otp: OTP,
         }

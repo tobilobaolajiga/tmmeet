@@ -7,7 +7,7 @@ import VideoLiveStream from './components/VideoLivestream';
 import axios from 'axios';
 import { Toaster, toast } from 'react-hot-toast';
 import CheckCamera from './components/CheckCamera';
-import CheckCameraGuest from './components/CheckCameraGuest';
+
 import 'animate.css';
 
 export default function App() {
@@ -72,7 +72,7 @@ export default function App() {
     setLoading(true);
     try {
       const response = await axios.post(
-        'http://89.38.135.41:9877/api/v1/auth/onboard',
+        'https://api-meet.tm-dev.xyz/api/v1/auth/onboard',
         {
           email: email,
           fullName: name,
@@ -112,7 +112,7 @@ export default function App() {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        'http://89.38.135.41:9877/api/v1/auth/resend-otp',
+        'https://api-meet.tm-dev.xyz/api/v1/auth/resend-otp',
         {
           email: email || userEmail,
         }
@@ -173,7 +173,7 @@ export default function App() {
 
     try {
       const response = await axios.post(
-        'http://89.38.135.41:9877/api/v1/meeting/schedule-meeting',
+        'https://api-meet.tm-dev.xyz/api/v1/meeting/schedule-meeting',
         {
           emails: [userData.email],
           meetingTime: startTime,

@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
 import Products from './Products';
+import { ClipLoader } from 'react-spinners';
+import toast from 'react-hot-toast';
 export default function LoginSuccessful({
   schedule,
   showSchedule,
@@ -22,11 +24,12 @@ export default function LoginSuccessful({
   const showOptions = () => {
     setOptions(!options);
   };
-
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem('userToken');
   const navigate = useNavigate();
 
   const Instant = async () => {
+    setLoading(true);
     const hostAgentString = navigator.userAgent;
     localStorage.setItem('hostAgent', hostAgentString);
     console.log(hostAgentString);
@@ -34,7 +37,7 @@ export default function LoginSuccessful({
     // meetingLink();
     try {
       const response = await axios.post(
-        'http://89.38.135.41:9877/api/v1/meeting/createinstant',
+        'https://api-meet.tm-dev.xyz/api/v1/meeting/createinstant',
         {},
         {
           headers: {
@@ -44,11 +47,14 @@ export default function LoginSuccessful({
       );
       const data = response;
       console.log(data);
+      setLoading(false);
       window.location.href = data?.data?.data;
       localStorage.setItem('meeting', data?.data?.data);
       localStorage.setItem('videoId', data?.data?.referenceId);
       console.log(data?.data);
     } catch (error) {
+      setLoading(false);
+      toast.error(error.response);
       console.log(error.response);
     }
   };
@@ -139,7 +145,15 @@ export default function LoginSuccessful({
                           fill="#667085"
                         />
                       </svg>
-                      Start a meeting now
+                      {loading ? (
+                        <ClipLoader
+                          color="#36D7B7"
+                          loading={loading}
+                          size={16}
+                        />
+                      ) : (
+                        'Start a meeting now'
+                      )}
                     </li>
                   </ul>
                 )}

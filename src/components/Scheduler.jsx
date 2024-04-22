@@ -136,7 +136,7 @@ export default function Scheduler({
       .padStart(2, '0')}T${endHour}:${endMinutes}:00Z`;
     try {
       const response = await axios.post(
-        'http://89.38.135.41:9877/api/v1/meeting/schedule-meeting',
+        'https://api-meet.tm-dev.xyz/api/v1/meeting/schedule-meeting',
         {
           emails: [userData.email],
           meetingTime: startTime,

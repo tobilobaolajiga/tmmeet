@@ -41,7 +41,7 @@ export default function ProfileDropdown({
     setLoading(true);
     try {
       const response = await axios.post(
-        'http://89.38.135.41:9877/api/v1/auth/logout',
+        'https://api-meet.tm-dev.xyz/api/v1/auth/logout',
         {},
         {
           headers: {

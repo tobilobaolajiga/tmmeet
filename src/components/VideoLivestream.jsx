@@ -26,7 +26,7 @@ export default function VideoLiveStream({
   // };
 
   const [guestRequest, setGuestRequest] = useState(false);
-  const socket = ioClient('ws://89.38.135.41:9877');
+  const socket = ioClient('ws://api-meet.tm-dev.xyz');
   useEffect(() => {
     // socket.on('joinRoom', (userId) => {
     //   console.log('MY USER ID:', userId);
@@ -78,7 +78,7 @@ export default function VideoLiveStream({
   const admitGuest = async () => {
     try {
       const response = await axios.post(
-        `http://89.38.135.41:9877/api/v1/meeting/accept/${meetingCode}`,
+        `https://api-meet.tm-dev.xyz/api/v1/meeting/accept/${meetingCode}`,
         {
           room: localStorage.getItem('admitRoom'),
           id: localStorage.getItem('admitId'),
@@ -162,7 +162,7 @@ export default function VideoLiveStream({
     //   return;
     // }
 
-    const domain = 'media.partytime.ng';
+    const domain = 'meet.tm30.net';
 
     const options = {
       roomName: meetingName || state.meetingName,
@@ -274,10 +274,11 @@ export default function VideoLiveStream({
         }`}
               >
                 <img
-                  src={hostControl ? 'openlock.svg' : '/lock.svg'}
+                  src="/lock.svg"
                   alt=""
                   width={25}
                   onClick={showHostControl}
+                  className="cursor-pointer"
                 />
                 <img src="/record.svg" alt="" width={25} />
               </div>

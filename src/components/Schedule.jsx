@@ -236,7 +236,7 @@ export default function Schedule({
   const allScheduledMeetings = async () => {
     try {
       const response = await axios.get(
-        'http://89.38.135.41:9877/api/v1/meeting/all-schedule-meeting',
+        'https://api-meet.tm-dev.xyz/api/v1/meeting/all-schedule-meeting',
 
         {
           headers: {
@@ -295,7 +295,7 @@ export default function Schedule({
         },
       });
       const response = await axios.post(
-        `http://89.38.135.41:9877/api/v1/meeting/delete/${eventId}`,
+        `https://api-meet.tm-dev.xyz/api/v1/meeting/delete/${eventId}`,
         {},
         {
           headers: {
@@ -322,7 +322,7 @@ export default function Schedule({
   const getDetails = async (eventId) => {
     try {
       const response = await axios.get(
-        `http://89.38.135.41:9877/api/v1/meeting/particular/${eventId}`,
+        `https://api-meet.tm-dev.xyz/api/v1/meeting/particular/${eventId}`,
         {},
         {
           headers: {
@@ -536,7 +536,7 @@ export default function Schedule({
           addTitles={addTitles}
           handleAddEvent={handleAddEvent}
         />
-        <Products products={products} showProducts={showProducts} />
+
         {showScheduledMeet && (
           <ScheduledMeeting
             closeMeeting={closeMeeting}

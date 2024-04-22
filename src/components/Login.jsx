@@ -35,7 +35,7 @@ export default function Login({
     setLoading(true);
     try {
       const response = await axios.post(
-        'http://89.38.135.41:9877/api/v1/auth/login',
+        'https://api-meet.tm-dev.xyz/api/v1/auth/login',
         {
           email: userEmail,
           password: userPassword,
@@ -55,7 +55,7 @@ export default function Login({
       try {
         const token = localStorage.getItem('userToken');
         const response = await axios.get(
-          'http://89.38.135.41:9877/api/v1/profile/me',
+          'https://api-meet.tm-dev.xyz/api/v1/profile/me',
 
           {
             headers: {
