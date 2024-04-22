@@ -7,6 +7,7 @@ import VideoLiveStream from './components/VideoLivestream';
 import axios from 'axios';
 import { Toaster, toast } from 'react-hot-toast';
 import CheckCamera from './components/CheckCamera';
+import AfterLeaveMeeting from './components/AfterLeaveMeeting';
 
 import 'animate.css';
 
@@ -311,6 +312,7 @@ export default function App() {
           />
 
           <Route path="/video/:meetingId" element={<VideoLiveStream />} />
+          <Route path="/leave" element={<AfterLeaveMeeting />} />
         </Routes>
       </div>
     </BrowserRouter>
