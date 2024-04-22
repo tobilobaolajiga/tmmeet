@@ -49,7 +49,7 @@ export default function CheckCamera({
   };
 
   // Get or generate a unique user ID
-  const socket = ioClient('ws://89.38.135.41:9877');
+  const socket = ioClient('ws://api-meet.tm-dev.xyz');
   const hostAgent = localStorage.getItem('hostAgent');
   useEffect(() => {
     if (!localStorage.getItem('hostAgent')) {

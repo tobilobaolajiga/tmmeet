@@ -10,6 +10,7 @@ export default function CreateAccount({
   setId,
   otp,
   setOTP,
+  sendOTP,
   showOtp,
   closeCreate,
   resendOTP,
@@ -192,8 +193,8 @@ export default function CreateAccount({
           otp={otp}
           setOTP={setOTP}
           showOtp={showOtp}
+          sendOTP={sendOTP}
           resendOTP={resendOTP}
-          resendOtp={resendOtp}
           pwd={pwd}
           setPwd={setPwd}
           verifyOTP={verifyOTP}

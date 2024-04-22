@@ -6,7 +6,7 @@ import CreateMeetingOptions from './CreateMeetingOptions';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Products from './Products';
 import { ClipLoader } from 'react-spinners';
 import toast from 'react-hot-toast';
@@ -45,6 +45,7 @@ export default function LoginSuccessful({
           },
         }
       );
+      console.log(response);
       const data = response;
       console.log(data);
       setLoading(false);

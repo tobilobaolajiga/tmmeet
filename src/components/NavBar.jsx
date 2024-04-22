@@ -15,8 +15,8 @@ export default function NavBar({
   otp,
   setOTP,
   showOtp,
+  sendOTP,
   resendOTP,
-  resendOtp,
   closeCreate,
   showCreateAccount,
   newAccount,
@@ -90,7 +90,6 @@ export default function NavBar({
         resendOTP={resendOTP}
         setNewAccount={setNewAccount}
         closeCreate={closeCreate}
-        resendOtp={resendOtp}
         setLogin={setLogin}
         verifyOTP={verifyOTP}
         inputOne={inputOne}
@@ -113,8 +112,8 @@ export default function NavBar({
         otp={otp}
         setOTP={setOTP}
         showOtp={showOtp}
+        sendOTP={sendOTP}
         resendOTP={resendOTP}
-        resendOtp={resendOtp}
         closeCreate={closeCreate}
         name={name}
         setName={setName}

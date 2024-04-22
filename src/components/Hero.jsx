@@ -56,9 +56,9 @@ export default function Hero({
               Join Meeting
             </button>
           </div>
-          <div className="flex gap-[12px]">
+          <div className="flex gap-[12px] relative">
             <button
-              className="flex gap-2 items-center bg-[#36AAD9] rounded-lg text-white font-medium border-none outline-none px-4 py-[9px] text-[15px] relative"
+              className="flex gap-2 items-center bg-[#36AAD9] rounded-lg text-white font-medium border-none outline-none px-4 py-[9px] text-[15px]"
               onClick={showOptions}
             >
               <img src="/video.svg" alt="" className="w-[20px] h-[20px]" />

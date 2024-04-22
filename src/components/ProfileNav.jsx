@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Products from './Products';
 
 export default function ProfileNav({
@@ -8,13 +8,14 @@ export default function ProfileNav({
   showProducts,
   products,
 }) {
-  const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem('userData'))
-  );
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    setUserData(userData);
-  }, []);
+  const refreshed = useRef(false);
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  // useEffect(() => {
+  //   if (!refreshed.current) {
+  //     // window.location.assign(window.location.pathname);
+  //     refreshed.current = true;
+  //   }
+  // }, []);
 
   return (
     <div>

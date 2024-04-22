@@ -18,7 +18,7 @@ export default function Home({
   showOtp,
   resendOTP,
   closeCreate,
-  resendOtp,
+
   newAccount,
   setNewAccount,
   showCreateAccount,
@@ -48,6 +48,7 @@ export default function Home({
   setIsLoading,
   products,
   showProducts,
+  sendOTP,
 }) {
   return (
     <div>
@@ -65,7 +66,7 @@ export default function Home({
         showOtp={showOtp}
         resendOTP={resendOTP}
         closeCreate={closeCreate}
-        resendOtp={resendOtp}
+        sendOTP={sendOTP}
         newAccount={newAccount}
         setNewAccount={setNewAccount}
         showCreateAccount={showCreateAccount}

@@ -37,8 +37,8 @@ export default function App() {
   const showLogin = () => {
     setLogin(!login);
 
-    const body = document.querySelector('#body');
-    body.style.position = 'fixed';
+    // const body = document.querySelector('#body');
+    // body.style.position = 'fixed';
   };
 
   const closeLogin = () => {
@@ -86,10 +86,15 @@ export default function App() {
       console.log(userId);
       console.log(response);
       setLoading(false);
+      setPassword(false);
+
       setOTP(!otp);
+
       setPassword(false);
     } catch (error) {
       setLoading(false);
+      showLogin();
+      setPassword(false);
       setError(error.response.data.message);
       toast.error(error.response.data.message);
       console.log(error.response.data.status);
@@ -230,8 +235,8 @@ export default function App() {
                 otp={otp}
                 setOTP={setOTP}
                 showOtp={showOtp}
+                sendOTP={sendOTP}
                 resendOTP={resendOTP}
-                resendOtp={resendOtp}
                 closeCreate={closeCreate}
                 newAccount={newAccount}
                 setNewAccount={setNewAccount}

@@ -16,6 +16,7 @@ export default function CreatePassword({
   otp,
   setOTP,
   showOtp,
+  sendOTP,
   resendOTP,
   resendOtp,
   pwd,
@@ -229,7 +230,7 @@ export default function CreatePassword({
                   opacity: pwd && confirm && pwd === confirmPass ? 1 : 0.5,
                 }}
                 className="bg-[#36AAD9] text-white w-full py-[8px] rounded-md mt-[12px] text-[10px] opacity-50"
-                onClick={showOtp}
+                onClick={sendOTP}
               >
                 {loading ? (
                   <ClipLoader color="#36D7B7" loading={loading} size={18} />
