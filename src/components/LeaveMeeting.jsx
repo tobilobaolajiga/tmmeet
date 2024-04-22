@@ -1,7 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-export default function LeaveMeeting() {
+export default function LeaveMeeting({
+  setIsAudioOn,
+  setIsVideoOn,
+  isAudioOn,
+  isVideoOn,
+}) {
   const navigate = useNavigate();
   const leaveMeeting = () => {
+    setIsAudioOn(false);
+    setIsVideoOn(false);
     navigate('/leave');
   };
   return (

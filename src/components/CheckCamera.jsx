@@ -198,6 +198,8 @@ export default function CheckCamera({
           meetingName={meetingName}
           setMeetingName={setMeetingName}
           meetingLink={meetingLink}
+          setIsAudioOn={setIsAudioOn}
+          setIsVideoOn={setIsVideoOn}
         />
       )}
       {/* {GuestVideoLive && (

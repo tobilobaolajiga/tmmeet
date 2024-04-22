@@ -9,7 +9,7 @@ export default function AfterLeaveMeeting() {
   return (
     <div>
       <div>Countdown</div>
-      <div className="flex justify-center ">
+      <div className="flex justify-center items-center flex-col ">
         <p>You've left the meeting</p>
         <div className="flex gap-2 mt-4">
           <button className="text-[#36aad9] bg-white px-4 py-2">Rejoin</button>

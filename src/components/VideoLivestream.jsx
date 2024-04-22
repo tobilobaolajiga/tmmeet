@@ -19,6 +19,8 @@ export default function VideoLiveStream({
   setMeetingName,
   meetingLink,
   guestId,
+  setIsAudiOn,
+  setIsVideoOn,
 }) {
   // const [admit, setAdmit] = useState(false);
   // const navigate = useNavigate();
@@ -305,7 +307,12 @@ export default function VideoLiveStream({
               link={localStorage.getItem('meeting')}
               meetingLink={meetingLink}
             />
-            <LeaveMeeting />
+            <LeaveMeeting
+              isAudioOn={isAudioOn}
+              isVideoOn={isVideoOn}
+              setIsVideoOn={setIsVideoOn}
+              setIsAudioOn={setIsAudiOn}
+            />
           </div>
         )}
       </div>
