@@ -151,6 +151,7 @@ export default function LoginSuccessful({
                           color="#36D7B7"
                           loading={loading}
                           size={16}
+                          className="flex justify-center"
                         />
                       ) : (
                         'Start a meeting now'

@@ -7,12 +7,12 @@ export default function LeaveMeeting({
 }) {
   const navigate = useNavigate();
   const leaveMeeting = () => {
-    setIsAudioOn(false);
-    setIsVideoOn(false);
+    // setIsAudioOn(false);
+    // setIsVideoOn(false);
     navigate('/leave');
   };
   return (
-    <div className="absolute top-4 right-10">
+    <div className="absolute top-4 right-[150px]">
       <button
         className="bg-[red] rounded text-white text-center py-2 px-4 font-medium "
         onClick={leaveMeeting}

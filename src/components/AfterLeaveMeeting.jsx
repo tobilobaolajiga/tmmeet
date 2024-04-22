@@ -7,7 +7,7 @@ export default function AfterLeaveMeeting() {
   };
 
   return (
-    <div>
+    <div className="h-screen w-screen">
       <div>Countdown</div>
       <div className="flex justify-center items-center flex-col ">
         <p>You've left the meeting</p>
