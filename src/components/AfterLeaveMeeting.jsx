@@ -5,11 +5,21 @@ export default function AfterLeaveMeeting() {
     localStorage.removeItem('meeting');
     navigate('/');
   };
+  //   const rejoin = () => {
+  //     navigate(`/video/${meetingCode}`, {
+  //         state: {
+  //           isVideoOn,
+  //           isAudioOn,
+  //           displayName,
+  //           meetingName,
+  //         },
+  //       })
+  //   };
 
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen flex justify-center">
       <div>Countdown</div>
-      <div className="flex justify-center items-center flex-col ">
+      <div className=" items-center flex-col ">
         <p>You've left the meeting</p>
         <div className="flex gap-2 mt-4">
           <button className="text-[#36aad9] bg-white px-4 py-2">Rejoin</button>

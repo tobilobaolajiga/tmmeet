@@ -9,6 +9,8 @@ export default function LeaveMeeting({
   const leaveMeeting = () => {
     // setIsAudioOn(false);
     // setIsVideoOn(false);
+    if (isVideoOn) {
+    }
     navigate('/leave');
   };
   return (
