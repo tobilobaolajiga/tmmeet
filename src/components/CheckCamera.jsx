@@ -107,7 +107,7 @@ export default function CheckCamera({
     console.log('hhhhhhhhhhhhhhhh', userRequest);
     socket.emit('message', userRequest);
   };
-  const meetingCode = localStorage.getItem('meeting').substring(33, 64);
+  const meetingCode = localStorage.getItem('meeting').substring(32, 68);
   const showVideoLiveStream = () => {
     displayName
       ? navigate(`/video/${meetingCode}`, {
