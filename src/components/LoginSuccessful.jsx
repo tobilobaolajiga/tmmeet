@@ -193,7 +193,6 @@ export default function LoginSuccessful({
           showProfDrop={showProfDrop}
           setProfileDrop={setProfileDrop}
         />
-        <Products products={products} showProducts={showProducts} />
       </div>
     </div>
   );
