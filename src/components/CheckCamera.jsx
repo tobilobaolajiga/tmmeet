@@ -168,7 +168,7 @@ export default function CheckCamera({
                 </button>
               </div>
               <button
-                className="border bg-[] text-white text-center py-[10px] rounded-md flex justify-center w-full text-[11px] mt-8 mb-4 "
+                className="border bg-[#36aad9] text-white text-center py-[10px] rounded-md flex justify-center w-full text-[11px] mt-8 mb-4 "
                 onClick={onClick}
               >
                 {loading ? (
