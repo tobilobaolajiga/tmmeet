@@ -52,7 +52,7 @@ export default function LoginSuccessful({
       window.location.href = data?.data?.data;
       localStorage.setItem('meeting', data?.data?.data);
       localStorage.setItem('videoId', data?.data?.referenceId);
-      console.log(data?.data);
+      console.log(data);
     } catch (error) {
       setLoading(false);
       toast.error(error.response);

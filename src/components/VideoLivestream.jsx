@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import ioClient from 'socket.io-client';
+import LeaveMeeting from './LeaveMeeting';
 export default function VideoLiveStream({
   displayName,
   isAudioOn,
@@ -41,7 +42,7 @@ export default function VideoLiveStream({
     // };
     socket.on('connect', () => {
       console.log('Connected to server');
-      socket.emit('joinRoom', '3');
+      socket.emit('joinRoom', userId);
     });
 
     // Listen for 'disconnect' event
@@ -304,6 +305,7 @@ export default function VideoLiveStream({
               link={localStorage.getItem('meeting')}
               meetingLink={meetingLink}
             />
+            <LeaveMeeting />
           </div>
         )}
       </div>

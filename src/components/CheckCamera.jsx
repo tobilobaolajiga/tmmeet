@@ -31,39 +31,32 @@ export default function CheckCamera({
   const [userAgent, setUserAgent] = useState('');
   const navigate = useNavigate();
 
-  const generateUniqueId = () => {
-    // Check if the unique ID is already stored in localStorage
-    let userAgent = localStorage.getItem('userAgent');
-
-    // If not stored, generate a new unique ID
-    if (!userAgent) {
-      userAgent =
-        Math.random().toString(36).substring(2) + Date.now().toString(36);
-
-      // Store the generated unique ID in localStorage
-      userAgent = userAgent.substring(0, 6);
-      localStorage.setItem('userAgent', userAgent);
-    }
-
-    return userAgent;
-  };
+  // const generateUniqueId = () => {
+  // Check if the unique ID is already stored in localStorage
+  // let userAgent = localStorage.getItem('userAgent');
+  // // If not stored, generate a new unique ID
+  // if (!userAgent) {
+  //   userAgent =
+  //     Math.random().toString(36).substring(2) + Date.now().toString(36);
+  //   // Store the generated unique ID in localStorage
+  //   userAgent = userAgent.substring(0, 6);
+  //   localStorage.setItem('userAgent', userAgent);
+  // };
 
   // Get or generate a unique user ID
   const socket = ioClient('ws://api-meet.tm-dev.xyz');
-  const hostAgent = localStorage.getItem('hostAgent');
+
   useEffect(() => {
-    if (!localStorage.getItem('hostAgent')) {
-      const userAgent = generateUniqueId();
-      setUserAgent(userAgent);
-      console.log(userAgent);
-    }
-    console.log(userAgent);
+    const user = navigator.userAgent;
+    setUserAgent(user);
+    console.log(user);
+    localStorage.setItem('userAgent', user);
 
     // };
     socket.on('connect', (data) => {
       socket.emit('joinRoom', userAgent);
       console.log(data.message);
-      console.log(userAgent && hostAgent);
+
       // navigate(`/video/${meetingCode}`, {
       //   state: {
       //     isVideoOn,
@@ -120,8 +113,10 @@ export default function CheckCamera({
         })
       : toast.error('Set Display Name');
   };
+  const hostAgent = localStorage.getItem('hostAgent');
   const onClick = () => {
-    if (localStorage.getItem('hostAgent')) {
+    if (hostAgent == userAgent) {
+      console.log(hostAgent, userAgent);
       showVideoLiveStream();
     } else {
       sendRequest();
