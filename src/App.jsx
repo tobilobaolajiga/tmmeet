@@ -37,7 +37,7 @@ export default function App() {
 
   const showLogin = () => {
     setLogin(!login);
-
+    setNewAccount(false);
     // const body = document.querySelector('#body');
     // body.style.position = 'fixed';
   };

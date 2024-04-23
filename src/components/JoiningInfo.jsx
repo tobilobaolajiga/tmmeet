@@ -32,21 +32,39 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
                 Send the link to invite people to join meeting. Make sure you
                 save the link for future purpose.
               </p>
-              <div className="relative ">
+              {/* <div className="relative ">
                 <input
                   type="text"
                   className="w-full border border-[#D0D5DD] bg-[#F4F4F4] py-[2px] px-[3px] my-[12px] rounded-lg shadow-sm"
                 />
-                <p className="absolute text-[8px] text-[#667085] left-2 bottom-[14px] font-inter tracking-tight    ">
+                <p className="absolute text-[8px] text-[#667085] left-2 bottom-[20px] font-inter tracking-tight w-[200px] overflow-x-clip text-nowrap  ">
                   <span className="">{localStorage.getItem('meetingId')}</span>
                   <img
                     width={14}
                     src="/tabler_copy.svg"
                     alt=""
-                    className="absolute bottom-[4px] right-[6px]"
+                    className="absolute bottom-[4px] right-0"
                     onClick={copyToClipboard}
                   />
                 </p>
+              </div> */}
+              <div className="relative">
+                <input
+                  type="text"
+                  className="w-full border border-[#D0D5DD] bg-[#F4F4F4] py-[2px] px-[3px] my-[4px] rounded-lg shadow-sm "
+                />
+                <div className="absolute text-[9px]  text-[#667085] left-2 bottom-[12px] font-inter tracking-tight text-nowrap">
+                  <p className="w-[200px] overflow-x-clip">
+                    <span>{localStorage.getItem('meetingId')}</span>
+                  </p>
+                  <img
+                    width={14}
+                    src="/tabler_copy.svg"
+                    alt=""
+                    className="absolute -top-[1px] -right-[18px]"
+                    onClick={copyToClipboard}
+                  />
+                </div>
               </div>
             </div>
 
@@ -126,4 +144,18 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
       )}
     </div>
   );
+}
+{
+  /* <div className="absolute text-[9px]  text-[#667085] left-2 bottom-[12px] font-inter tracking-tight text-nowrap">
+  <p className="w-[220px] overflow-x-clip">
+    {`${window.location.origin}/check/${meetingDetails.meetingId}`}
+    <img
+      width={16}
+      src="/tabler_copy.svg"
+      alt=""
+      className="absolute -top-[2px] -right-[40px]"
+      onClick={copyToClipboard}
+    />
+  </p>
+</div>; */
 }

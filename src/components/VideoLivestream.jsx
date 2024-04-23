@@ -165,7 +165,7 @@ export default function VideoLiveStream({
     //   return;
     // }
 
-    const domain = 'meet.tm30.net';
+    const domain = 'https://meet.tm30.net';
 
     const options = {
       roomName: meetingName || state.meetingName,
@@ -307,12 +307,14 @@ export default function VideoLiveStream({
               link={localStorage.getItem('meeting')}
               meetingLink={meetingLink}
             />
-            <LeaveMeeting
-              isAudioOn={isAudioOn}
-              isVideoOn={isVideoOn}
-              setIsVideoOn={setIsVideoOn}
-              setIsAudioOn={setIsAudiOn}
-            />
+            {!jitsiLoading && (
+              <LeaveMeeting
+                isAudioOn={isAudioOn}
+                isVideoOn={isVideoOn}
+                setIsVideoOn={setIsVideoOn}
+                setIsAudioOn={setIsAudiOn}
+              />
+            )}
           </div>
         )}
       </div>

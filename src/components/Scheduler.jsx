@@ -362,7 +362,7 @@ export default function Scheduler({
                 <input
                   type="text"
                   placeholder="Add guest"
-                  className="border rounded w-3/4 mt-[6px] px-8 placeholder:text-[9px] placeholder:font-inter outline-none"
+                  className="border rounded w-3/4 mt-[6px] px-8 placeholder:text-[9px] text-[9px] placeholder:font-inter outline-none"
                 />
                 <img
                   src="/people.svg"
