@@ -165,7 +165,7 @@ export default function VideoLiveStream({
     //   return;
     // }
 
-    const domain = 'https://meet.tm30.net';
+    const domain = 'media.partyrime.ng';
 
     const options = {
       roomName: meetingName || state.meetingName,
