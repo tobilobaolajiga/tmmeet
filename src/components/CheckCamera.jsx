@@ -44,7 +44,7 @@ export default function CheckCamera({
   // };
 
   // Get or generate a unique user ID
-  const socket = ioClient('ws://api-meet.tm-dev.xyz');
+  const socket = ioClient('wss://api-meet.tm-dev.xyz');
 
   useEffect(() => {
     const user = navigator.userAgent;

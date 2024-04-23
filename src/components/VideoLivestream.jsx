@@ -27,7 +27,7 @@ export default function VideoLiveStream({
   // };
 
   const [guestRequest, setGuestRequest] = useState(false);
-  const socket = ioClient('ws://api-meet.tm-dev.xyz');
+  const socket = ioClient('wss://api-meet.tm-dev.xyz');
   useEffect(() => {
     // socket.on('joinRoom', (userId) => {
     //   console.log('MY USER ID:', userId);
