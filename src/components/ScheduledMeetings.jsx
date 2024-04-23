@@ -102,7 +102,7 @@ export default function ScheduledMeeting({
               {repeatBtn}
             </button>
           </div>
-          <div className="mx-6 mt-2 ">
+          {/* <div className="mx-6 mt-2 ">
             <p className="flex gap-2 text-[10px] font-medium">
               <img src="/people.svg" alt="" width={15} />
               Guests
@@ -125,7 +125,7 @@ export default function ScheduledMeeting({
                 </span>
               </p>
             </div>
-          </div>
+          </div> */}
           <div className="mx-6 mt-2 text-[#344054]">
             <p className="flex gap-2 text-[10px] font-medium mt-4 font-inter">
               <img src="/description.svg" alt="" width={15} />
