@@ -16,9 +16,7 @@ export default function VideoLiveStream({
   isAudioOn,
   isVideoOn,
   meetingName,
-  setMeetingName,
   meetingLink,
-  guestId,
   setIsAudiOn,
   setIsVideoOn,
 }) {
@@ -76,7 +74,10 @@ export default function VideoLiveStream({
   const videoId = localStorage.getItem('videoId');
   const token = localStorage.getItem('userToken');
   const userId = localStorage.getItem('userId');
-  const meetingCode = localStorage.getItem('meeting').substring(33, 64);
+  const meetingCode =
+    localStorage.getItem('meeting') === ''
+      ? ''
+      : localStorage.getItem('meeting').substring(33, 64);
 
   const admitGuest = async () => {
     try {
@@ -168,7 +169,7 @@ export default function VideoLiveStream({
     const domain = 'media.partytime.ng';
 
     const options = {
-      roomName: meetingName || state.meetingName,
+      roomName: meetingName,
       width: '100%',
       height: '100%',
       parentNode: document.querySelector('#meet'),

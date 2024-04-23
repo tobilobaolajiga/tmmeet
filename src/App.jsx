@@ -87,7 +87,6 @@ export default function App() {
       console.log(userId);
       console.log(response);
       setLoading(false);
-      setPassword(false);
 
       setOTP(!otp);
 
@@ -151,6 +150,7 @@ export default function App() {
     new Date(currentDate.getTime() + 60 * 1000)
   );
   const token = localStorage.getItem('userToken');
+
   const meetingLink = async () => {
     navigator;
     const startTime = `${currentDate.getFullYear()}-${(

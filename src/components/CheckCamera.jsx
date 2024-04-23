@@ -100,7 +100,10 @@ export default function CheckCamera({
     console.log('hhhhhhhhhhhhhhhh', userRequest);
     socket.emit('message', userRequest);
   };
-  const meetingCode = localStorage.getItem('meeting').substring(32, 68);
+  const meetingCode =
+    localStorage.getItem('meeting') === ''
+      ? ''
+      : localStorage.getItem('meeting').substring(32, 68);
   const showVideoLiveStream = () => {
     displayName
       ? navigate(`/video/${meetingCode}`, {
@@ -202,16 +205,6 @@ export default function CheckCamera({
           setIsVideoOn={setIsVideoOn}
         />
       )}
-      {/* {GuestVideoLive && (
-        <GuestVideoLive
-          displayName={displayName}
-          isVideoOn={isVideoOn}
-          isAudioOn={isAudioOn}
-          meetingName={meetingName}
-          setMeetingName={setMeetingName}
-          meetingLink={meetingLink}
-        />
-      )} */}
     </div>
   );
 }
