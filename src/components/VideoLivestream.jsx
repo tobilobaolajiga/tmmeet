@@ -165,7 +165,7 @@ export default function VideoLiveStream({
     //   return;
     // }
 
-    const domain = 'media.partyrime.ng';
+    const domain = 'media.partytime.ng';
 
     const options = {
       roomName: meetingName || state.meetingName,
