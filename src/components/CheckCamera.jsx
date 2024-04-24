@@ -90,7 +90,7 @@ export default function CheckCamera({
     });
   }, []);
   const userId = localStorage.getItem('userId');
-  const userId = localStorage.getItem('roomId');
+  const roomId = localStorage.getItem('roomId');
   const userRequest = {
     room: roomId,
     id: userAgent,
@@ -121,13 +121,16 @@ export default function CheckCamera({
         }
       );
 
-      localStorage.setItem('meetingRef', response?.data?.data?.meetingId);
-      localStorage.setItem('meeting', JSON.stringify(response?.data?.data));
+      localStorage.setItem('meetId', response?.data?.data?.meetingId);
+      localStorage.setItem(
+        'meetingDeets',
+        JSON.stringify(response?.data?.data)
+      );
       localStorage.setItem(
         'roomId',
         JSON.stringify(response?.data?.data?.userId)
       );
-      console.log(localStorage.getItem('meeting'));
+      console.log(localStorage.getItem('meetingDeets'));
     } catch (error) {
       console.log(error);
       // console.log(error.response.data.status);
