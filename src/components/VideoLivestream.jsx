@@ -75,9 +75,9 @@ export default function VideoLiveStream({
   const token = localStorage.getItem('userToken');
   const userId = localStorage.getItem('userId');
   const meetingCode =
-    localStorage.getItem('meeting') === ''
+    localStorage.getItem('meetingCode') === ''
       ? ''
-      : localStorage.getItem('meeting').substring(33, 64);
+      : localStorage.getItem('meetingCode');
 
   const admitGuest = async () => {
     try {
