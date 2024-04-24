@@ -144,7 +144,9 @@ export default function App() {
     showCreateAccount();
   };
   const userData = JSON.parse(localStorage.getItem('userData'));
-  const [meetingName, setMeetingName] = useState('Meeting');
+  const meetingName = JSON.parse(
+    localStorage.getItem('meetingDeets')
+  ).meetingName;
   const [currentDate, setCurrentDate] = useState(new Date());
   const [nextDate, setNextDate] = useState(
     new Date(currentDate.getTime() + 60 * 1000)
@@ -204,7 +206,6 @@ export default function App() {
       // localStorage.setItem('refId', response?.data?.referenceId);
       console.log(response?.data?.data?.meetingLink);
       console.log(response?.data?.referenceId);
-      setMeetingName(response.data.data.meetingName);
     } catch (error) {
       toast.error(error.message);
       console.log(error.status);
@@ -306,7 +307,6 @@ export default function App() {
                 showProfDrop={showProfDrop}
                 meetingLink={meetingLink}
                 meetingName={meetingName}
-                setMeetingName={setMeetingName}
               />
             }
           />

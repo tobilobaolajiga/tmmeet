@@ -19,7 +19,6 @@ export default function CheckCamera({
   setProfileDrop,
   meetingLink,
   meetingName,
-  setMeetingName,
 }) {
   const [loading, setLoading] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(true);
@@ -221,7 +220,6 @@ export default function CheckCamera({
           isVideoOn={isVideoOn}
           isAudioOn={isAudioOn}
           meetingName={meetingName}
-          setMeetingName={setMeetingName}
           meetingLink={meetingLink}
           setIsAudioOn={setIsAudioOn}
           setIsVideoOn={setIsVideoOn}
