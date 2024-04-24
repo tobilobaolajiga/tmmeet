@@ -67,7 +67,7 @@ export default function CheckCamera({
     });
 
     socket.on('message', (data) => {
-      socket.emit('joinRoom', userAgent);
+      socket.emit('joinRoom', roomId);
       console.log(data.message);
       if (data.message == 'Allow') {
         navigate(`/video/${meetingCode}`, {
