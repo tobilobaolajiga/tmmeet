@@ -56,7 +56,7 @@ export default function CheckCamera({
 
     // };
     socket.on('connect', (data) => {
-      socket.emit('joinRoom', userAgent);
+      socket.emit('joinRoom', roomId);
       console.log(data.message);
 
       // navigate(`/video/${meetingCode}`, {
@@ -90,8 +90,9 @@ export default function CheckCamera({
     });
   }, []);
   const userId = localStorage.getItem('userId');
+  const userId = localStorage.getItem('roomId');
   const userRequest = {
-    room: userId,
+    room: roomId,
     id: userAgent,
     name: displayName,
     message: `${displayName} wants to join`,
@@ -122,6 +123,10 @@ export default function CheckCamera({
 
       localStorage.setItem('meetingRef', response?.data?.data?.meetingId);
       localStorage.setItem('meeting', JSON.stringify(response?.data?.data));
+      localStorage.setItem(
+        'roomId',
+        JSON.stringify(response?.data?.data?.userId)
+      );
       console.log(localStorage.getItem('meeting'));
     } catch (error) {
       console.log(error);
