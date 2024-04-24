@@ -68,7 +68,7 @@ export default function Login({
           'userData',
           JSON.stringify(response?.data?.data?.user)
         );
-        localStorage.setItem('userId', error?.response?.data?.data?.userId);
+        localStorage.setItem('userId', response?.data?.data?.user?.id);
 
         console.log(response);
       } catch (error) {
