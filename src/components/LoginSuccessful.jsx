@@ -49,9 +49,10 @@ export default function LoginSuccessful({
       const data = response;
       console.log(data);
       setLoading(false);
-      window.location.href = data?.data?.data;
       localStorage.setItem('meeting', data?.data?.data);
       localStorage.setItem('videoId', data?.data?.referenceId);
+      window.location.href = data?.data?.data;
+
       console.log(data);
     } catch (error) {
       setLoading(false);

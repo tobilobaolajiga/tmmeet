@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import ProfileDropdown from './ProfileDropdown';
 import fakeUa from 'fake-useragent';
+import axios from 'axios';
 
 import ioClient from 'socket.io-client';
 // import { io } from 'socket.io-client';
@@ -51,6 +52,7 @@ export default function CheckCamera({
     setUserAgent(user);
     console.log(user);
     localStorage.setItem('userAgent', user);
+    getDetails();
 
     // };
     socket.on('connect', (data) => {
@@ -100,10 +102,33 @@ export default function CheckCamera({
     console.log('hhhhhhhhhhhhhhhh', userRequest);
     socket.emit('message', userRequest);
   };
+  const token = localStorage.getItem('userToken');
+
   const meetingCode =
     localStorage.getItem('meeting') === ''
       ? ''
       : localStorage.getItem('meeting').substring(32, 68);
+  const getDetails = async (meetingCode) => {
+    try {
+      const response = await axios.get(
+        `https://api-meet.tm-dev.xyz/api/v1/meeting/particular/${meetingCode}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      localStorage.setItem('meetingRef', response?.data?.data?.meetingId);
+      localStorage.setItem('meeting', JSON.stringify(response?.data?.data));
+      console.log(localStorage.getItem('meeting'));
+    } catch (error) {
+      console.log(error);
+      // console.log(error.response.data.status);
+      console.log(error.message);
+    }
+  };
   const showVideoLiveStream = () => {
     displayName
       ? navigate(`/video/${meetingCode}`, {
