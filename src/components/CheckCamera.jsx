@@ -52,7 +52,7 @@ export default function CheckCamera({
     setUserAgent(user);
     console.log(user);
     localStorage.setItem('userAgent', user);
-    getDetails();
+    getDetails(meetingCode);
 
     // };
     socket.on('connect', (data) => {
@@ -104,10 +104,10 @@ export default function CheckCamera({
   };
   const token = localStorage.getItem('userToken');
 
-  // const meetingCode =
-  //   localStorage.getItem('meeting') === ''
-  //     ? ''
-  //     : localStorage.getItem('meeting').substring(32, 68);
+  const meetingCode =
+    localStorage.getItem('meeting') === ''
+      ? ''
+      : localStorage.getItem('meeting').substring(32, 68);
   const getDetails = async (meetingCode) => {
     try {
       const response = await axios.get(

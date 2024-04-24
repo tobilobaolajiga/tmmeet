@@ -68,6 +68,8 @@ export default function Login({
           'userData',
           JSON.stringify(response?.data?.data?.user)
         );
+        localStorage.setItem('userId', error?.response?.data?.data?.userId);
+
         console.log(response);
       } catch (error) {
         toast.error(error.message);
