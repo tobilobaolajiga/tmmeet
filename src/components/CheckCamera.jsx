@@ -18,7 +18,6 @@ export default function CheckCamera({
   showProfDrop,
   setProfileDrop,
   meetingLink,
-  meetingName,
 }) {
   const [loading, setLoading] = useState(false);
   const [isVideoOn, setIsVideoOn] = useState(true);
@@ -109,7 +108,7 @@ export default function CheckCamera({
         }
       );
 
-      localStorage.setItem('meetId', response?.data?.data?.meetingId);
+      localStorage.setItem('meetingName', response?.data?.data?.meetingName);
       localStorage.setItem(
         'meetingDeets',
         JSON.stringify(response?.data?.data)
@@ -125,6 +124,7 @@ export default function CheckCamera({
       console.log(error.message);
     }
   };
+  const meetingName = localStorage.getItem('meetingName');
   const showVideoLiveStream = () => {
     displayName
       ? navigate(`/video/${meetingCode}`, {
