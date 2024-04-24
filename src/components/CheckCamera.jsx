@@ -82,7 +82,7 @@ export default function CheckCamera({
   const userId = localStorage.getItem('userId');
   const roomId = localStorage.getItem('roomId');
   const userRequest = {
-    room: roomId,
+    room: meetingName,
     id: userAgent,
     name: displayName,
     message: `${displayName} wants to join`,
