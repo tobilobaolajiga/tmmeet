@@ -32,22 +32,14 @@ export default function CheckCamera({
   const [userAgent, setUserAgent] = useState('');
   const navigate = useNavigate();
 
-  // const generateUniqueId = () => {
-  // Check if the unique ID is already stored in localStorage
-  // let userAgent = localStorage.getItem('userAgent');
-  // // If not stored, generate a new unique ID
-  // if (!userAgent) {
-  //   userAgent =
-  //     Math.random().toString(36).substring(2) + Date.now().toString(36);
-  //   // Store the generated unique ID in localStorage
-  //   userAgent = userAgent.substring(0, 6);
-  //   localStorage.setItem('userAgent', userAgent);
-  // };
-
   // Get or generate a unique user ID
   const socket = ioClient('wss://api-meet.tm-dev.xyz');
 
   useEffect(() => {
+    const url = window.location.href;
+    const meetingCode = url.substring(32, 68);
+    localStorage.setItem('meetingCode', meetingCode);
+
     const user = navigator.userAgent;
     setUserAgent(user);
     console.log(user);
@@ -105,10 +97,7 @@ export default function CheckCamera({
   };
   const token = localStorage.getItem('userToken');
 
-  const meetingCode =
-    localStorage.getItem('meeting') === ''
-      ? ''
-      : localStorage.getItem('meeting').substring(32, 68);
+  const meetingCode = localStorage.getItem('meetingCode');
   const getDetails = async (meetingCode) => {
     try {
       const response = await axios.get(
