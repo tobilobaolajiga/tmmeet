@@ -67,16 +67,15 @@ export default function CheckCamera({
     socket.on('message', (data) => {
       socket.emit('joinRoom', roomId);
       console.log(data.message);
-      if (data.message == 'Allow') {
-        navigate(`/video/${meetingCode}`, {
-          state: {
-            isVideoOn,
-            isAudioOn,
-            displayName,
-            meetingName,
-          },
-        });
-      }
+
+      navigate(`/video/${meetingCode}`, {
+        state: {
+          isVideoOn,
+          isAudioOn,
+          displayName,
+          meetingName,
+        },
+      });
     });
   }, []);
   const userId = localStorage.getItem('userId');
