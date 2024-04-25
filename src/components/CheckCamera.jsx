@@ -67,7 +67,7 @@ export default function CheckCamera({
     socket.on('message', (data) => {
       socket.emit('joinRoom', userId);
       console.log(data.data.message);
-      if (data.data.message == 'Done') {
+      if (data.message == 'Allow') {
         navigate(`/video/${meetingCode}`, {
           state: {
             isVideoOn,

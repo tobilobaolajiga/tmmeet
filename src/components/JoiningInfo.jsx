@@ -61,7 +61,7 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
                     width={14}
                     src="/tabler_copy.svg"
                     alt=""
-                    className="absolute bottom-[1px] -right-[10px]"
+                    className="absolute bottom-[1px] -right-[6px]"
                     onClick={copyToClipboard}
                   />
                 </div>
@@ -78,7 +78,7 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
                 <input
                   type="text"
                   placeholder="TMmail"
-                  className="w-full border border-[#D0D5DD] bg-white px-4 py-[2px] my-[11px] rounded-lg placeholder:text-[#667085] placeholder:opacity-50 placeholder:text-[9px] shadow-sm placeholder:tracking-tighter"
+                  className="w-full border border-[#D0D5DD] bg-white px-4 py-[2px] my-[11px] rounded-lg placeholder:text-[#667085] placeholder:opacity-50 placeholder:text-[9px] shadow-sm placeholder:tracking-tighter outline-none text-[9px]"
                 />
 
                 <button className="bg-[#36AAD9] text-white rounded px-[9px] py-[3px] text-[9px] absolute bottom-[16px] right-[10px]">
