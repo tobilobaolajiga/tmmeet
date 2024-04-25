@@ -144,9 +144,9 @@ export default function App() {
     showCreateAccount();
   };
   const userData = JSON.parse(localStorage.getItem('userData'));
-  const meetingName = JSON.parse(
-    localStorage.getItem('meetingDeets')
-  ).meetingName;
+  // const meetingName = JSON.parse(
+  //   localStorage.getItem('meetingDeets')
+  // ).meetingName;
   const [currentDate, setCurrentDate] = useState(new Date());
   const [nextDate, setNextDate] = useState(
     new Date(currentDate.getTime() + 60 * 1000)
@@ -306,7 +306,7 @@ export default function App() {
                 setProfileDrop={setProfileDrop}
                 showProfDrop={showProfDrop}
                 meetingLink={meetingLink}
-                meetingName={meetingName}
+                // meetingName={meetingName}
               />
             }
           />
