@@ -40,9 +40,9 @@ export default function CheckCamera({
 
     const user = uuidv4();
     setUserAgent(user);
-    console.log(user);
-    localStorage.setItem('userAgent', user);
-    getDetails(meetingCode);
+    console.log(userAgent);
+    // localStorage.setItem('userAgent', user);
+    // getDetails(meetingCode);
 
     // };
     socket.on('connect', (data) => {
