@@ -173,7 +173,7 @@ export default function Scheduler({
     <div>
       {scheduler && (
         <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer ">
-          <div className="w-fit rounded-xl mx-auto h-fit my-[60px] bg-white relative">
+          <div className="w-fit rounded-xl mx-auto h-fit flex justify-center bg-white relative">
             <div className="border-b">
               <img
                 src="/cross.svg"
@@ -335,7 +335,7 @@ export default function Scheduler({
                     <img
                       src="/clock.svg"
                       alt=""
-                      className="absolute right-[160px]"
+                      className="absolute right-[50px]"
                       width={13}
                     />
                   </div>
@@ -362,7 +362,7 @@ export default function Scheduler({
                 <input
                   type="text"
                   placeholder="Add guest"
-                  className="border rounded w-3/4 mt-[6px] px-8 placeholder:text-[9px] text-[9px] placeholder:font-inter outline-none"
+                  className="border rounded w-3/4 mt-[6px] px-8 py-2 placeholder:text-[9px] text-[9px] placeholder:font-inter outline-none"
                 />
                 <img
                   src="/people.svg"
@@ -378,18 +378,17 @@ export default function Scheduler({
                 />
               </div>
             </div>
-            <div className=" relative">
-              <button
-                onClick={scheduleMeeting}
-                className="border bg-[#36AAD9] px-[12px] py-[4px] rounded text-white text-[9px] absolute right-6"
-              >
-                {loading ? (
-                  <ClipLoader color="#36D7B7" loading={loading} size={16} />
-                ) : (
-                  'Save'
-                )}
-              </button>
-            </div>
+
+            <button
+              onClick={scheduleMeeting}
+              className="border bg-[#36AAD9] px-[12px] py-[4px] rounded text-white text-[9px] right-6 my-4"
+            >
+              {loading ? (
+                <ClipLoader color="#36D7B7" loading={loading} size={16} />
+              ) : (
+                'Save'
+              )}
+            </button>
           </div>
         </div>
       )}
