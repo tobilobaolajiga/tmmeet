@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import VideoPreview from './VideoPreview';
 import VideoLiveStream from './VideoLivestream';
-
+import { v4 as uuidv4 } from 'uuid';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import ProfileDropdown from './ProfileDropdown';
@@ -38,7 +38,7 @@ export default function CheckCamera({
     const meetingCode = url.substring(32, 68);
     localStorage.setItem('meetingCode', meetingCode);
 
-    const user = navigator.userAgent;
+    const user = uuidv4();
     setUserAgent(user);
     console.log(user);
     localStorage.setItem('userAgent', user);
@@ -46,7 +46,7 @@ export default function CheckCamera({
 
     // };
     socket.on('connect', (data) => {
-      socket.emit('joinRoom', userId);
+      socket.emit('joinRoom', userAgent);
       console.log(data.message);
 
       // navigate(`/video/${meetingCode}`, {
@@ -65,7 +65,7 @@ export default function CheckCamera({
     });
 
     socket.on('message', (data) => {
-      socket.emit('joinRoom', userId);
+      // socket.emit('joinRoom', userId);
       console.log(data.data.message);
       if (data.message == 'Allow') {
         navigate(`/video/${meetingCode}`, {
@@ -139,7 +139,7 @@ export default function CheckCamera({
   };
   const hostAgent = localStorage.getItem('hostAgent');
   const onClick = () => {
-    if (hostAgent == userAgent) {
+    if (hostAgent && userAgent) {
       console.log(hostAgent, userAgent);
       showVideoLiveStream();
     } else {

@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import Products from './Products';
 import { ClipLoader } from 'react-spinners';
 import toast from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
 export default function LoginSuccessful({
   schedule,
   showSchedule,
@@ -30,7 +31,7 @@ export default function LoginSuccessful({
 
   const Instant = async () => {
     setLoading(true);
-    const hostAgentString = navigator.userAgent;
+    const hostAgentString = uuidv4();
     localStorage.setItem('hostAgent', hostAgentString);
     console.log(hostAgentString);
 
