@@ -47,7 +47,16 @@ export default function CheckCamera({
       const userAgent = localStorage.getItem('userAgent');
       socket.emit('joinRoom', userAgent);
       console.log('jjjjj', userAgent);
-
+      if (data.message == 'Allow') {
+        navigate(`/video/${meetingCode}`, {
+          state: {
+            isVideoOn,
+            isAudioOn,
+            displayName,
+            meetingName,
+          },
+        });
+      }
       // navigate(`/video/${meetingCode}`, {
       //   state: {
       //     isVideoOn,
