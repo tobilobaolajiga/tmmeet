@@ -13,7 +13,7 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
     <div>
       {joinInfo && (
         <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center ">
-          <div className="bg-white m-auto w-fit rounded-2xl h-fit">
+          <div className="bg-white m-auto w-fit rounded-2xl h-fit pb-6">
             <div className="px-6 py-[16px] flex justify-center relative border-b border-[#EAECF0]">
               <p className="font-inter font-semibold text-[16px] tracking-tight ">
                 Joining information{' '}
@@ -28,9 +28,9 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
             </div>
 
             <div className="px-[20px] pt-[14px] pb-[12px] border-b ">
-              <p className="text-[#667085] font-inter text-[10px] leading-tight opacity-95 font-[410px]">
-                Send the link to invite people to join meeting. Make sure you
-                save the link for future purpose.
+              <p className="text-[#667085] font-inter text-[10px] leading-tight opacity-95 font-[410px] text-wrap">
+                Send the link to invite people to join meeting.
+                <br /> Make sure you save the link for future purpose.
               </p>
               {/* <div className="relative ">
                 <input
@@ -61,7 +61,7 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
                     width={14}
                     src="/tabler_copy.svg"
                     alt=""
-                    className="absolute -top-[1px] -right-[18px]"
+                    className="absolute bottom-[1px] -right-[10px]"
                     onClick={copyToClipboard}
                   />
                 </div>
@@ -69,10 +69,10 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
             </div>
 
             <div className="px-[20px] pt-[12px] ">
-              <p className="text-[#667085] font-inter text-[10px] leading-tight tracking-tight font-normal opacity-95">
-                To invite people to join meeting, you can{' '}
-                <span className="text-[#36AAD9]">share</span> the link via
-                TMmail
+              <p className="text-[#667085] font-inter text-[10px] leading-tight tracking-tight font-normal opacity-95 text-wrap">
+                To invite people to join meeting, you can
+                <span className="text-[#36AAD9]"> share </span> <br /> the link
+                via TMmail
               </p>
               <div className="relative ">
                 <input
