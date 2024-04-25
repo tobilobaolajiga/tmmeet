@@ -43,7 +43,7 @@ export default function VideoLiveStream({
     // };
     socket.on('connect', () => {
       console.log('Connected to server');
-      socket.emit('joinRoom', userId);
+      socket.emit('message', localStorage.getItem('userAgent'));
     });
 
     // Listen for 'disconnect' event
