@@ -57,14 +57,6 @@ export default function CheckCamera({
           },
         });
       }
-      // navigate(`/video/${meetingCode}`, {
-      //   state: {
-      //     isVideoOn,
-      //     isAudioOn,
-      //     displayName,
-      //     meetingName,
-      //   },
-      // });
     });
 
     // Listen for 'disconnect' event
