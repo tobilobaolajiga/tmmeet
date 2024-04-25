@@ -43,7 +43,7 @@ export default function VideoLiveStream({
     // };
     socket.on('connect', () => {
       console.log('Connected to server');
-      socket.emit('message', localStorage.getItem('userAgent'));
+      socket.emit('message', userId);
     });
 
     // Listen for 'disconnect' event
