@@ -95,7 +95,7 @@ export default function VideoPreview({
                 autoPlay
                 className="ml-[90px] my-12 rounded-lg relative  w-fit h-fit"
               ></video>
-              <div className="absolute flex bottom-[100px] left-[330px] gap-4 items-center">
+              <div className="absolute flex bottom-[100px] left-[330px] gap-4 items-center mb-6">
                 <button>
                   <img src={micImg} alt="" width={50} onClick={toggleAudio} />
                 </button>

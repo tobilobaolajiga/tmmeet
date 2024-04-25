@@ -87,7 +87,7 @@ export default function Description({
                   Reminder
                 </li>
               </ul>
-              <div className="py-[12px] px-6 relative border-b">
+              <div className="py-[12px] px-6 relative">
                 <p className="text-[10px] font-semibold text-[#344054] tracking-tight pb-[4px]">
                   Add description or attachment
                 </p>
@@ -106,10 +106,10 @@ export default function Description({
                 />
               </div>
             </div>
-            <div className=" py-[6px] relative">
+            <div className=" py-[6px] flex justify-end">
               <button
                 onClick={showScheduled}
-                className="border bg-[#36AAD9] px-[12px] py-[4px] rounded text-white text-[9px] absolute right-6"
+                className="border bg-[#36AAD9] px-[12px] py-[4px] rounded text-white text-[9px] mr-6"
               >
                 Save
               </button>

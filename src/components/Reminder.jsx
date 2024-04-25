@@ -90,7 +90,7 @@ export default function Reminder({
                   />
                 </li>
               </ul>
-              <div className="py-[10px] px-6 relative border-b">
+              <div className="py-[10px] px-6 relative">
                 <div>
                   <p className="text-[10px] pb-[5px] font-semibold">
                     Reminder 1
@@ -115,10 +115,10 @@ export default function Reminder({
                 </div>
               </div>
             </div>
-            <div className=" py-[6px] relative">
+            <div className=" py-[6px] flex justify-end">
               <button
                 onClick={showScheduled}
-                className="border bg-[#36AAD9] px-[12px] py-[4px] rounded text-white text-[9px] absolute right-6"
+                className="border bg-[#36AAD9] px-[12px] py-[4px] rounded text-white text-[9px] mr-6"
               >
                 Save
               </button>

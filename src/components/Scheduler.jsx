@@ -172,8 +172,8 @@ export default function Scheduler({
   return (
     <div>
       {scheduler && (
-        <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer ">
-          <div className="w-fit rounded-xl mx-auto h-fit flex justify-center bg-white relative">
+        <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center items-center ">
+          <div className="w-fit rounded-xl h-fit  bg-white relative">
             <div className="border-b">
               <img
                 src="/cross.svg"
@@ -335,7 +335,7 @@ export default function Scheduler({
                     <img
                       src="/clock.svg"
                       alt=""
-                      className="absolute right-[50px]"
+                      className="absolute right-[130px]"
                       width={13}
                     />
                   </div>
@@ -362,33 +362,34 @@ export default function Scheduler({
                 <input
                   type="text"
                   placeholder="Add guest"
-                  className="border rounded w-3/4 mt-[6px] px-8 py-2 placeholder:text-[9px] text-[9px] placeholder:font-inter outline-none"
+                  className="border rounded w-3/4 mt-[6px] px-8 py-[4px] placeholder:text-[9px] text-[9px] placeholder:font-inter outline-none"
                 />
                 <img
                   src="/people.svg"
                   alt=""
-                  className="absolute top-[50px] left-[30px]"
+                  className="absolute top-[46px] left-[30px]"
                   width={15}
                 />
                 <img
                   src="/noguest.svg"
                   alt=""
                   width={60}
-                  className="mx-16 my-4"
+                  className="mx-16 mt-4"
                 />
               </div>
             </div>
-
-            <button
-              onClick={scheduleMeeting}
-              className="border bg-[#36AAD9] px-[12px] py-[4px] rounded text-white text-[9px] right-6 my-4"
-            >
-              {loading ? (
-                <ClipLoader color="#36D7B7" loading={loading} size={16} />
-              ) : (
-                'Save'
-              )}
-            </button>
+            <div className="flex justify-end">
+              <button
+                onClick={scheduleMeeting}
+                className="border bg-[#36AAD9] px-[12px] py-[4px] rounded text-white text-[9px] -mt-4 mb-4 mr-4"
+              >
+                {loading ? (
+                  <ClipLoader color="#36D7B7" loading={loading} size={16} />
+                ) : (
+                  'Save'
+                )}
+              </button>
+            </div>
           </div>
         </div>
       )}

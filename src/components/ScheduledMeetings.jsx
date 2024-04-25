@@ -26,7 +26,7 @@ export default function ScheduledMeeting({
   return (
     <div>
       <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center ">
-        <div className="bg-white m-auto h-fit w-fit font-inter relative rounded-2xl">
+        <div className="bg-white m-auto h-fit w-fit font-inter relative rounded-2xl pb-6">
           <div className="border-b">
             <img
               onClick={closeMeeting}
@@ -64,13 +64,13 @@ export default function ScheduledMeeting({
               className="w-full border border-[#D0D5DD] bg-[#F4F4F4] py-[2px] px-[3px] my-[4px] rounded-lg shadow-sm"
             />
             <div className="absolute text-[9px]  text-[#667085] left-2 bottom-[12px] font-inter tracking-tight text-nowrap">
-              <p className="w-[220px] overflow-x-clip">
+              <p className="w-[190px] overflow-x-clip">
                 {`${window.location.origin}/check/${meetingDetails.meetingId}`}
                 <img
-                  width={16}
+                  width={14}
                   src="/tabler_copy.svg"
                   alt=""
-                  className="absolute -top-[2px] -right-[40px]"
+                  className="absolute -top-[1px] -right-[20px]"
                   onClick={copyToClipboard}
                 />
               </p>
