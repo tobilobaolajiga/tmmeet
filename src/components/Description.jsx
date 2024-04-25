@@ -106,7 +106,7 @@ export default function Description({
                 />
               </div>
             </div>
-            <div className=" py-[6px] flex justify-end">
+            <div className=" py-[6px] flex justify-end -mt-2">
               <button
                 onClick={showScheduled}
                 className="border bg-[#36AAD9] px-[12px] py-[4px] rounded text-white text-[9px] mr-6"

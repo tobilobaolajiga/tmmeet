@@ -64,6 +64,30 @@ export default function Hero({
               <img src="/video.svg" alt="" className="w-[20px] h-[20px]" />
               Create Meeting
             </button>
+            <CreateMeetingOptions
+              options={options}
+              showOptions={showOptions}
+              setOptions={setOptions}
+              showLogin={showLogin}
+              closeLogin={closeLogin}
+              closeOptions={closeOptions}
+              showCreateAccount={showCreateAccount}
+              userEmail={userEmail}
+              setUserEmail={setUserEmail}
+              userPassword={userPassword}
+              setUserPassword={setUserPassword}
+              otp={otp}
+              setOTP={setOTP}
+              showOtp={showOtp}
+              resendOTP={resendOTP}
+              df={df}
+              setId={setId}
+              setNewAccount={setNewAccount}
+              closeCreate={closeCreate}
+              setLogin={setLogin}
+              verifyOTP={verifyOTP}
+              meetingLink={meetingLink}
+            />
             <button
               className="text-[#36AAD9] text-[15px] flex gap-2 items-center font-medium bg-white border-[#36AAD9] border rounded-lg outline-none px-4 py-[9px]"
               onClick={showLogin}
@@ -72,30 +96,6 @@ export default function Hero({
               Schedule your Meeting
             </button>
           </div>
-          <CreateMeetingOptions
-            options={options}
-            showOptions={showOptions}
-            setOptions={setOptions}
-            showLogin={showLogin}
-            closeLogin={closeLogin}
-            closeOptions={closeOptions}
-            showCreateAccount={showCreateAccount}
-            userEmail={userEmail}
-            setUserEmail={setUserEmail}
-            userPassword={userPassword}
-            setUserPassword={setUserPassword}
-            otp={otp}
-            setOTP={setOTP}
-            showOtp={showOtp}
-            resendOTP={resendOTP}
-            df={df}
-            setId={setId}
-            setNewAccount={setNewAccount}
-            closeCreate={closeCreate}
-            setLogin={setLogin}
-            verifyOTP={verifyOTP}
-            meetingLink={meetingLink}
-          />
         </div>
       </div>
       <div>

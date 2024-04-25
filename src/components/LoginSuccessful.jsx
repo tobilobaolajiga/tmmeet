@@ -101,7 +101,7 @@ export default function LoginSuccessful({
                   Join Meeting
                 </button>
               </div>
-              <div className="flex gap-[12px]">
+              <div className="flex gap-[12px] relative">
                 <button
                   className="flex gap-2 items-center bg-[#36AAD9] rounded-lg text-white font-medium border-none outline-none px-4 py-[9px] text-[15px] relative"
                   onClick={showOptions}
@@ -111,7 +111,7 @@ export default function LoginSuccessful({
                 </button>
                 {options && (
                   <ul
-                    className="font-inter text-[#454545] tracking-tight text-sm max-w-fit shadow-md border-opacity-10 absolute bottom-4 bg-white left-[54px] z-50
+                    className="font-inter text-[#454545] tracking-tight text-sm max-w-fit shadow-md border-opacity-10 absolute left-0 bg-white top-[43px] z-50
 "
                   >
                     <li className="flex gap-[12px] items-center border border-[#c6c6c6] pl-[12px] pr-[35px] py-[10px] rounded-t-md hover:bg-[#36AAD9] hover:text-white group cursor-pointer">

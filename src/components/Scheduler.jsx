@@ -335,7 +335,7 @@ export default function Scheduler({
                     <img
                       src="/clock.svg"
                       alt=""
-                      className="absolute right-[130px]"
+                      className="absolute right-[125px]"
                       width={13}
                     />
                   </div>

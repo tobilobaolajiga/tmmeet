@@ -53,7 +53,7 @@ export default function CreateMeetingOptions({
       <div>
         {options && (
           <div>
-            <ul className="font-inter text-[#454545] tracking-tight text-sm max-w-fit shadow-md border-opacity-10 absolute -mt-6 bg-white">
+            <ul className="font-inter text-[#454545] tracking-tight text-sm max-w-fit shadow-md border-opacity-10 absolute left-0 top-[43px] bg-white">
               <li
                 className="flex gap-[12px] items-center border border-[#c6c6c6] pl-[12px] pr-[35px] py-[10px] rounded-t-md hover:bg-[#36AAD9] hover:text-white group cursor-pointer"
                 onClick={showJoinInfo}
