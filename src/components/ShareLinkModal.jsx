@@ -4,7 +4,7 @@ export default function ShareLinkModal({
   shareLink,
   showShare,
   setShareLink,
-  link,
+  meetingCode,
   meetingLink,
 }) {
   const [currentDate, setCurrentDate] = useState();
@@ -24,7 +24,9 @@ export default function ShareLinkModal({
     return () => clearInterval(interval); // Cleanup function
   }, []);
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(localStorage.getItem('meeting'));
+    navigator.clipboard.writeText(
+      `https://tmmeet.vercel.app/check/${meetingCode}`
+    );
     setCopied(true);
     toast.success('Copied!');
     setTimeout(() => setCopied(false), 2000);
@@ -58,7 +60,7 @@ export default function ShareLinkModal({
               className="border px-2 pr-4 mr-4 py-2 mt-2 rounded-lg placeholder:text-[10px] outline-none text-[10px] 
             w-full bg-[#f4f4f4]"
             >
-              {link}
+              {`https://tmmeet.vercel.app/check/${meetingCode}`}
             </p>
             <img
               onClick={copyToClipboard}

@@ -305,8 +305,7 @@ export default function VideoLiveStream({
               shareLink={shareLink}
               showShare={showShare}
               setShareLink={setShareLink}
-              link={localStorage.getItem('meeting')}
-              meetingLink={meetingLink}
+              meetingCode={meetingCode}
             />
             {!jitsiLoading && (
               <LeaveMeeting
