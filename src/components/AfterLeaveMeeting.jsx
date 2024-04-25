@@ -17,14 +17,14 @@ export default function AfterLeaveMeeting() {
   //   };
 
   return (
-    <div className="h-screen w-screen flex justify-center">
+    <div className="h-screen w-screen flex justify-center items-center">
       <div>Countdown</div>
       <div className=" items-center flex-col ">
         <p>You've left the meeting</p>
         <div className="flex gap-2 mt-4">
           <button className="text-[#36aad9] bg-white px-4 py-2">Rejoin</button>
           <button
-            className="bg-[#36aad9] text-white px-4 py-2"
+            className="bg-[#36aad9] text-white px-4 py-2 rounded"
             onClick={goHome}
           >
             Return to Home Screen
