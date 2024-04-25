@@ -27,7 +27,7 @@ export default function CheckCamera({
   const [displayName, setDisplayName] = useState('');
   const [videoLivestream, setVideoLiveStream] = useState(false);
   // const meetingDetails = JSON.parse(localStorage.getItem('meetingDetails'));
-  const [userAgent, setUserAgent] = useState('');
+  // const [userAgent, setUserAgent] = useState('');
   const navigate = useNavigate();
 
   // Get or generate a unique user ID
@@ -39,8 +39,6 @@ export default function CheckCamera({
     localStorage.setItem('meetingCode', meetingCode);
 
     const user = uuidv4();
-    setUserAgent(user);
-    console.log(userAgent);
     localStorage.setItem('userAgent', user);
     // getDetails(meetingCode);
 
@@ -82,6 +80,7 @@ export default function CheckCamera({
   }, []);
   const userId = localStorage.getItem('userId');
   const roomId = localStorage.getItem('roomId');
+  const userAgent = localStorage.getItem('userAgent');
   const userRequest = {
     room: roomId,
     id: userAgent,
