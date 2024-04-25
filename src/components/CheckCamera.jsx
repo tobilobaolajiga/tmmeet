@@ -46,7 +46,7 @@ export default function CheckCamera({
 
     // };
     socket.on('connect', (data) => {
-      socket.emit('joinRoom', roomId);
+      socket.emit('joinRoom', userId);
       console.log(data.message);
 
       // navigate(`/video/${meetingCode}`, {
@@ -65,7 +65,7 @@ export default function CheckCamera({
     });
 
     socket.on('message', (data) => {
-      socket.emit('joinRoom', roomId);
+      socket.emit('joinRoom', userId);
       console.log(data.data.message);
       if (data.data.message == 'Done') {
         navigate(`/video/${meetingCode}`, {
@@ -151,11 +151,6 @@ export default function CheckCamera({
   return (
     <div className="">
       <div>
-        {/* <ProfileNav
-          profileDrop={profileDrop}
-          showProfDrop={showProfDrop}
-          setProfileDrop={setProfileDrop}
-        /> */}
         <div className="flex justify-center items-center  ">
           <div className="basis-2/3">
             {' '}

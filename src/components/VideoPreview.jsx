@@ -70,7 +70,7 @@ export default function VideoPreview({
         <div>
           {!isVideoOn ? (
             <div className="relative">
-              <div className="ml-[90px] relative rounded-lg my-[50px]  bg-black  w-[630px] h-[530px]">
+              <div className="ml-[90px] relative rounded-lg my-[50px]  bg-black  w-[630px] h-[500px]">
                 <img
                   src="/avatar.svg"
                   alt=""
