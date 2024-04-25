@@ -43,6 +43,7 @@ export default function CheckCamera({
     console.log(user);
     localStorage.setItem('userAgent', user);
     getDetails(meetingCode);
+    
 
     // };
     socket.on('connect', (data) => {
@@ -67,15 +68,16 @@ export default function CheckCamera({
     socket.on('message', (data) => {
       socket.emit('joinRoom', roomId);
       console.log(data.message);
-
-      navigate(`/video/${meetingCode}`, {
-        state: {
-          isVideoOn,
-          isAudioOn,
-          displayName,
-          meetingName,
-        },
-      });
+      if (data.message == 'Done') {
+        navigate(`/video/${meetingCode}`, {
+          state: {
+            isVideoOn,
+            isAudioOn,
+            displayName,
+            meetingName,
+          },
+        });
+      }
     });
   }, []);
   const userId = localStorage.getItem('userId');

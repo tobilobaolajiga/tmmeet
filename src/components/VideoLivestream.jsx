@@ -96,7 +96,7 @@ export default function VideoLiveStream({
         }
       );
       console.log(response);
-      console.log(response.status);
+      console.log(response.message);
       closeAdmit();
     } catch (error) {
       toast.error(error.message);
