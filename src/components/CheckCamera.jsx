@@ -156,7 +156,7 @@ export default function CheckCamera({
           showProfDrop={showProfDrop}
           setProfileDrop={setProfileDrop}
         /> */}
-        <div className="flex   ">
+        <div className="flex justify-center items-center  ">
           <div className="basis-2/3">
             {' '}
             <VideoPreview
