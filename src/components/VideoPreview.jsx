@@ -93,7 +93,7 @@ export default function VideoPreview({
               <video
                 ref={videoRef}
                 autoPlay
-                className="ml-[90px] my-12 rounded-lg relative  w-[630px] h-[530px]"
+                className="ml-[90px] my-12 rounded-lg relative  w-fit h-fit"
               ></video>
               <div className="absolute flex bottom-[100px] left-[330px] gap-4 items-center">
                 <button>

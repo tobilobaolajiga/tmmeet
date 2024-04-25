@@ -10,7 +10,7 @@ export default function AccountCreated({ accountSuccess, showLogin }) {
     <div>
       {accountSuccess && (
         <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center ">
-          <div className="bg-white m-auto rounded-2xl w-3/12 h-3/6 font-inter">
+          <div className="bg-white m-auto rounded-2xl w-fit h-fit font-inter">
             <div className="flex flex-col items-center py-[20px] ">
               <img src="Animation.gif" alt="" />
               <p className="text-[16px] font-bold pt-[12px] text-[#101828]">

@@ -96,7 +96,7 @@ export default function Login({
       <div>
         {login && (
           <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center ">
-            <div className="bg-white m-auto w-3/12 h-3/5 rounded-2xl font-inter">
+            <div className="bg-white m-auto w-fit h-fit rounded-2xl font-inter">
               <div className="flex flex-col items-center pt-[24px] border-b pb-[20px]">
                 <div className="relative w-full flex justify-center items-center">
                   <img src="/TM30.svg" alt="" width={60} />{' '}

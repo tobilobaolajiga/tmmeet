@@ -27,7 +27,7 @@ export default function Reminder({
     <div>
       {reminder && (
         <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center items-center">
-          <div className="w-[300px] rounded-xl h-3/5 bg-white relative">
+          <div className="w-fit rounded-xl h-fit bg-white relative">
             <div className="border-b">
               <img
                 src="/cross.svg"

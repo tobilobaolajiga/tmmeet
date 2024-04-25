@@ -173,7 +173,7 @@ export default function Scheduler({
     <div>
       {scheduler && (
         <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer ">
-          <div className="w-[320px] rounded-xl mx-auto h-5/6 my-[60px] bg-white relative">
+          <div className="w-fit rounded-xl mx-auto h-fit my-[60px] bg-white relative">
             <div className="border-b">
               <img
                 src="/cross.svg"

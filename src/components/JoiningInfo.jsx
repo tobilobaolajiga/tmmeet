@@ -13,7 +13,7 @@ export default function JoiningInfo({ joinInfo, showJoinInfo, closeJoinInfo }) {
     <div>
       {joinInfo && (
         <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center ">
-          <div className="bg-white m-auto w-1/5 rounded-2xl h-4/6">
+          <div className="bg-white m-auto w-fit rounded-2xl h-fit">
             <div className="px-6 py-[16px] flex justify-center relative border-b border-[#EAECF0]">
               <p className="font-inter font-semibold text-[16px] tracking-tight ">
                 Joining information{' '}

@@ -26,7 +26,7 @@ export default function ScheduledMeeting({
   return (
     <div>
       <div className="fixed z-50 top-0 left-0 w-full h-screen bg-[#000000] bg-opacity-25 cursor-pointer flex justify-center ">
-        <div className="bg-white m-auto h-3/4 w-[320px] font-inter relative rounded-2xl">
+        <div className="bg-white m-auto h-fit w-fit font-inter relative rounded-2xl">
           <div className="border-b">
             <img
               onClick={closeMeeting}
