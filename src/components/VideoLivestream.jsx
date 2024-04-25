@@ -25,6 +25,7 @@ export default function VideoLiveStream({
   // const showAdmit = () => {
   //   setAdmit(!admit);
   // };
+  const hostAgent = localStorage.getItem('hostAgent');
 
   const [guestRequest, setGuestRequest] = useState(false);
   const socket = ioClient('wss://api-meet.tm-dev.xyz');
@@ -301,12 +302,14 @@ export default function VideoLiveStream({
               admitGuest={admitGuest}
               closeAdmit={closeAdmit}
             />
-            <ShareLinkModal
-              shareLink={shareLink}
-              showShare={showShare}
-              setShareLink={setShareLink}
-              meetingCode={meetingCode}
-            />
+            {hostAgent && (
+              <ShareLinkModal
+                shareLink={shareLink}
+                showShare={showShare}
+                setShareLink={setShareLink}
+                meetingCode={meetingCode}
+              />
+            )}
             {!jitsiLoading && (
               <LeaveMeeting
                 isAudioOn={isAudioOn}
