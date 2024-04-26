@@ -126,7 +126,7 @@ export default function Scheduler({
   const allGuests = JSON.stringify(guests);
 
   const scheduleMeeting = async () => {
-    console.log('clicked');
+    console.log(allGuests);
     setLoading(true);
     const startTime = `${selectedDate.getFullYear()}-${(
       selectedDate.getMonth() + 1
