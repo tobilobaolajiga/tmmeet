@@ -126,7 +126,7 @@ export default function Scheduler({
   // const allGuests = JSON.stringify(guests);
 
   const scheduleMeeting = async () => {
-    console.log(allGuests);
+    console.log(guests);
     setLoading(true);
     const startTime = `${selectedDate.getFullYear()}-${(
       selectedDate.getMonth() + 1
@@ -480,6 +480,7 @@ export default function Scheduler({
         addTitles={addTitles}
         handleAddEvent={handleAddEvent}
         guests={guests}
+        setGuests={setGuests}
       />
     </div>
   );

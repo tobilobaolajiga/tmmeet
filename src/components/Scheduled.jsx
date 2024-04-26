@@ -28,6 +28,7 @@ export default function Scheduled({
   addTitles,
   setScheduled,
   guests,
+  setGuests,
 }) {
   const meetingID = localStorage.getItem('meetingId');
   const options = {
@@ -47,6 +48,7 @@ export default function Scheduled({
     setEndHour('12');
     setEndMinutes('00');
     setEndPeriod('PM');
+    setGuests([]);
   };
   return (
     <div>
@@ -124,22 +126,25 @@ export default function Scheduled({
                 <img src="/people.svg" alt="" width={15} />
                 Guests
               </p>
-              {guests ? (
-                <ul className="text-[9px] mt-[4px] list-disc mx-4">
-                  {guests.map((guest, index) => (
-                    <li key={index} className="font-semibold font-DMSans">
-                      {guest}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <img
-                  src="/noguest.svg"
-                  alt=""
-                  width={60}
-                  className="mx-16 mt-4"
-                />
-              )}
+              {
+                guests && (
+                  <ul className="text-[9px] mt-[4px] list-disc mx-4">
+                    {guests.map((guest, index) => (
+                      <li key={index} className="font-semibold font-DMSans">
+                        {guest}
+                      </li>
+                    ))}
+                  </ul>
+                )
+                // : (
+                //   <img
+                //     src="/noguest.svg"
+                //     alt=""
+                //     width={60}
+                //     className="mx-16 mt-4"
+                //   />
+                // )
+              }
               {/* <div className="flex gap-2 items-center mt-2">
                 <img src="/A.svg" alt="" />
                 <p className="text-[9px]  ">
@@ -188,4 +193,7 @@ export default function Scheduled({
 
 Scheduled.propTypes = {
   selectedDate: PropTypes.instanceOf(Date).isRequired,
+};
+Scheduled.propTypes = {
+  guests: PropTypes.array.isRequired,
 };
