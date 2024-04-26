@@ -178,10 +178,10 @@ export default function Scheduled({
               </p>
               <p className="flex gap-2 text-[9px] items-center mt-2 font-DMSans">
                 30 minutes before{' '}
-                <span>
+                {/* <span>
                   <img src="/dot.svg" alt="" width={4} />
                 </span>
-                6:30 AM
+                6:30 AM */}
               </p>
             </div>
           </div>
