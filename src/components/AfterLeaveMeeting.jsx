@@ -1,8 +1,26 @@
 import { useNavigate } from 'react-router-dom';
 export default function AfterLeaveMeeting() {
+  const keysToRemove = [
+    'meeting',
+    'meetingCode',
+    'meetingDeets',
+    'admitName',
+    'admitRoom',
+    'admitMsg',
+    'meetingName',
+    'meetingRef',
+    'hostAgent',
+    'meeting',
+    'meetingId',
+    'userAgent',
+    'videoId',
+    'meetId',
+  ];
   const navigate = useNavigate();
   const goHome = () => {
-    localStorage.removeItem('meeting');
+    keysToRemove.forEach((key) => {
+      localStorage.removeItem(key);
+    });
     navigate('/');
   };
   //   const rejoin = () => {
@@ -18,7 +36,6 @@ export default function AfterLeaveMeeting() {
 
   return (
     <div className="h-screen w-screen flex justify-center items-center">
-      <div>Countdown</div>
       <div className=" items-center flex-col ">
         <p>You've left the meeting</p>
         <div className="flex gap-2 mt-4">
