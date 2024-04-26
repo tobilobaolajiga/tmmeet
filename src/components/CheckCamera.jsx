@@ -44,6 +44,7 @@ export default function CheckCamera({
 
     // };
     socket.on('connect', (data) => {
+      console.log(data);
       const userAgent = localStorage.getItem('userAgent');
       socket.emit('joinRoom', userAgent);
       console.log('jjjjj', userAgent);
