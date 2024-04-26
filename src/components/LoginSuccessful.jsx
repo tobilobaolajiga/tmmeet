@@ -74,7 +74,7 @@ export default function LoginSuccessful({
             products={products}
           />
         </div>
-        <div className="flex bg-white">
+        <div className="flex bg-white items-center justify-between">
           <div className="px-[55px] py-[160px]">
             <div className="flex flex-col gap-6 font-DMSans basis-[1000px]">
               <div className=" text-[39px] font-bold">
