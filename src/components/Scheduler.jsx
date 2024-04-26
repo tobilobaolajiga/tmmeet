@@ -69,13 +69,6 @@ export default function Scheduler({
   repeatBtn,
   setRepeatBtn,
 }) {
-  const [guest, setGuest] = useState('');
-  const [guests, setGuests] = useState([]);
-  const addGuests = (guest) => {
-    setGuests([...guests, guest]); // Prevent the default action of submitting a form
-    setGuest('');
-    console.log(guest, guests);
-  };
   const [realDate, setRealDate] = useState(new Date());
   const [error, setError] = useState('');
 
@@ -118,6 +111,13 @@ export default function Scheduler({
     setReminder(!reminder);
   };
   const userData = JSON.parse(localStorage.getItem('userData'));
+  const [guest, setGuest] = useState('');
+  const [guests, setGuests] = useState([userData.email]);
+  const addGuests = (guest) => {
+    setGuests([...guests, guest]); // Prevent the default action of submitting a form
+    setGuest('');
+    console.log(guest, guests);
+  };
   //meetinginputs
 
   // const [error, setError] = useState('');
@@ -147,7 +147,7 @@ export default function Scheduler({
       const response = await axios.post(
         'https://api-meet.tm-dev.xyz/api/v1/meeting/schedule-meeting',
         {
-          emails: [userData.email, allGuests],
+          emails: [allGuests],
           meetingTime: startTime,
           meetingName: title,
           endTime: endTime,
@@ -479,6 +479,7 @@ export default function Scheduler({
         setScheduled={setScheduled}
         addTitles={addTitles}
         handleAddEvent={handleAddEvent}
+        guests={guests}
       />
     </div>
   );
