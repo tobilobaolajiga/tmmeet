@@ -69,6 +69,13 @@ export default function Scheduler({
   repeatBtn,
   setRepeatBtn,
 }) {
+  const [guest, setGuest] = useState('');
+  const [guests, setGuests] = useState([]);
+  const addGuests = (guest) => {
+    setGuests([...guests, guest]); // Prevent the default action of submitting a form
+    setGuest('');
+    console.log(guest, guests);
+  };
   const [realDate, setRealDate] = useState(new Date());
   const [error, setError] = useState('');
 
@@ -116,6 +123,7 @@ export default function Scheduler({
   // const [error, setError] = useState('');
   const newUserId = localStorage.getItem('userId');
   const token = localStorage.getItem('userToken');
+  const allGuests = JSON.stringify(guests);
 
   const scheduleMeeting = async () => {
     setLoading(true);
@@ -138,7 +146,7 @@ export default function Scheduler({
       const response = await axios.post(
         'https://api-meet.tm-dev.xyz/api/v1/meeting/schedule-meeting',
         {
-          emails: [userData.email],
+          emails: [userData.email, allGuests],
           meetingTime: startTime,
           meetingName: title,
           endTime: endTime,
@@ -169,6 +177,7 @@ export default function Scheduler({
     }
   };
   const [loading, setLoading] = useState(false);
+
   return (
     <div>
       {scheduler && (
@@ -359,23 +368,43 @@ export default function Scheduler({
                 <p className="text-[10px] font-semibold text-[#344054] pt-[6px]">
                   Add guests
                 </p>
-                <input
-                  type="text"
-                  placeholder="Add guest"
-                  className="border rounded w-3/4 mt-[6px] px-8 py-[4px] placeholder:text-[9px] text-[9px] placeholder:font-inter outline-none"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={guest}
+                    onChange={(e) => setGuest(e.target.value)}
+                    placeholder="Add guest"
+                    className="border rounded w-full mt-[6px] px-8 py-[4px] placeholder:text-[9px] text-[9px] placeholder:font-inter outline-none"
+                  />
+                  <button
+                    className="bg-[#36AAD9] text-white rounded-sm px-[9px] py-[2px] text-[9px] absolute top-[9px] right-[3px]"
+                    onClick={() => {
+                      addGuests(guest);
+                    }}
+                  >
+                    Invite
+                  </button>
+                </div>
                 <img
                   src="/people.svg"
                   alt=""
                   className="absolute top-[46px] left-[30px]"
                   width={15}
                 />
-                <img
-                  src="/noguest.svg"
-                  alt=""
-                  width={60}
-                  className="mx-16 mt-4"
-                />
+                {guests ? (
+                  <ul className="text-[9px] mt-[4px] list-disc mx-4">
+                    {guests.map((guest, index) => (
+                      <li key={index}>{guest}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <img
+                    src="/noguest.svg"
+                    alt=""
+                    width={60}
+                    className="mx-16 mt-4"
+                  />
+                )}
               </div>
             </div>
             <div className="flex justify-end">
