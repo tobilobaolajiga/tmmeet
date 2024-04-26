@@ -216,7 +216,6 @@ export default function CheckCamera({
           displayName={displayName}
           isVideoOn={isVideoOn}
           isAudioOn={isAudioOn}
-          meetingName={meetingName}
           meetingLink={meetingLink}
           setIsAudioOn={setIsAudioOn}
           setIsVideoOn={setIsVideoOn}

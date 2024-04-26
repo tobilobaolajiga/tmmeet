@@ -171,7 +171,7 @@ export default function VideoLiveStream({
     const domain = 'media.partytime.ng';
 
     const options = {
-      roomName: meetingName || state.meetingName,
+      roomName: localStorage.getItem('meetingName'),
       width: '100%',
       height: '100%',
       parentNode: document.querySelector('#meet'),
