@@ -123,7 +123,7 @@ export default function Scheduler({
   // const [error, setError] = useState('');
   const newUserId = localStorage.getItem('userId');
   const token = localStorage.getItem('userToken');
-  const allGuests = JSON.stringify(guests);
+  // const allGuests = JSON.stringify(guests);
 
   const scheduleMeeting = async () => {
     console.log(allGuests);
@@ -147,7 +147,7 @@ export default function Scheduler({
       const response = await axios.post(
         'https://api-meet.tm-dev.xyz/api/v1/meeting/schedule-meeting',
         {
-          emails: [allGuests],
+          emails: guests,
           meetingTime: startTime,
           meetingName: title,
           endTime: endTime,
