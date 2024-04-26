@@ -48,16 +48,16 @@ export default function CheckCamera({
       const userAgent = localStorage.getItem('userAgent');
       socket.emit('joinRoom', userAgent);
       console.log('jjjjj', userAgent);
-      if (data.message == 'Allow') {
-        navigate(`/video/${meetingCode}`, {
-          state: {
-            isVideoOn,
-            isAudioOn,
-            displayName,
-            meetingName,
-          },
-        });
-      }
+      // if (data.message == 'Allow') {
+      //   navigate(`/video/${meetingCode}`, {
+      //     state: {
+      //       isVideoOn,
+      //       isAudioOn,
+      //       displayName,
+      //       meetingName,
+      //     },
+      //   });
+      // }
     });
 
     // Listen for 'disconnect' event
@@ -66,8 +66,8 @@ export default function CheckCamera({
     });
 
     socket.on('message', (data) => {
-      // socket.emit('joinRoom', userId);
-      console.log(data.data.message);
+      socket.emit('joinRoom', userId);
+      console.log(data);
       if (data.message == 'Allow') {
         navigate(`/video/${meetingCode}`, {
           state: {
