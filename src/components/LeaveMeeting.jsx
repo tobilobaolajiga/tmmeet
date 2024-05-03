@@ -14,7 +14,7 @@ export default function LeaveMeeting({
     navigate('/leave');
   };
   return (
-    <div className="absolute top-4 right-[20px]">
+    <div className="absolute bottom-4 right-[20px]">
       <button
         className="bg-[red] rounded text-white text-center py-2 px-4 font-medium "
         onClick={leaveMeeting}
