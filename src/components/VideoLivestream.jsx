@@ -168,7 +168,7 @@ export default function VideoLiveStream({
     //   return;
     // }
 
-    const domain = 'media.partytime.ng';
+    const domain = 'meet.tm30.net';
 
     const options = {
       roomName: localStorage.getItem('meetingName'),
