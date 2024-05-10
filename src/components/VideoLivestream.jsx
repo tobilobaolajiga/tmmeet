@@ -98,8 +98,9 @@ export default function VideoLiveStream({
       setIsLoading(false);
 
       setIsJoining(true);
+
       setTimeout(() => {
-        setIsJoining(false);
+        // setiSjOINING(FALSE)
         script.src = 'https://media.partytime.ng/external_api.js';
         script.async = true;
         script.onload = initializeJitsi;
@@ -107,6 +108,7 @@ export default function VideoLiveStream({
       }, 3000);
     }, 3000);
     return () => {
+      setIsJoining(false);
       clearTimeout(timeout);
       if (session.current) {
         // Disconnect from the Jitsi video call
