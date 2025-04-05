@@ -1,4 +1,4 @@
-# Project Name
+# Overview
 
 TMmeet is an in-house video-meeting platform developed specifically for a tech company -TM30 Global to help with meetings with its staff and stakeholders.
 
